@@ -1,0 +1,184 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Fundo com opacidade */
+.login {
+    position: relative;
+    background: url('../img/d.webp') no-repeat center;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 1;
+}
+.login-wrapper, .login-container {
+    position: relative;
+    z-index: 2;
+}
+
+
+.login-container {
+    background: linear-gradient(to top, #040163, #5A0000);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    text-align: center;
+    width: 380px; 
+    color: white;
+}
+
+/* Avatar */
+.avatar {
+    background: url('../img/perfil.png') no-repeat center;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    border: 3px solid white;
+}
+.avatare{
+    background: url('../img/cadeado.png') no-repeat center;
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    border: 3px solid white;
+}
+/* Campos de entrada */
+.input-group {
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+    font-size: 16px;
+    text-align: center;
+    transition: 0.3s ease-in-out;
+}
+
+/* Destaque para o campo de senha */
+input[type="password"] {
+    background: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Botão de login */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #7a0404, #021674da);
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.login-btn:hover {
+    background: linear-gradient(90deg, #cc0000, #110247);
+}
+
+.links-container {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+.forgot-password {
+    color: #ffb4b4;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.forgot-password:hover {
+    color: #ff1100;
+    text-decoration: underline;
+}
+
+.divider {
+    color: white;
+    margin: 0 10px;
+}
+
+.register-link {
+    color: #ffb4b4;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.register-link:hover {
+    color: #cc4100;
+    text-decoration: underline;
+}
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 40px; 
+}
+
+.logo-container {
+    width: 300px;
+    text-align: center;
+}
+
+.logo {
+    max-width: 100%;
+}
+.dark-mode {
+    background: #121212;
+    color: #ffffff;
+}
+.dark-mode .login-container {
+    background: linear-gradient(to top, #222, #444);
+}
+.dark-mode input {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+.dark-mode .login-btn {
+    background: linear-gradient(90deg, #444, #666);
+}
+#dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
+#dark-mode-toggle:hover {
+    background: #555;
+}
