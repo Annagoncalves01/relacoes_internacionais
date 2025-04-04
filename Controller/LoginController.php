@@ -2,15 +2,18 @@
 require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Model/LoginModel.php';
 require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/config.php';
 
-class UserController {
+class UserController
+{
     private $userModel;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         session_start(); // Garante que a sessão está iniciada
         $this->userModel = new UserModel($pdo);
     }
 
-    public function register() {
+    public function register()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = trim($_POST['name'] ?? '');
             $email = trim($_POST['email'] ?? '');
@@ -19,29 +22,30 @@ class UserController {
 
             if (empty($name) || empty($email) || empty($password) || empty($birthdate)) {
                 $_SESSION["erro"] = "Todos os campos são obrigatórios.";
-                header("Location: ../views/register.php");
+                header("Location: view/cadastro.php");
                 exit;
             }
 
             if ($this->userModel->register($name, $email, $password, $birthdate)) {
                 $_SESSION["success"] = "Usuário cadastrado com sucesso!";
-                header("Location: ../views/login.php");
+                header("Location: view/login.php");
             } else {
                 $_SESSION["erro"] = "Erro ao cadastrar usuário.";
-                header("Location: ../views/register.php");
+                header("Location: view/cadastro.php");
             }
             exit;
         }
     }
 
-    public function login() {
+    public function login()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = trim($_POST['email'] ?? '');
             $password = trim($_POST['password'] ?? '');
 
             if (empty($email) || empty($password)) {
                 $_SESSION["erro"] = "Preencha todos os campos!";
-                header("Location: ../views/login.php");
+                header("Location: ../view/login.php");
                 exit;
             }
 
@@ -51,19 +55,20 @@ class UserController {
                 exit;
             } else {
                 $_SESSION["erro"] = "E-mail ou senha inválidos!";
-                header("Location: ../views/login.php");
+                header("Location: ../view/login.php");
                 exit;
             }
         }
     }
 
-    public function forgotPassword() {
+    public function forgotPassword()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = trim($_POST['email'] ?? '');
 
             if (empty($email)) {
                 $_SESSION["erro"] = "Informe seu e-mail.";
-                header("Location: ../views/forgot_password.php");
+                header("Location: ../view/forgot_password.php");
                 exit;
             }
 
@@ -72,15 +77,16 @@ class UserController {
             } else {
                 $_SESSION["erro"] = "Erro ao enviar e-mail.";
             }
-            header("Location: ../views/forgot_password.php");
+            header("Location: ../view/forgot_password.php");
             exit;
         }
     }
 
-    public function logout() {
+    public function logout()
+    {
         session_start();
         session_destroy();
-        header("Location: ../views/login.php");
+        header("Location: ../view/login.php");
         exit;
     }
 }

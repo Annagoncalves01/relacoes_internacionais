@@ -18,9 +18,17 @@ switch ($route) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $userController->register();
         } else {
-            require 'View/register.php';
+            require 'View/cadastro.php';
         }
         break;
+    case "registerUser":
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $userController->register();
+        } else {
+            return '';
+        }
+        break;
+
 
     case "logout":
         $userController->logout();

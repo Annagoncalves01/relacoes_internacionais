@@ -1,14 +1,17 @@
 <?php
-class UserModel {
+class UserModel
+{
     private $pdo;
-    
-    public function __construct($pdo) {
+
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
-    public function register($name, $email, $password, $birthdate) {
+    public function register($name, $email, $password, $birthdate)
+    {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $this->pdo->prepare("INSERT INTO users (nome, email, senha, nascimento) VALUES (:name, :email, :password, :birthdate)");
+        $stmt = $this->pdo->prepare("INSERT INTO users (nome, email, senha, data_nascimento	) VALUES (:name, :email, :password, :birthdate)");
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $hashedPassword);
@@ -16,7 +19,8 @@ class UserModel {
         return $stmt->execute();
     }
 
-    public function login($email, $password) {
+    public function login($email, $password)
+    {
         $stmt = $this->pdo->prepare("SELECT id, senha FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
@@ -29,7 +33,8 @@ class UserModel {
         return false;
     }
 
-    public function sendResetLink($email) {
+    public function sendResetLink($email)
+    {
         $token = bin2hex(random_bytes(50));
         $stmt = $this->pdo->prepare("UPDATE users SET reset_token = :token WHERE email = :email");
         $stmt->bindParam(':token', $token);
