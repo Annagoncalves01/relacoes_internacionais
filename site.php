@@ -24,23 +24,22 @@ session_start();
         <nav class="navbar">
             <ul>
                 <li><a href="#profissao">Sobre a Profissão</a></li>
-                <li><a href="#sobre">Sobre Mim</a></li>
+                <li><a href="View/usuario/sobre.php">Sobre Mim</a></li>
                 <li><a href="#teste">Teste de Personalidade</a></li>
             </ul>
         </nav>
         <?php 
-$avatar = isset($_SESSION['avatar']) ? $_SESSION['avatar'] : 'default.png'; // fallback se não tiver avatar
+$avatar = isset($_SESSION['avatar']) ? $_SESSION['avatar'] : 'img/perfil.png';
 ?>
 
 <div class="header-buttons">
-    <a href="perfil.php" class="avatar" title="Meu Perfil">
-        <img src="img/perfil.png/<?php echo $avatar; ?>" alt="Avatar do Usuário">
+    <a href="View/usuario/sobre.php" class="avatar" title="Meu Perfil">
+        <img src="<?php echo $avatar; ?>" alt="Avatar do Usuário">
     </a>
     <a href="index.php" class="logout-button" title="Sair">
         <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
     </a>
 </div>
-
 
 </header>
 
@@ -48,74 +47,192 @@ $avatar = isset($_SESSION['avatar']) ? $_SESSION['avatar'] : 'default.png'; // f
         <section class="imagem-destaque">
             <img src="img/relacoes.png" alt="Imagem ilustrativa entre o banner e a profissão">
         </section>
+        <section id="profissao" class="section-profissao fade-in">
+    <div class="container-profissao">
+        <div class="text-profissao">
+            <h2>Profissão</h2>
+            <p>
+                Sou Anna Clara, estudante do SESI SENAI, e me identifico com Relações Internacionais, área que envolve diplomacia,
+                comércio exterior e cooperação global. Com uma formação multidisciplinar em política, economia e direito, os profissionais
+                da área negociam acordos, analisam cenários e mediam conflitos.
+            </p>
+            <p>
+                Meu objetivo é unir tecnologia e conhecimento para ajudar as pessoas a tomarem decisões conscientes sobre suas vidas
+                e carreiras em um mundo globalizado.
+            </p>
+        </div>
 
-        <section id="profissao" class="section-profissao">
-            <div class="text">
-                <h2>Profissão</h2>
-                <p>Sou Anna Clara, estudante do SESI SENAI, e me identifico com Relações Internacionais...</p>
-                <p>Meu objetivo é unir tecnologia e conhecimento para ajudar as pessoas...</p>
+        <div class="polaroid-group">
+            <div class="polaroid polaroid-1">
+                <img src="img/globo.png" alt="Imagem 1">
             </div>
-            <div class="image">
-                <img src="img/mundo.png" alt="Globo com bandeiras representando a globalização">
+            <div class="polaroid polaroid-2">
+                <img src="img/mundo-global.jpg" alt="Imagem 2">
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-        <section id="sobre" class="depoimento">
-            <div class="depoimento-box">
-                <img src="img/senai.png" alt="Logo SENAI" class="logo-senai">
-                <p>O curso de Desenvolvimento de Sistemas do SENAI me proporcionou uma base sólida...</p>
-                <img src="img/onu.png" alt="Logo ONU" class="logo-onu">
-            </div>
-        </section>
+<section id="sobre" class="depoimento">
+    <div class="logo-container fade-in-delay">
+        <img src="img/senai.png" alt="Logo SENAI" class="logo-senai">
+    </div>
 
-        <section class="artigos">
-            <h2>Artigos</h2>
-            <div class="artigos-container">
-                <a href="artigo1.html" class="artigo">
-                    <img src="img/anna.png" alt="Imagem Anna Clara">
-                    <p><strong>Entrevista: Anna Clara</strong><br>Como surgiu o interesse por Relações Internacionais.</p>
-                </a>
-                <a href="artigo2.html" class="artigo">
-                    <img src="img/bandeiras.png" alt="Bandeiras de países">
-                    <p><strong>Relações Internacionais, Conflitos e Comércio Exterior</strong><br>Entenda os impactos das decisões globais.</p>
-                </a>
-                <a href="artigo3.html" class="artigo">
-                    <img src="img/macron.png" alt="Presidente Macron">
-                    <p><strong>Presidente da França: Macron</strong><br>A importância da diplomacia contemporânea.</p>
-                </a>
-            </div>
-        </section>
+    <div class="depoimento-box fade-in">
+        <p>
+            Estudar <strong>Desenvolvimento de Sistemas no SENAI</strong> foi uma experiência transformadora. Conquistei uma base sólida em <strong>programação, bancos de dados</strong> e estruturação de software, aprendendo a desenvolver aplicações web modernas com <strong>PHP, MySQL e arquitetura MVC</strong>.
+        </p>
+        <p>
+            Essa jornada me preparou para projetos reais, como o <strong>sistema sobre Relações Internacionais</strong> que estou criando, com foco em <strong>autoconhecimento, planejamento de futuro</strong> e impacto social.
+        </p>
+    </div>
 
-        <section class="g20">
-            <img src="img/g20.png" alt="Logo do G20 com bandeiras">
-        </section>
-    </main>
+    <div class="logo-container fade-in-delay">
+        <img src="img/onu.png" alt="Logo ONU" class="logo-onu">
+    </div>
+</section>
+
+<section class="artigos">
+    <h2>Artigos</h2>
+    <div class="artigos-container">
+        <div class="artigo">
+            <img src="img/armenia.jpeg" alt="Imagem Anna Clara">
+            <div class="artigo-texto">
+                <p><strong>Porta-voz da Armênia discute relações internacionais e esforços para uma paz duradoura</strong></p>
+                <span class="fonte">Fonte: brasildefato.com.br</span>
+            </div>
+        </div>
+
+        <div class="artigo">
+            <img src="img/bandeiras.png" alt="Bandeiras de países">
+            <div class="artigo-texto">
+                <p><strong>Relações Internacionais: conheça a carreira multidisciplinar ideal para quem busca desafios globais</strong></p>
+                <span class="fonte">Fonte: guiadoestudante.abril.com.br</span>
+            </div>
+        </div>
+
+        <div class="artigo">
+            <img src="img/emmanuelmacron.jpg" alt="Presidente Macron">
+            <div class="artigo-texto">
+                <p><strong>Presidente Lula reúne-se com Emmanuel Macron em Nova York</strong></p>
+                <span class="fonte">Fonte: agenciabrasil.ebc.com.br</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="botao-container">
+        <a href="todos-artigos.html" class="botao-artigo">Saiba Mais</a>
+    </div>
+</section>
+
+
+
+<div class="slidecontainer">
+  <div class="slider">
+    <div class="slides">
+      <input type="radio" name="radio-btn" id="radio1" checked>
+      <input type="radio" name="radio-btn" id="radio2">
+      <input type="radio" name="radio-btn" id="radio3">
+      <input type="radio" name="radio-btn" id="radio4">
+
+      <div class="slide first">
+        <img src="img/g20.png" alt="">
+      </div>
+      <div class="slide">
+        <img src="img/diplomacia.jpg" alt="">
+      </div>
+      <div class="slide">
+        <img src="img/politic.jpg" alt="">
+      </div>
+      <div class="slide">
+        <img src="img/politica.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AS BOLINHAS FICAM AQUI FORA -->
+<div class="manual-navegacao">
+  <label for="radio1" class="manual-btn"></label>
+  <label for="radio2" class="manual-btn"></label>
+  <label for="radio3" class="manual-btn"></label>
+  <label for="radio4" class="manual-btn"></label>
+</div>
+</div>
+
+</div>
+</div>
+<section class="cursos-ri">
+<h2>Cursos</h2>
+  <div class="cursos-container">
+    <div class="curso">
+      <img src="img/usp.png" alt="Imagem Anna Clara">
+      <div class="curso-texto">
+        <p>O curso de Relações Internacionais da USP tem enfoque multidisciplinar, formando profissionais para atuar em diplomacia, setor público e empresas globais.</p>
+      </div>
+    </div>
+    <div class="curso">
+      <img src="img/puc.png" alt="Bandeiras de países">
+      <div class="curso-texto">
+        <p>Pioneiro no Brasil, destaca-se pela abordagem humanista e crítica, preparando alunos para atuar em governo, empresas e ONGs.</p>
+      </div>
+    </div>
+    <div class="curso">
+      <img src="img/unb.jpg" alt="Presidente Macron">
+      <div class="curso-texto">
+        <p>A UnB é a única instituição federal do país a oferecer um Bacharel em Relações Internacionais e também é um centro de referência para a organização da área.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-col contatos">
-                <h4>CONTATOS</h4>
-                <p><i class="fa-solid fa-phone" style="color: red;"></i> <span>Telefone</span></p>
-                <p><i class="fa-solid fa-envelope" style="color: red;"></i> <span>Email</span></p>
-            </div>
-            <div class="footer-col logo">
-                <img src="img/logo-global-pathway.png" alt="Logo Global Pathway" />
-            </div>
-            <div class="footer-col links">
-                <h4>LINKS RÁPIDOS</h4>
-                <ul>
-                    <li><a href="#profissao"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
-                    <li><a href="#teste"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
-                    <li><a href="#planejamento"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
-                    <li><a href="perfil.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
-                    <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
-                </ul>
-            </div>
+    <div class="footer-container">
+        <div class="footer-col contatos">
+            <h4>CONTATOS</h4>
+            <p><i class="fa-solid fa-phone"></i> <span>(11) 98765-4321</span></p>
+            <p><i class="fa-solid fa-envelope"></i> <span>contato@globalpathway.com</span></p>
         </div>
-        <div class="footer-bottom">
-            <p>Global Pathway | Anna Clara Gonçalves</p>
+        <div class="footer-col logo">
+            <img src="img/download.png" alt="Logo Global Pathway" />
         </div>
-    </footer>
+        <div class="footer-col links">
+            <h4>LINKS RÁPIDOS</h4>
+            <ul>
+                <li><a href="#profissao"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
+                <li><a href="#teste"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
+                <li><a href="#planejamento"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
+                <li><a href="perfil.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
+                <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; <?php echo date("Y"); ?> Global Pathway | Anna Clara Gonçalves. Todos os direitos reservados.</p>
+    </div>
+</footer>
 
+<script>
+  let count = 1;
+  document.getElementById("radio1").checked = true;
+
+  setInterval(function () {
+    count++;
+    if (count > 4) {
+      count = 1;
+    }
+    document.getElementById("radio" + count).checked = true;
+  }, 2500);
+</script>
+
+
+
+               
+
+         
+</div>
 </body>
+
+
 </html>
