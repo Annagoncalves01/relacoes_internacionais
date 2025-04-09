@@ -1,4 +1,3 @@
-/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -18,12 +17,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 3px solid #FFD700;
 }
 
-/* Logo menor */
 .header-logo img {
-    height: 40px; /* Reduzi ainda mais o tamanho */
+    height: 40px;
     transition: transform 0.3s ease-in-out;
 }
 
@@ -31,15 +28,12 @@ body {
     transform: scale(1.1);
 }
 
-/* Navbar */
 .navbar {
-    flex: 1; /* Permite a centralização dos botões */
+    flex: 1;
     display: flex;
     justify-content: center;
-    gap: 25px;
 }
 
-/* Itens da Navbar */
 .navbar ul {
     list-style: none;
     display: flex;
@@ -52,8 +46,8 @@ body {
     font-size: 16px;
     padding: 10px 15px;
     border-radius: 5px;
-    transition: all 0.3s ease;
     font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .navbar a:hover {
@@ -61,20 +55,22 @@ body {
     transform: translateY(-2px);
 }
 
-/* Container dos botões no canto direito */
 .header-buttons {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-/* Ícone de bonequinho */
-.user-icon {
-    font-size: 22px;
+.perfil-button i {
+    font-size: 24px;
     color: white;
+    transition: color 0.3s ease;
 }
 
-/* Botão de Sair */
+.perfil-button:hover i {
+    color: #FFD700;
+}
+
 .logout-button {
     background: transparent;
     border: 2px solid white;
@@ -82,8 +78,8 @@ body {
     border-radius: 5px;
     color: white;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .logout-button:hover {
@@ -92,18 +88,37 @@ body {
     transform: scale(1.05);
 }
 
-/* Banner */
-.banner {
-    background: url('../img/relacoes.png') no-repeat center center/cover;
-    height: 350px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+/* Inputs no header */
+header input[type="text"],
+header input[type="search"],
+header input[type="email"],
+header input[type="password"] {
+    border: 2px solid white;
+    padding: 6px 10px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+    background-color: transparent;
     color: white;
-    font-size: 36px;
-    font-weight: bold;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    transition: border-color 0.3s;
+}
+
+header input:focus {
+    border-color: #FFD700;
+}
+
+/* Imagem de Destaque */
+.imagem-destaque {
+    margin: 0;
+    padding: 0;
+}
+
+.imagem-destaque img {
+    width: 100%;
+    display: block;
+    max-height: 700px;
+    object-fit: cover;
+    border-radius: 0;
 }
 
 /* Seção Profissão */
@@ -141,7 +156,72 @@ body {
     transform: scale(1.05);
 }
 
-/* Responsividade */
+.footer {
+    background: linear-gradient(to top, #1a1636, #5a0e3f);
+    color: white;
+    padding: 40px 5% 20px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-col h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #FFD700;
+}
+
+.footer-col p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.footer-col p i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.footer-col.logo img {
+    max-width: 150px;
+    margin: 0 auto;
+    display: block;
+}
+
+.footer-col.links ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.footer-col.links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-col.links a:hover {
+    color: #FFD700;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 15px;
+    font-size: 14px;
+}
+
+/* Responsivo */
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
@@ -164,91 +244,7 @@ body {
     }
 
     .section-profissao .image {
-        margin: 20px 0 0 0;
+        margin-top: 20px;
         width: 100%;
     }
-}
-/* Header atualizado */
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 5%;
-    background: linear-gradient(to right, #5a0e3f, #1a1636);
-    border-bottom: 3px solid #FFD700;
-}
-
-/* Logo menor */
-.header-logo img {
-    height: 40px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.header-logo img:hover {
-    transform: scale(1.1);
-}
-
-/* Navbar centralizada */
-.navbar {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.navbar ul {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-}
-
-.navbar a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    transition: 0.3s;
-}
-
-.navbar a:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-/* Ícone de usuário + Botão de Sair no canto direito */
-.header-buttons {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.user-icon {
-    font-size: 22px;
-    color: white;
-}
-
-.logout-button {
-    background: transparent;
-    border: 2px solid white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.logout-button:hover {
-    background: white;
-    color: #5a0e3f;
-    transform: scale(1.05);
-}
-
-/* Footer fixado */
-footer {
-    text-align: center;
-    padding: 15px;
-    background: #1a1636;
-    color: white;
-    position: relative;
-    width: 100%;
 }

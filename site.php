@@ -5,20 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relações Internacionais</title>
     <link rel="stylesheet" href="estilo.css">
-    <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script> <!-- Ícones FontAwesome -->
+    <!-- Use um kit válido do Font Awesome ou a versão CDN -->
+    <script src="https://kit.fontawesome.com/0e1db7a7c0.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-    <!-- Cabeçalho -->
     <header class="header">
-        <!-- Logo -->
         <div class="header-logo">
             <a href="index.html">
                 <img src="img/download.png" alt="Logotipo Global Pathway">
             </a>
         </div>
-
-        <!-- Navbar centralizada -->
         <nav class="navbar">
             <ul>
                 <li><a href="#profissao">Sobre a Profissão</a></li>
@@ -26,47 +22,86 @@
                 <li><a href="#teste">Teste de Personalidade</a></li>
             </ul>
         </nav>
-
-        <!-- Botões no canto direito -->
         <div class="header-buttons">
-            <i class="fa-solid fa-user user-icon"></i> <!-- Ícone de usuário -->
+            <a href="perfil.php" class="perfil-button" title="Meu Perfil">
+                <i class="fa-solid fa-user-circle"></i>
+            </a>
             <a href="logout.php" class="logout-button">Sair</a>
         </div>
     </header>
 
-    <!-- Seção Principal -->
     <main>
-        <section class="hero">
-            <div class="overlay">
-                <h1>Relações Internacionais</h1>
-            </div>
+        <section class="imagem-destaque">
+            <img src="img/relacoes.png" alt="Imagem ilustrativa entre o banner e a profissão">
         </section>
 
-        <!-- Sobre a Profissão -->
         <section id="profissao" class="section-profissao">
             <div class="text">
                 <h2>Profissão</h2>
-                <p>
-                    Sou Anna Clara, estudante do SESI SENAI, e me identifico com Relações Internacionais, 
-                    área que envolve diplomacia, comércio exterior e cooperação global. Com uma formação 
-                    multidisciplinar em política, economia e direito, os profissionais da área negociam 
-                    acordos, analisam cenários e mediam conflitos.
-                </p>
-                <p>
-                    Meu objetivo é unir tecnologia e conhecimento para ajudar as pessoas a tomarem 
-                    decisões conscientes sobre suas vidas e carreiras em um mundo globalizado.
-                </p>
+                <p>Sou Anna Clara, estudante do SESI SENAI, e me identifico com Relações Internacionais...</p>
+                <p>Meu objetivo é unir tecnologia e conhecimento para ajudar as pessoas...</p>
             </div>
             <div class="image">
                 <img src="img/mundo.png" alt="Globo com bandeiras representando a globalização">
             </div>
         </section>
+
+        <section id="sobre" class="depoimento">
+            <div class="depoimento-box">
+                <img src="img/senai.png" alt="Logo SENAI" class="logo-senai">
+                <p>O curso de Desenvolvimento de Sistemas do SENAI me proporcionou uma base sólida...</p>
+                <img src="img/onu.png" alt="Logo ONU" class="logo-onu">
+            </div>
+        </section>
+
+        <section class="artigos">
+            <h2>Artigos</h2>
+            <div class="artigos-container">
+                <a href="artigo1.html" class="artigo">
+                    <img src="img/anna.png" alt="Imagem Anna Clara">
+                    <p><strong>Entrevista: Anna Clara</strong><br>Como surgiu o interesse por Relações Internacionais.</p>
+                </a>
+                <a href="artigo2.html" class="artigo">
+                    <img src="img/bandeiras.png" alt="Bandeiras de países">
+                    <p><strong>Relações Internacionais, Conflitos e Comércio Exterior</strong><br>Entenda os impactos das decisões globais.</p>
+                </a>
+                <a href="artigo3.html" class="artigo">
+                    <img src="img/macron.png" alt="Presidente Macron">
+                    <p><strong>Presidente da França: Macron</strong><br>A importância da diplomacia contemporânea.</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="g20">
+            <img src="img/g20.png" alt="Logo do G20 com bandeiras">
+        </section>
     </main>
 
-    <!-- Rodapé -->
-    <footer>
-        <p>&copy; 2025 Global Pathway - Todos os direitos reservados.</p>
-    </footer>
+    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-col contatos">
+            <h4>CONTATOS</h4>
+            <p><i class="fa-solid fa-phone" style="color: red;"></i> <span>Telefone</span></p>
+            <p><i class="fa-solid fa-envelope" style="color: red;"></i> <span>Email</span></p>
+        </div>
+        <div class="footer-col logo">
+            <img src="img/logo-global-pathway.png" alt="Logo Global Pathway" />
+        </div>
+        <div class="footer-col links">
+            <h4>LINKS RÁPIDOS</h4>
+            <ul>
+                <li><a href="#profissao">Sobre a Profissão</a></li>
+                <li><a href="#teste">Teste de Personalidade</a></li>
+                <li><a href="#planejamento">Planejamento do Futuro</a></li>
+                <li><a href="perfil.php">Meu Perfil</a></li>
+                <li><a href="logout.php">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Global Pathway | Anna Clara Gonçalves</p>
+    </div>
+</footer>
 
 </body>
 </html>
