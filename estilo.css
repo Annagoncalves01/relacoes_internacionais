@@ -46,13 +46,19 @@ body {
 
 .navbar a {
     text-decoration: none;
+    padding: 6px 12px;
+    border: 1.5px solid white;
+    border-radius: 20px;
     color: white;
-    font-size: 16px;
-    padding: 10px 15px;
-    border-radius: 5px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     transition: all 0.3s ease;
+    font-size: 14px;
 }
+
+
 
 .navbar a:hover {
     background: rgba(255, 255, 255, 0.2);
@@ -67,7 +73,7 @@ body {
 }
 
 .header-buttons a {
-    text-decoration: none;
+    text-decoration: none; 
     padding: 6px 12px;
     border: 1.5px solid white;
     border-radius: 20px;
@@ -268,4 +274,28 @@ header input:focus {
 .perfil-button:hover i,
 .perfil-button:hover {
     color: #FFD700;
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s;
+    border: 2px solid white;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+    border-color: #FFD700;
 }

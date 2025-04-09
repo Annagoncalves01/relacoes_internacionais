@@ -28,14 +28,19 @@ session_start();
                 <li><a href="#teste">Teste de Personalidade</a></li>
             </ul>
         </nav>
-        <div class="header-buttons">
-    <a href="perfil.php" class="perfil-button" title="Meu Perfil">
-        <i class="fa-solid fa-user"></i> <span>Perfil</span>
+        <?php 
+$avatar = isset($_SESSION['avatar']) ? $_SESSION['avatar'] : 'default.png'; // fallback se não tiver avatar
+?>
+
+<div class="header-buttons">
+    <a href="perfil.php" class="avatar" title="Meu Perfil">
+        <img src="img/perfil.png/<?php echo $avatar; ?>" alt="Avatar do Usuário">
     </a>
-    <a href="logout.php" class="logout-button" title="Sair">
+    <a href="index.php" class="logout-button" title="Sair">
         <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
     </a>
 </div>
+
 
 </header>
 
