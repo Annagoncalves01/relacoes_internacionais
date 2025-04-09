@@ -14,12 +14,12 @@
 <div class="avatare"></div>
     <div class="forgot-password-container">
         <h2>Redefinir Senha</h2>
-        <form action="index.php?route=resetPassword" method="POST">
+        <form action="../index.php?route=resetPassword" method="POST">
             <div class="input-group">
                 <input type="email" name="email" placeholder="Digite seu e-mail" required>
             </div>
             <div class="input-group">
-                <input type="password" name="new_password" placeholder="Nova senha" required>
+                <input type="password" name="newPassword" placeholder="Nova senha" required>
             </div>
             <button type="submit" class="register-btn">Redefinir Senha</button>
         </form>

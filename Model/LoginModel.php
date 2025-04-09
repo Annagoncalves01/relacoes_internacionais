@@ -33,17 +33,17 @@ class UserModel
         return false;
     }
 
-    public function sendResetLink($email)
-    {
-        $token = bin2hex(random_bytes(50));
-        $stmt = $this->pdo->prepare("UPDATE users SET reset_token = :token WHERE email = :email");
-        $stmt->bindParam(':token', $token);
+    public function changePasswordWithEmail($email, $newPassword)
+    {   
+        $newPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+        $stmt = $this->pdo->prepare("UPDATE users SET senha = :senha WHERE email = :email");
         $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':senha', $newPassword);
 
         if ($stmt->execute()) {
-            mail($email, "Redefinição de Senha", "Clique no link para redefinir: http://localhost/reset.php?token=$token");
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 }

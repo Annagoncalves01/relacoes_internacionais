@@ -9,6 +9,7 @@ class UserController
     public function __construct($pdo)
     {
         session_start(); // Garante que a sessão está iniciada
+        error_reporting(E_ALL & ~E_NOTICE);
         $this->userModel = new UserModel($pdo);
     }
 
@@ -37,11 +38,11 @@ class UserController
         }
     }
 
-    public function login()
+    public function login($email, $password)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = trim($_POST['email'] ?? '');
-            $password = trim($_POST['password'] ?? '');
+            $email = trim($email ?? '');
+            $password = trim($password ?? '');
 
             if (empty($email) || empty($password)) {
                 $_SESSION["erro"] = "Preencha todos os campos!";
@@ -51,42 +52,39 @@ class UserController
 
             if ($this->userModel->login($email, $password)) {
                 $_SESSION["success"] = "Login realizado com sucesso!";
-                header("Location: ../index.php"); // Redirecionado para index.php
+                header("Location: site.php"); // Redirecionado para index.php
                 exit;
             } else {
                 $_SESSION["erro"] = "E-mail ou senha inválidos!";
-                header("Location: ../view/login.php");
+                header("Location: index.php?route=login");
                 exit;
             }
         }
     }
 
-    public function forgotPassword()
+    public function forgotPassword($email, $newPassword)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $email = trim($_POST['email'] ?? '');
-
-            if (empty($email)) {
-                $_SESSION["erro"] = "Informe seu e-mail.";
-                header("Location: ../view/forgot_password.php");
-                exit;
-            }
-
-            if ($this->userModel->sendResetLink($email)) {
-                $_SESSION["success"] = "E-mail de recuperação enviado.";
-            } else {
-                $_SESSION["erro"] = "Erro ao enviar e-mail.";
-            }
-            header("Location: ../view/forgot_password.php");
+        if (empty($email)) {
+            $_SESSION["erro"] = "Informe seu e-mail.";
+            header("Location: esquecisenha.php");
             exit;
         }
+        if ($this->userModel->changePasswordWithEmail($email, $newPassword)) {
+            $_SESSION["success"] = "Senha trocada com sucesso";
+        } else {
+            $_SESSION["erro"] = "Erro ao enviar e-mail.";
+        }
+        header("Location: index.php");
+        exit;
+
     }
 
     public function logout()
     {
         session_start();
+        session_unset();
         session_destroy();
-        header("Location: ../view/login.php");
+        header("Location: index.php");
         exit;
     }
 }
