@@ -18,8 +18,8 @@ class UserModel
         $stmt->execute();
 
         $existe = $stmt->fetchColumn();
-
-        if ($existe) {
+        
+        if ($existe == 1) {
             $_SESSION['erro'] = "Email já cadastrado";
             header("Location: index.php?route=login");
         } else {
