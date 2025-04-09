@@ -30,12 +30,13 @@ session_start();
         </nav>
         <div class="header-buttons">
     <a href="perfil.php" class="perfil-button" title="Meu Perfil">
-        <i class="fa-solid fa-user"></i> Perfil
+        <i class="fa-solid fa-user"></i> <span>Perfil</span>
     </a>
     <a href="logout.php" class="logout-button" title="Sair">
-        <i class="fa-solid fa-right-from-bracket"></i> Sair
+        <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
     </a>
 </div>
+
 </header>
 
     <main>
