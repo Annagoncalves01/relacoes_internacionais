@@ -1,4 +1,6 @@
 <?php
+
+
 require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Controller/LoginController.php';
 require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/config.php';
 
@@ -8,7 +10,7 @@ $route = $_GET["route"] ?? "login";
 switch ($route) {
     case "login":
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $userController->login();
+            $userController->login($_POST['email'], $_POST['password']);
         } else {
             require 'View/login.php';
         }
@@ -28,6 +30,13 @@ switch ($route) {
             return '';
         }
         break;
+        case "resetPassword":
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $userController->forgotPassword($_POST['email'], $_POST['newPassword']);
+            } else {
+                require 'view/login.php';
+            }
+            break;
 
 
     case "logout":

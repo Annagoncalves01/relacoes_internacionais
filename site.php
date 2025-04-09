@@ -1,3 +1,13 @@
+<?php 
+
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php?route=login");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -30,7 +40,7 @@
         <!-- Botões no canto direito -->
         <div class="header-buttons">
             <i class="fa-solid fa-user user-icon"></i> <!-- Ícone de usuário -->
-            <a href="logout.php" class="logout-button">Sair</a>
+            <a href="index.php?route=logout" class="logout-button">Sair</a>
         </div>
     </header>
 
