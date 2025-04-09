@@ -10,13 +10,27 @@ class UserModel
 
     public function register($name, $email, $password, $birthdate)
     {
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $this->pdo->prepare("INSERT INTO users (nome, email, senha, data_nascimento	) VALUES (:name, :email, :password, :birthdate)");
-        $stmt->bindParam(':name', $name);
+        $sql = "SELECT COUNT(*) FROM users WHERE email = :email";
+        $stmt = $this->pdo->prepare($sql);
+
+        $email = 'usuario@exemplo.com';
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $hashedPassword);
-        $stmt->bindParam(':birthdate', $birthdate);
-        return $stmt->execute();
+        $stmt->execute();
+
+        $existe = $stmt->fetchColumn();
+
+        if ($existe) {
+            $_SESSION['erro'] = "Email já cadastrado";
+            header("Location: index.php?route=login");
+        } else {
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+            $stmt = $this->pdo->prepare("INSERT INTO users (nome, email, senha, data_nascimento	) VALUES (:name, :email, :password, :birthdate)");
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $hashedPassword);
+            $stmt->bindParam(':birthdate', $birthdate);
+            return $stmt->execute();
+        }
     }
 
     public function login($email, $password)
@@ -34,7 +48,7 @@ class UserModel
     }
 
     public function changePasswordWithEmail($email, $newPassword)
-    {   
+    {
         $newPassword = password_hash($newPassword, PASSWORD_BCRYPT);
         $stmt = $this->pdo->prepare("UPDATE users SET senha = :senha WHERE email = :email");
         $stmt->bindParam(':email', $email);
