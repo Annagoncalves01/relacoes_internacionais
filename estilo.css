@@ -248,3 +248,24 @@ header input:focus {
         width: 100%;
     }
 }
+.perfil-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.perfil-button i {
+    font-size: 20px;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.perfil-button:hover i,
+.perfil-button:hover {
+    color: #FFD700;
+}
