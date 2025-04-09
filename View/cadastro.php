@@ -1,9 +1,6 @@
 <?php
 
 session_start();
-if (isset($_SESSION['erro'])) {
-    var_dump($_SESSION['erro']);
-}
 
 ?>
 
@@ -27,7 +24,7 @@ if (isset($_SESSION['erro'])) {
             <div class="register-container">
                 <div class="avatar"></div>
                 <h2>Cadastro</h2>
-                <form action="../?route=registerUser" method="POST">
+                <form action="../index.php?route=registerUser" method="POST">
                     <div class="input-group">
                         <input type="text" name="name" placeholder="Nome Completo" required>
                     </div>
