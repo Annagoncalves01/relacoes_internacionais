@@ -17,10 +17,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 100px;
 }
 
+/* Logo maior, mas respeitando altura do header */
 .header-logo img {
-    height: 40px;
+    height: 90px;
+    max-height: 100%;
+    object-fit: contain;
     transition: transform 0.3s ease-in-out;
 }
 
@@ -55,35 +59,29 @@ body {
     transform: translateY(-2px);
 }
 
+/* Botões à direita do header */
 .header-buttons {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
-.perfil-button i {
-    font-size: 24px;
+.header-buttons a {
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1.5px solid white;
+    border-radius: 20px;
     color: white;
-    transition: color 0.3s ease;
-}
-
-.perfil-button:hover i {
-    color: #FFD700;
-}
-
-.logout-button {
-    background: transparent;
-    border: 2px solid white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    font-weight: 600;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     transition: all 0.3s ease;
+    font-size: 14px;
 }
 
-.logout-button:hover {
-    background: white;
+.header-buttons a:hover {
+    background-color: white;
     color: #5a0e3f;
     transform: scale(1.05);
 }
@@ -156,6 +154,7 @@ header input:focus {
     transform: scale(1.05);
 }
 
+/* Footer */
 .footer {
     background: linear-gradient(to top, #1a1636, #5a0e3f);
     color: white;
@@ -226,6 +225,7 @@ header input:focus {
     .header {
         flex-direction: column;
         text-align: center;
+        height: auto;
     }
 
     .navbar {

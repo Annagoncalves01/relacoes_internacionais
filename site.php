@@ -1,11 +1,8 @@
 <?php 
-
 session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php?route=login");
-}
-
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: index.php?route=login");
+// }
 ?>
 
 <!DOCTYPE html>
@@ -15,14 +12,13 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relações Internacionais</title>
     <link rel="stylesheet" href="estilo.css">
-    <!-- Use um kit válido do Font Awesome ou a versão CDN -->
     <script src="https://kit.fontawesome.com/0e1db7a7c0.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header class="header">
         <div class="header-logo">
             <a href="index.html">
-                <img src="img/download.png" alt="Logotipo Global Pathway">
+            <img src="img/download.png" alt="Logotipo Global Pathway" style="height: 100px; max-height: 100%; object-fit: contain;">
             </a>
         </div>
         <nav class="navbar">
@@ -33,12 +29,14 @@ if (!isset($_SESSION['user_id'])) {
             </ul>
         </nav>
         <div class="header-buttons">
-            <a href="perfil.php" class="perfil-button" title="Meu Perfil">
-                <i class="fa-solid fa-user-circle"></i>
-            </a>
-            <a href="logout.php" class="logout-button">Sair</a>
-        </div>
-    </header>
+    <a href="perfil.php" class="perfil-button" title="Meu Perfil">
+        <i class="fa-solid fa-user"></i> Perfil
+    </a>
+    <a href="logout.php" class="logout-button" title="Sair">
+        <i class="fa-solid fa-right-from-bracket"></i> Sair
+    </a>
+</div>
+</header>
 
     <main>
         <section class="imagem-destaque">
@@ -88,30 +86,30 @@ if (!isset($_SESSION['user_id'])) {
     </main>
 
     <footer class="footer">
-    <div class="footer-container">
-        <div class="footer-col contatos">
-            <h4>CONTATOS</h4>
-            <p><i class="fa-solid fa-phone" style="color: red;"></i> <span>Telefone</span></p>
-            <p><i class="fa-solid fa-envelope" style="color: red;"></i> <span>Email</span></p>
+        <div class="footer-container">
+            <div class="footer-col contatos">
+                <h4>CONTATOS</h4>
+                <p><i class="fa-solid fa-phone" style="color: red;"></i> <span>Telefone</span></p>
+                <p><i class="fa-solid fa-envelope" style="color: red;"></i> <span>Email</span></p>
+            </div>
+            <div class="footer-col logo">
+                <img src="img/logo-global-pathway.png" alt="Logo Global Pathway" />
+            </div>
+            <div class="footer-col links">
+                <h4>LINKS RÁPIDOS</h4>
+                <ul>
+                    <li><a href="#profissao"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
+                    <li><a href="#teste"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
+                    <li><a href="#planejamento"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
+                    <li><a href="perfil.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
+                    <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="footer-col logo">
-            <img src="img/logo-global-pathway.png" alt="Logo Global Pathway" />
+        <div class="footer-bottom">
+            <p>Global Pathway | Anna Clara Gonçalves</p>
         </div>
-        <div class="footer-col links">
-            <h4>LINKS RÁPIDOS</h4>
-            <ul>
-                <li><a href="#profissao">Sobre a Profissão</a></li>
-                <li><a href="#teste">Teste de Personalidade</a></li>
-                <li><a href="#planejamento">Planejamento do Futuro</a></li>
-                <li><a href="perfil.php">Meu Perfil</a></li>
-                <li><a href="logout.php">Sair</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>Global Pathway | Anna Clara Gonçalves</p>
-    </div>
-</footer>
+    </footer>
 
 </body>
 </html>
