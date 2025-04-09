@@ -13,15 +13,14 @@ class UserModel
         $sql = "SELECT COUNT(*) FROM users WHERE email = :email";
         $stmt = $this->pdo->prepare($sql);
 
-        $email = 'usuario@exemplo.com';
         $stmt->bindParam(':email', $email);
         $stmt->execute();
 
         $existe = $stmt->fetchColumn();
-        
+
         if ($existe == 1) {
             $_SESSION['erro'] = "Email já cadastrado";
-            header("Location: index.php?route=login");
+            return false;
         } else {
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
             $stmt = $this->pdo->prepare("INSERT INTO users (nome, email, senha, data_nascimento	) VALUES (:name, :email, :password, :birthdate)");
