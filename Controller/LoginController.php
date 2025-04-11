@@ -2,13 +2,12 @@
 require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Model/LoginModel.php';
 require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/config.php';
 
-class UserController
+class LoginController
 {
     private $userModel;
 
     public function __construct($pdo)
     {
-        session_start(); // Garante que a sessão está iniciada
         error_reporting(E_ALL & ~E_NOTICE);
         $this->userModel = new UserModel($pdo);
     }
@@ -51,11 +50,10 @@ class UserController
             }
 
             if ($this->userModel->login($email, $password)) {
-                $_SESSION["success"] = "Login realizado com sucesso!";
                 header("Location: site.php"); // Redirecionado para index.php
                 exit;
             } else {
-                $_SESSION["erro"] = "E-mail ou senha inválidos!";
+                //$_SESSION["erro"] = "E-mail ou senha inválidos!";
                 header("Location: index.php?route=login");
                 exit;
             }

@@ -40,10 +40,13 @@ class UserModel
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['senha'])) {
+
             $_SESSION['user_id'] = $user['id'];
+
             return true;
         }
         return false;
+        
     }
 
     public function changePasswordWithEmail($email, $newPassword)

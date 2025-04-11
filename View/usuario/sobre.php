@@ -1,3 +1,13 @@
+<?php
+session_start();
+require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Model/UsuarioModel.php'; // caminho do seu Model
+$usuario = $_SESSION['nome'] ?? null;
+
+if ($usuario) {
+    $usuarioModel = new UsuarioModel($pdo);
+    $usuario = $usuarioModel->buscarPorId($usuario); // método que retorna os dados do usuário
+}
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -41,27 +51,25 @@
     <div class="sobre-bloco">
         <h2>SOBRE MIM</h2>
 
-        <!-- MENSAGEM DE SUCESSO -->
         <?php if (isset($_GET['sucesso']) && $_GET['sucesso'] == 1): ?>
             <div class="mensagem-sucesso">
                 <p>Seu texto foi salvo com sucesso!</p>
             </div>
         <?php endif; ?>
 
-        <!-- FORMULÁRIO SOBRE MIM -->
-        <form action="salvar_sobre.php" method="post">
-            <textarea name="sobre_mim" rows="12" placeholder="Escreva algo sobre você..." 
-                style="width:100%; padding: 15px; border-radius: 10px; resize: none; height: 220px;"><?= isset($usuario['sobre_mim']) ? htmlspecialchars($usuario['sobre_mim']) : '' ?></textarea>
-            <button type="submit" class="botao">SALVAR</button>
-        </form>
+        <form action="../../site.php?route=salvarSobreMim" method="post">
+    <textarea name="sobre_mim" rows="12" placeholder="Escreva algo sobre você..." 
+        style="width:100%; padding: 15px; border-radius: 10px; resize: none; height: 220px;">
+        <?= isset($usuario['sobre_mim']) ? htmlspecialchars($usuario['sobre_mim']) : '' ?>
+    </textarea>
+    <button type="submit" class="botao">SALVAR</button>
+</form>
 
-        <!-- EDITAR DADOS -->
         <form action="editar.php" method="get">
             <button type="submit" class="botao">EDITAR DADOS</button>
         </form>
 
-        <!-- VOLTAR AO INÍCIO -->
-        <form action="dashboard.php" method="get">
+        <form action="../../site.php" method="get">
             <button type="submit" class="botao botao-voltar">Voltar ao Início</button>
         </form>
     </div>

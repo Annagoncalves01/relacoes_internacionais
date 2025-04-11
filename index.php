@@ -5,7 +5,7 @@ require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Controller/UsuarioC
 require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/config.php';
 
 // Instância dos controladores
-$userController = new UserController($pdo);
+$userController = new LoginController($pdo);
 $usuarioController = new UsuarioController($pdo);
 
 // Rota da URL
@@ -69,6 +69,10 @@ switch ($route) {
         }
         break;
 
+        case 'salvarSobreMim':
+            $usuarioController->salvarSobreMim();
+            break;
+        
     // Rota não encontrada
     default:
         echo "Página não encontrada.";
