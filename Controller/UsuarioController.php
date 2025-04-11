@@ -1,57 +1,72 @@
 <?php
-require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Model/UsuarioModel.php';
+require_once 'C:\Turma2\xampp\htdocs\relacoes_internacionais\Model\UsuarioModel.php';
 require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/config.php';
 
-class UsuarioController {
+class UsuarioController
+{
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
-    private function verificarSessao() {
+    private function verificarSessao()
+    {
         session_start();
-        if (!isset($_SESSION['usuario_id'])) {
-            header("Location: /relacoes_internacionais/index.php");
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?route=login");
             exit;
         }
     }
 
-    public function editar() {
+    public function editar()
+    {
         $this->verificarSessao();
-        $usuarioModel = new UsuarioModel($this->pdo);
-        $usuario_id = $_SESSION['usuario_id'];
+        $pdo = $this->pdo;
+        $usuarioModel = new Usuario($pdo);
+
+        $usuario_id = $_SESSION['user_id'] ?? null;
+
+        if (!$usuario_id) {
+            echo "ID do usuário não está na sessão.";
+            exit;
+        }
+
 
         $usuario = $usuarioModel->buscarPorId($usuario_id);
 
         if (!$usuario) {
-            echo "Usuário não encontrado.";
+            echo "Usuário não carregado. ID buscado: " . $usuario_id;
             exit;
         }
-
         include 'C:/Turma2/xampp/htdocs/relacoes_internacionais/View/usuario/editar.php';
     }
 
-    public function mostrarSobreMim() {
+    public function mostrarSobreMim()
+    {
         $this->verificarSessao();
-        $usuarioModel = new UsuarioModel($this->pdo);
-        $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
+        $usuarioModel = new Usuario($this->pdo);
+        $usuario = $usuarioModel->buscarPorId($_SESSION['user_id']);
 
         include 'View/usuario/sobre.php';
     }
 
-    public function sobre() {
+    public function sobre()
+    {
         $this->verificarSessao();
-        $usuarioModel = new UsuarioModel($this->pdo);
-        $usuario = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
+        $usuarioModel = new Usuario($this->pdo);
+        $usuario = $usuarioModel->buscarPorId($_SESSION['user_id']);
 
-        include 'View/usuario/sobre.php'; 
+        include 'View/usuario/sobre.php';
     }
 
-    public function atualizar() {
+    public function atualizar()
+    {
         $this->verificarSessao();
-        $usuarioModel = new UsuarioModel($this->pdo);
-        $usuarioAtual = $usuarioModel->buscarPorId($_SESSION['usuario_id']);
+        $usuarioModel = new Usuario($this->pdo);
+
+        $usuarioAtual = $usuarioModel->buscarPorId($_SESSION['user_id']);
 
         $nome = $_POST['nome'] ?? $usuarioAtual['nome'];
         $email = $_POST['email'] ?? $usuarioAtual['email'];
@@ -69,53 +84,40 @@ class UsuarioController {
             $foto = file_get_contents($_FILES['foto']['tmp_name']);
         }
 
-        $usuarioModel->atualizar($_SESSION['usuario_id'], $nome, $email, $senha, $sobre_mim, $foto);
+        $usuarioModel->atualizar($_SESSION['user_id'], $nome, $email, $senha, $sobre_mim, $foto);
 
-        header("Location: /relacoes_internacionais/View/usuario/editar.php?sucesso=1");
+        header("Location: View/usuario/editar.php?route=editarPerfil&success=1");
         exit;
     }
-    public function atualizarEmailSenha()
+
+    public function salvarSobreMim()
     {
-        $this->verificarSessao(); // Garante que o usuário esteja logado
-    
-        $email_antigo = $_POST['email_atual'] ?? null;
-        $novo_email = $_POST['novo_email'] ?? null;
-        $nova_senha = $_POST['nova_senha'] ?? null;
-    
-        if (!$email_antigo || !$novo_email || !$nova_senha) {
-            echo "Todos os campos são obrigatórios.";
-            exit;
-        }
-    
-        $usuarioModel = new UsuarioModel($this->pdo);
-        $sucesso = $usuarioModel->atualizarSenhaEmail($email_antigo, $novo_email, $nova_senha);
-    
-        if ($sucesso) {
-            header("Location: index.php?route=editarPerfil&success=1");
-            exit;
-        } else {
-            echo "Erro ao atualizar e-mail e senha.";
-        }
-    }
-    public function listarUsuarioPorID($usuario_id){
-        $usuarioModel = new UsuarioModel($this->pdo);
-        return $usuarioModel->buscarPorId($usuario_id); // <-- Usa o método do Model
-    }
-    
-    public function salvarSobreMim() {
         $this->verificarSessao();
-        $usuarioModel = new UsuarioModel($this->pdo);
-    
-        $sobre_mim = $_POST['sobre_mim'] ?? '';
-        $usuarioModel->atualizarSobreMim($_SESSION['usuario_id'], $sobre_mim);
+        $usuarioModel = new Usuario($this->pdo);
 
-        header("Location: /relacoes_internacionais/View/usuario/sobre.php?sucesso=1");
+        $sobre_mim = $_POST['sobre_mim'] ?? '';
+
+        $usuarioModel->atualizarSobreMim($_SESSION['user_id'], $sobre_mim);
+
+        header("Location: index.php?route=sobre&sucesso=1");
         exit;
     }
 
+    public function atualizarSobreMim($id, $texto)
+    {
+        $sql = "UPDATE users SET sobre_mim = :texto, updated_at = NOW() WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':texto', $texto);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
 
-    
-    
+    public function listarUsuarioPorID($usuario_id)
+    {
+        $usuarioModel = new Usuario($this->pdo);
+        return $usuario = $usuarioModel->listarUsuarioPorID($usuario_id);
+
+    }
 
 }
 ?>

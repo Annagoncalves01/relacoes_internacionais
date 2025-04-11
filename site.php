@@ -25,7 +25,7 @@ session_start();
             <ul>
                 <li><a href="#profissao">Sobre a Profissão</a></li>
                 <li><a href="View/usuario/editar.php">Sobre Mim</a></li>
-                <li><a href="View/teste.php">Teste de Personalidade</a></li>
+                <li><a href="#teste">Teste de Personalidade</a></li>
             </ul>
         </nav>
         <?php 
@@ -203,8 +203,8 @@ $avatar = isset($_SESSION['avatar']) ? $_SESSION['avatar'] : 'img/perfil.png';
                 <li><a href="#profissao"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
                 <li><a href="#teste"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
                 <li><a href="#planejamento"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
-                <li><a href="View/usuario/sobre.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
-                <li><a href="index.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+                <li><a href="perfil.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
+                <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
             </ul>
         </div>
     </div>
