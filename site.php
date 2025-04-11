@@ -25,7 +25,7 @@ session_start();
             <ul>
                 <li><a href="#profissao">Sobre a Profissão</a></li>
                 <li><a href="View/usuario/editar.php">Sobre Mim</a></li>
-                <li><a href="#teste">Teste de Personalidade</a></li>
+                <li><a href="View/teste.php">Teste de Personalidade</a></li>
             </ul>
         </nav>
         <?php 
