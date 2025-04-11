@@ -5,7 +5,7 @@ require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Controller/UsuarioC
 require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/config.php';
 
 // Instância dos controladores
-$userController = new LoginController($pdo);
+$loginController = new LoginController($pdo);
 $usuarioController = new UsuarioController($pdo);
 
 // Rota da URL
@@ -17,7 +17,7 @@ switch ($route) {
     // Login
     case "login":
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $userController->login($_POST['email'], $_POST['password']);
+            $loginController->login($_POST['email'], $_POST['password']);
         } else {
             require 'View/login.php';
         }
@@ -27,7 +27,7 @@ switch ($route) {
     case "register":
     case "registerUser":
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $userController->register();
+            $loginController->register();
         } else {
             require 'View/cadastro.php';
         }
@@ -36,7 +36,7 @@ switch ($route) {
     // Recuperar senha
     case "resetPassword":
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $userController->forgotPassword($_POST['email'], $_POST['newPassword']);
+            $loginController->forgotPassword($_POST['email'], $_POST['newPassword']);
         } else {
             require 'View/login.php';
         }
@@ -44,7 +44,7 @@ switch ($route) {
 
     // Logout
     case "logout":
-        $userController->logout();
+        $loginController->logout();
         break;
 
     // Editar perfil

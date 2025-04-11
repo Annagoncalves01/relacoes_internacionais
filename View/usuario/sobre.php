@@ -1,10 +1,11 @@
 <?php
 session_start();
 require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Model/UsuarioModel.php'; // caminho do seu Model
+require_once 'C:\Turma2\xampp\htdocs\relacoes_internacionais\config.php'; // caminho do seu Config   
 $usuario = $_SESSION['nome'] ?? null;
 
 if ($usuario) {
-    $usuarioModel = new UsuarioModel($pdo);
+    $usuarioModel = new Usuario($pdo);
     $usuario = $usuarioModel->buscarPorId($usuario); // método que retorna os dados do usuário
 }
 ?>
@@ -35,7 +36,7 @@ if ($usuario) {
         <a href="View/usuario/sobre.php" class="avatar" title="Meu Perfil">
             <img src="img/perfil.png" alt="Avatar do Usuário">
         </a>
-        <a href="index.php" class="logout-button" title="Sair">
+        <a href="../../index.php?route=logout" class="logout-button" title="Sair">
             <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
         </a>
     </div>

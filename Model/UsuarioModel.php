@@ -7,7 +7,7 @@ class Usuario {
         $this->pdo = $pdo;
     }
     public function buscarPorId($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM usuarios WHERE id = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -40,13 +40,13 @@ class Usuario {
     
         $params[] = $id;
     
-        $sql = "UPDATE usuarios SET " . implode(', ', $campos) . " WHERE id = ?";
+        $sql = "UPDATE users SET " . implode(', ', $campos) . " WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
     
         return $stmt->execute($params);
     }
     public function atualizarSobreMim($id, $texto) {
-        $sql = "UPDATE usuarios SET sobre_mim = :texto, updated_at = NOW() WHERE id = :id";
+        $sql = "UPDATE users SET sobre_mim = :texto, updated_at = NOW() WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':texto', $texto);
         $stmt->bindParam(':id', $id);

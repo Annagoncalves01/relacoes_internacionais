@@ -1,10 +1,9 @@
 <?php
 session_start();
-require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Controller/UsuarioController.php'; // caminho do seu Model
-$usuarioController = new UsuarioController($pdo);
-var_dump($_SESSION);
-die();
-$usuario = $usuarioController->listarUsuarioPorID($_SESSION['usuario_id']);
+require_once 'C:\Turma2\xampp\htdocs\relacoes_internacionais\Controller\UsuarioController.php'; // caminho do seu Model
+require_once 'C:\Turma2\xampp\htdocs\relacoes_internacionais\config.php'; // caminho do seu Config   
+$usuarioController = new UsuarioController($pdo); // instância do controlador de usuário
+$usuario = $usuarioController->listarUsuarioPorID($_SESSION['user_id']);
 
 ?>
 
@@ -66,7 +65,7 @@ $usuario = $usuarioController->listarUsuarioPorID($_SESSION['usuario_id']);
                 <input type="file" name="foto" id="foto" style="display: none;">
 
                 <label>Email:</label>
-                <input type="email" name="email" value="<?= htmlspecialchars($usuario['email']) ?>">
+                <input type="email" name="email" value="<?= htmlspecialchars($usuario['email']) ?>" disabled>
 
                 <label>Atualizar Email:</label>
                 <input type="email" name="email" value="<?= htmlspecialchars($usuario['email']) ?>">

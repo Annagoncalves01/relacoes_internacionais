@@ -8,6 +8,7 @@ class LoginController
 
     public function __construct($pdo)
     {
+        session_start();
         error_reporting(E_ALL & ~E_NOTICE);
         $this->userModel = new UserModel($pdo);
     }
@@ -53,7 +54,7 @@ class LoginController
                 header("Location: site.php"); // Redirecionado para index.php
                 exit;
             } else {
-                //$_SESSION["erro"] = "E-mail ou senha inválidos!";
+                $_SESSION["erro"] = "E-mail ou senha inválidos!";
                 header("Location: index.php?route=login");
                 exit;
             }
