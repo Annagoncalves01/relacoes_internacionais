@@ -1,8 +1,7 @@
 <?php 
 session_start();
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: index.php?route=login");
-// }
+ if (!isset($_SESSION['user_id'])) {
+   header("Location: index.php");}
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +11,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relações Internacionais</title>
     <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/0e1db7a7c0.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -25,7 +25,7 @@ session_start();
             <ul>
                 <li><a href="#profissao">Sobre a Profissão</a></li>
                 <li><a href="View/usuario/editar.php">Sobre Mim</a></li>
-                <li><a href="#teste">Teste de Personalidade</a></li>
+                <li><a href="View/teste.php">Teste de Personalidade</a></li>
             </ul>
         </nav>
         <?php 

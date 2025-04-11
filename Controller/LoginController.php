@@ -55,7 +55,7 @@ class LoginController
                 exit;
             } else {
                 $_SESSION["erro"] = "E-mail ou senha inválidos!";
-                header("Location: index.php?route=login");
+                header("Location: index.php");
                 exit;
             }
         }

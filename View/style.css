@@ -4,6 +4,104 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+.header {
+    background: linear-gradient(to right, #551616, #3a1012,  #020a35);
+    padding: 15px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.header-logo img {
+    height: 90px;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+}
+
+.header-logo img:hover {
+    transform: scale(1.1);
+}
+
+.navbar {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1.5px solid white;
+    border-radius: 20px;
+    color: white;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+
+
+.navbar a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Botões à direita do header */
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-buttons a {
+    text-decoration: none; 
+    padding: 6px 12px;
+    border: 1.5px solid white;
+    border-radius: 20px;
+    color: white;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.header-buttons a:hover {
+    background-color: white;
+    color: #5a0e3f;
+    transform: scale(1.05);
+}
+
+/* Inputs no header */
+header input[type="text"],
+header input[type="search"],
+header input[type="email"],
+header input[type="password"] {
+    border: 2px solid white;
+    padding: 6px 10px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+    background-color: transparent;
+    color: white;
+    transition: border-color 0.3s;
+}
+
+header input:focus {
+    border-color: #FFD700;
+}
 
 /* Fundo com opacidade */
 .login {
@@ -181,4 +279,396 @@ input::placeholder {
 }
 #dark-mode-toggle:hover {
     background: #555;
+}
+
+.pergunta {
+    background-color: rgba(60, 10, 20, 0.7);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.respostas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.resposta {
+    background-color: #5c131f;
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 260px;
+    transition: background 0.3s;
+}
+
+.resposta:hover {
+    background-color: #7c1e2e;
+}
+
+.botao {
+    background-color: #581828;
+    padding: 10px 30px;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.botao:hover {
+    background-color: #a53750;
+}
+
+
+.footer {
+    background: linear-gradient(to top, #3b1117); /* tons de azul escuro */
+    color: white;
+    padding: 40px 5% 20px;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-col h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #dabebf; /* azul claro */
+}
+
+.footer-col p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.footer-col p i {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #dabebf;
+}
+
+.footer-col.logo img {
+    max-width: 150px;
+    margin: 0 auto;
+    display: block;
+}
+
+.footer-col.links ul {
+    list-style: disc; /* mostra as bolinhas */
+    padding-left: 20px; /* espaçamento da margem para mostrar o marcador */
+    text-align: left;   /* para alinhar o texto à esquerda */
+}
+
+.footer-col.links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-col.links a:hover {
+    color: #dabebf;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 15px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .header-buttons {
+        margin-top: 10px;
+    }
+
+    .section-profissao {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .section-profissao .image {
+        margin-top: 20px;
+        width: 100%;
+    }
+}
+.perfil-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.perfil-button i {
+    font-size: 20px;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.perfil-button:hover i,
+.perfil-button:hover {
+    color: #FFD700;
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s;
+    border: 2px solid white;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+    border-color: #FFD700;
+}
+.header-buttons .avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.6), 
+        rgba(0, 0, 0, 0.6)
+    ), url('../img/bussola.png') no-repeat center center/cover;
+    position: relative;
+    padding: 40px 20px;
+    width: 100%;
+    min-height: 100vh;
+    color: white;
+}
+
+.main-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px);
+    z-index: 0;
+}
+
+.pergunta, .respostas, form {
+    position: relative;
+    z-index: 1;
+}
+
+
+.pergunta, .respostas, form {
+    position: relative;
+    z-index: 1;
+}
+
+.pergunta {
+    background-color: rgba(60, 10, 20, 0.8);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    max-width: 700px;
+    text-align: center;
+}
+
+.respostas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 800px;
+    margin-bottom: 30px;
+}
+
+.resposta {
+    background-color: #5c131f;
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 300px;
+    color: white;
+    transition: background 0.3s;
+    text-align: center;
+}
+
+.resposta:hover {
+    background-color: #7c1e2e;
+}
+/* Letra fora da caixa com bolinha vermelha */
+.resposta::before {
+    content: attr(data-letra);
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    background-color: #5c131f;
+    border-radius: 50%;
+    width: 34px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+.botao {
+    background-color: #581828;
+    padding: 10px 30px;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.botao:hover {
+    background-color: #a53750;
+}/* Esconde os radios visuais */
+/* Esconde os radios */
+input[type="radio"][hidden] {
+    display: none;
+}
+
+/* Container das respostas em 2 colunas */
+.respostas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+/* Estiliza cada alternativa */
+.resposta {
+    background-color: #5c131f;
+    padding: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 350px;
+    color: white;
+    transition: background 0.3s, transform 0.2s;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    border: 2px solid transparent;
+}
+
+/* Letra fora da caixa */
+.resposta::before {
+    content: attr(data-letra) ")";
+    position: absolute;
+    left: -35px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+}
+
+/* Hover */
+.resposta:hover {
+    background-color: #7c1e2e;
+    transform: scale(1.03);
+}
+
+/* Alternativa selecionada */
+input[type="radio"]:checked + label.resposta {
+    background-color: #a53750;
+    border-color: white;
+}
+
+/* Botão */
+.botao-container {
+    margin-top: 30px;
+    text-align: center;
+}
+.botao {
+    background-color: #5c131f;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.botao:hover {
+    background-color: #7c1e2e;
+}
+body.resultado {
+    background-color: #f4f4f4; /* ou outra cor desejada */
+    color: #333;
+    min-height: 100vh;
+    padding: 20px 0;
+}
+.main-resultado {
+    background-color: #f9f9f9; /* ou qualquer cor que desejar */
+    padding: 40px 20px;
+    min-height: 100vh;
 }

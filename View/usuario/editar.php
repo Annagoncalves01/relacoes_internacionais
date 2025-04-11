@@ -37,7 +37,7 @@ $usuario = $usuarioController->listarUsuarioPorID($_SESSION['user_id']);
             <a href="View/usuario/sobre.php" class="avatar" title="Meu Perfil">
                 <img src="img/perfil.png" alt="Avatar do Usuário">
             </a>
-            <a href="index.php" class="logout-button" title="Sair">
+            <a href="../../index.php" class="logout-button" title="Sair">
                 <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
             </a>
         </div>

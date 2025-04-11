@@ -1,5 +1,5 @@
 <?php
-require_once 'C:\Turma2\xampp\htdocs\relacoes_internacionais\Model\UsuarioModel.php';
+require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Model/UsuarioModel.php';
 require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/config.php';
 
 class UsuarioController
@@ -15,7 +15,7 @@ class UsuarioController
     {
         session_start();
         if (!isset($_SESSION['user_id'])) {
-            header("Location: index.php?route=login");
+            header("Location: index.php");
             exit;
         }
     }
@@ -23,23 +23,16 @@ class UsuarioController
     public function editar()
     {
         $this->verificarSessao();
-        $pdo = $this->pdo;
-        $usuarioModel = new Usuario($pdo);
-
-        $usuario_id = $_SESSION['user_id'] ?? null;
-
-        if (!$usuario_id) {
-            echo "ID do usuário não está na sessão.";
-            exit;
-        }
-
+        $usuarioModel = new Usuario($this->pdo);
+        $usuario_id = $_SESSION['user_id'];
 
         $usuario = $usuarioModel->buscarPorId($usuario_id);
 
         if (!$usuario) {
-            echo "Usuário não carregado. ID buscado: " . $usuario_id;
+            echo "Usuário não encontrado.";
             exit;
         }
+
         include 'C:/Turma2/xampp/htdocs/relacoes_internacionais/View/usuario/editar.php';
     }
 
@@ -54,24 +47,27 @@ class UsuarioController
 
     public function sobre()
     {
-        $this->verificarSessao();
-        $usuarioModel = new Usuario($this->pdo);
-        $usuario = $usuarioModel->buscarPorId($_SESSION['user_id']);
-
-        include 'View/usuario/sobre.php';
+        $this->mostrarSobreMim(); // reutiliza a função
     }
 
     public function atualizar()
     {
         $this->verificarSessao();
         $usuarioModel = new Usuario($this->pdo);
+        $usuario_id = $_SESSION['user_id'];
 
-        $usuarioAtual = $usuarioModel->buscarPorId($_SESSION['user_id']);
+        $usuarioAtual = $usuarioModel->buscarPorId($usuario_id);
 
         $nome = $_POST['nome'] ?? $usuarioAtual['nome'];
         $email = $_POST['email'] ?? $usuarioAtual['email'];
         $senha = $_POST['senha'] ?? '';
         $sobre_mim = $_POST['sobre_mim'] ?? $usuarioAtual['sobre_mim'];
+
+        // Verifica se o e-mail já está sendo usado por outro
+        if ($usuarioModel->emailExisteParaOutroUsuario($email, $usuario_id)) {
+            header("Location: View/usuario/editar.php?erro=email_duplicado");
+            exit;
+        }
 
         if (trim($senha) === '') {
             $senha = $usuarioAtual['senha'];
@@ -84,9 +80,9 @@ class UsuarioController
             $foto = file_get_contents($_FILES['foto']['tmp_name']);
         }
 
-        $usuarioModel->atualizar($_SESSION['user_id'], $nome, $email, $senha, $sobre_mim, $foto);
+        $usuarioModel->atualizar($usuario_id, $nome, $email, $senha, $sobre_mim, $foto);
 
-        header("Location: View/usuario/editar.php?route=editarPerfil&success=1");
+        header("Location: View/usuario/editar.php?success=1");
         exit;
     }
 
@@ -99,7 +95,7 @@ class UsuarioController
 
         $usuarioModel->atualizarSobreMim($_SESSION['user_id'], $sobre_mim);
 
-        header("Location: index.php?route=sobre&sucesso=1");
+        header("Location: index.php?sucesso=1");
         exit;
     }
 
@@ -115,9 +111,7 @@ class UsuarioController
     public function listarUsuarioPorID($usuario_id)
     {
         $usuarioModel = new Usuario($this->pdo);
-        return $usuario = $usuarioModel->listarUsuarioPorID($usuario_id);
-
+        return $usuarioModel->listarUsuarioPorID($usuario_id);
     }
-
 }
 ?>

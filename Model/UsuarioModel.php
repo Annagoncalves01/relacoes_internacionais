@@ -53,7 +53,14 @@ class Usuario {
         return $stmt->execute();
     }
 
-    
+    public function emailExisteParaOutroUsuario($email, $idAtual)
+{
+    $sql = "SELECT id FROM users WHERE email = ? AND id != ?";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([$email, $idAtual]);
+    return $stmt->fetch() !== false;
+}
+
     public function listarUsuarioPorID($usuario_id) {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = ?");
         $stmt->execute([$usuario_id]);
