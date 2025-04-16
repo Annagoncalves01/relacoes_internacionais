@@ -1,28 +1,35 @@
 <?php
 session_start();
-require_once '../Model/perguntas.php'; // Certifique-se de que este arquivo define $perguntas
+
+// Incluindo os arquivos necessários
+require_once '../Model/perguntas.php'; // Certifique-se de que este arquivo define o array $perguntas
 require_once '../Model/TesteModel.php';
 require_once '../Controller/TesteController.php';
-require_once '../config.php';
+require_once '../config.php'; // Arquivo de configuração para a conexão com o banco
 
+// Criando instância do controlador de Teste
 $controller = new TesteController($pdo);
+
+// Definindo o índice da pergunta
 $indice = isset($_GET['pergunta']) ? (int)$_GET['pergunta'] : 0;
 
-// Iniciar o array de respostas na sessão
+// Iniciando o array de respostas na sessão se não existir
 if (!isset($_SESSION['respostas'])) {
     $_SESSION['respostas'] = [];
 }
 
-// Registrar resposta atual e passar para a próxima
+// Registrando resposta e passando para a próxima pergunta
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['resposta'])) {
     $resposta = $_POST['resposta'];
     $_SESSION['respostas'][] = $resposta;
     $indice++;
 }
 
+// Verificando se ainda há perguntas para exibir
 if ($indice < count($perguntas)) {
     $pergunta = $perguntas[$indice];
 
+    // Recuperando as alternativas da pergunta do banco de dados
     $sql = "SELECT texto FROM respostas WHERE pergunta_id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$indice + 1]);
@@ -33,6 +40,7 @@ if ($indice < count($perguntas)) {
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teste de Personalidade</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -53,10 +61,10 @@ if ($indice < count($perguntas)) {
         </ul>
     </nav>
     <div class="header-buttons">
-        <a href="usuario/sobre.php" class="avatar" title="Meu Perfil">
+        <a href="usuario/editar.php" class="avatar" title="Meu Perfil">
             <img src="<?= isset($_SESSION['avatar']) ? $_SESSION['avatar'] : '../img/perfil.png'; ?>" alt="Avatar do Usuário">
         </a>
-        <a href="logout.php" class="logout-button" title="Sair">
+        <a href="../index.php" class="logout-button" title="Sair">
             <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
         </a>
     </div>
@@ -96,7 +104,7 @@ if ($indice < count($perguntas)) {
             <ul>
                 <li><a href="#profissao"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
                 <li><a href="teste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
-                <li><a href="#planejamento"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
+                <li><a href="planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
                 <li><a href="perfil.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
                 <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
             </ul>
@@ -118,7 +126,6 @@ if ($indice < count($perguntas)) {
         unset($_SESSION['respostas'], $_SESSION['indice']);
         header('Location: resultado_teste.php');
         exit;
-             
     } else {
         echo "Usuário não autenticado.";
     }

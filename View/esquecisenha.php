@@ -23,7 +23,7 @@
             </div>
             <button type="submit" class="register-btn">Redefinir Senha</button>
         </form>
-        <a href="../index.php?route=login" class="register-link">Voltar ao Login</a>
+        <a href="../index.php" class="register-link">Voltar ao Login</a>
     </div>
     </div>
          

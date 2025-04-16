@@ -1,8 +1,17 @@
 <?php 
 session_start();
- if (!isset($_SESSION['user_id'])) {
-   header("Location: index.php");}
-?>
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit();
+}
+
+require_once 'C:\Turma2\xampp\htdocs\relacoes_internacionais\Controller\UsuarioController.php';
+require_once 'C:\Turma2\xampp\htdocs\relacoes_internacionais\config.php';
+
+$usuarioController = new UsuarioController($pdo);
+$usuario = $usuarioController->listarUsuarioPorID($_SESSION['user_id']);
+$foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . base64_encode($usuario['foto_perfil']) : 'img/perfil.png';
+?> 
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -12,36 +21,33 @@ session_start();
     <title>Relações Internacionais</title>
     <link rel="stylesheet" href="estilo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/0e1db7a7c0.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header class="header">
         <div class="header-logo">
-            <a href="index.html">
-            <img src="img/download.png" alt="Logotipo Global Pathway" style="height: 100px; max-height: 100%; object-fit: contain;">
+            <a href="site.php">
+                <img src="img/download.png" alt="Logotipo Global Pathway" style="height: 100px; max-height: 100%; object-fit: contain;">
             </a>
         </div>
         <nav class="navbar">
             <ul>
                 <li><a href="#profissao">Sobre a Profissão</a></li>
                 <li><a href="View/usuario/editar.php">Sobre Mim</a></li>
-                <li><a href="View/teste.php">Teste de Personalidade</a></li>
+                <li><a href="View/testeinicio.php">Teste de Personalidade</a></li>
             </ul>
         </nav>
-        <?php 
-$avatar = isset($_SESSION['avatar']) ? $_SESSION['avatar'] : 'img/perfil.png';
-?>
-
-<div class="header-buttons">
-    <a href="View/usuario/sobre.php" class="avatar" title="Meu Perfil">
-        <img src="<?php echo $avatar; ?>" alt="Avatar do Usuário">
-    </a>
-    <a href="index.php" class="logout-button" title="Sair">
-        <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
-    </a>
-</div>
-
-</header>
+        <div class="header-buttons">
+            <a href="View/usuario/editar.php" class="avatar" title="Meu Perfil">
+                <!-- Usando $foto_perfil para mostrar a imagem do avatar -->
+                <img src="<?php echo $foto_perfil; ?>" alt="Avatar do Usuário">
+            </a>
+            <a href="index.php" class="logout-button" title="Sair">
+                <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
+            </a>
+        </div>
+    </header>
 
     <main>
         <section class="imagem-destaque">
@@ -121,7 +127,7 @@ $avatar = isset($_SESSION['avatar']) ? $_SESSION['avatar'] : 'img/perfil.png';
     </div>
 
     <div class="botao-container">
-        <a href="todos-artigos.html" class="botao-artigo">Saiba Mais</a>
+        <a href="artigos.php" class="botao-artigo">Saiba Mais</a>
     </div>
 </section>
 
