@@ -55,38 +55,36 @@ class UsuarioController
         $this->verificarSessao();
         $usuarioModel = new Usuario($this->pdo);
         $usuario_id = $_SESSION['user_id'];
-
+    
         $usuarioAtual = $usuarioModel->buscarPorId($usuario_id);
-
+    
         $nome = $_POST['nome'] ?? $usuarioAtual['nome'];
         $email = $_POST['email'] ?? $usuarioAtual['email'];
         $senha = $_POST['senha'] ?? '';
         $sobre_mim = $_POST['sobre_mim'] ?? $usuarioAtual['sobre_mim'];
-
-        // Verifica se o e-mail já está sendo usado por outro
+    
         if ($usuarioModel->emailExisteParaOutroUsuario($email, $usuario_id)) {
             header("Location: View/usuario/editar.php?erro=email_duplicado");
             exit;
         }
-
-        if (trim($senha) === '') {
-            $senha = $usuarioAtual['senha'];
-        } else {
+    
+        if (trim($senha) !== '') {
             $senha = password_hash($senha, PASSWORD_DEFAULT);
+        } else {
+            $senha = $usuarioAtual['senha']; // Mantém a senha atual se não for fornecida uma nova
         }
-
+    
         $foto = null;
         if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
             $foto = file_get_contents($_FILES['foto']['tmp_name']);
         }
-
+    
         $usuarioModel->atualizar($usuario_id, $nome, $email, $senha, $sobre_mim, $foto);
-
+    
         header("Location: View/usuario/editar.php?success=1");
         exit;
     }
-
-    public function salvarSobreMim()
+        public function salvarSobreMim()
     {
         $this->verificarSessao();
         $usuarioModel = new Usuario($this->pdo);

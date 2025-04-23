@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Verifica se o usuário está logado
 if (!isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit();
@@ -10,12 +8,18 @@ if (!isset($_SESSION['user_id'])) {
 require_once 'C:\Turma2\xampp\htdocs\relacoes_internacionais\Controller\UsuarioController.php';
 require_once 'C:\Turma2\xampp\htdocs\relacoes_internacionais\config.php';
 
-// Cria uma instância do controlador de usuário e busca os dados do usuário
 $usuarioController = new UsuarioController($pdo);
 $usuario = $usuarioController->listarUsuarioPorID($_SESSION['user_id']);
 
-// Verifica se a foto de perfil existe e converte para base64, caso contrário, usa uma imagem padrão
-$foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . base64_encode($usuario['foto_perfil']) : '../img/perfil.png';
+if (!empty($usuario['foto_perfil'])) {
+    if (filter_var($usuario['foto_perfil'], FILTER_VALIDATE_URL) || file_exists($usuario['foto_perfil'])) {
+        $foto_perfil = $usuario['foto_perfil']; 
+    } else {
+        $foto_perfil = 'data:image/jpeg;base64,' . base64_encode($usuario['foto_perfil']);
+    }
+} else {
+    $foto_perfil = '../img/perfil.png'; 
+}
 
 $resultado = $_SESSION['resultado'] ?? null;
 
@@ -29,22 +33,34 @@ $mensagem = htmlspecialchars($resultado['mensagem']);
 $pontuacoes = $resultado['pontuacoes'] ?? [];
 $pontosFortes = $resultado['pontos_fortes'] ?? "Você demonstrou diversas qualidades positivas ao longo do teste.";
 
-// Validação da aptidão para a área
-$aptidao = '';
-$areaSugerida = '';
-if (isset($pontuacoes['A'], $pontuacoes['B'], $pontuacoes['C'], $pontuacoes['D'])) {
-    if ($pontuacoes['A'] > $pontuacoes['B'] && $pontuacoes['A'] > $pontuacoes['C'] && $pontuacoes['A'] > $pontuacoes['D']) {
-        $aptidao = 'Você é apto para atuar nesta área!';
-        $areaSugerida = 'Psicologia';
+// Mapeamento das letras para as áreas
+$areas = [
+    'A' => 'Psicologia',
+    'B' => 'Engenharia',
+    'C' => 'Direito',
+    'D' => 'Relações Internacionais'
+];
+
+$aptidao = 'Não foi possível determinar a aptidão para a área.';
+$areaSugerida = 'Indefinida';
+
+if (!empty($pontuacoes)) {
+    arsort($pontuacoes); // Ordena do maior para o menor
+    $chaveMaiorPontuacao = array_key_first($pontuacoes);
+    $maiorPontuacao = $pontuacoes[$chaveMaiorPontuacao];
+
+    $areaSugerida = $areas[$chaveMaiorPontuacao] ?? 'Área não mapeada';
+
+    // Verifica a diferença entre a maior e a segunda maior
+    $valores = array_values($pontuacoes);
+    if (count($valores) > 1 && ($valores[0] - $valores[1]) >= 2) {
+        $aptidao = "Você é muito apto para atuar na área de {$areaSugerida}!";
     } else {
-        $aptidao = 'Você não é totalmente apto para esta área.';
-        $areaSugerida = 'Gestão de Pessoas';
+        $aptidao = "Você apresenta alguma afinidade com a área de {$areaSugerida}.";
     }
-} else {
-    $aptidao = 'Não foi possível determinar a aptidão para a área.';
-    $areaSugerida = 'Indefinida';
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -52,7 +68,7 @@ if (isset($pontuacoes['A'], $pontuacoes['B'], $pontuacoes['C'], $pontuacoes['D']
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado do Teste</title>
-    <link rel="stylesheet" href="style.css"> <!-- Verifique se não há opacidade no body -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -97,17 +113,23 @@ if (isset($pontuacoes['A'], $pontuacoes['B'], $pontuacoes['C'], $pontuacoes['D']
         </div>
 
         <div class="caixas-resultado">
-            <div class="caixa conclusao">
-                <img src="../img/conclusao.png" alt="Conclusão" class="img-caixa">
-                <h3 class="titulo-caixa">Conclusão</h3>
-                <p class="texto-caixa"><?= $mensagem ?></p>
-            </div>
-            <div class="caixa pontos-fortes">
-                <img src="../img/fortes.png" alt="Pontos Fortes" class="img-caixa">
-                <h3 class="titulo-caixa">Pontos Fortes</h3>
-                <p class="texto-caixa"><?= $pontosFortes ?></p>
-            </div>
+    <div class="caixa-wrapper">
+        <img src="../img/bussola1.jpg" alt="Conclusão" class="img-caixa">
+        <div class="caixa conclusao">
+            <h3 class="titulo-caixa">Conclusão</h3>
+            <p class="texto-caixa"><?= $mensagem ?></p>
         </div>
+    </div>
+
+    <div class="caixa-wrapper">
+        <img src="../img/globoo1.jpg" alt="Pontos Fortes" class="img-caixa">
+        <div class="caixa pontos-fortes">
+            <h3 class="titulo-caixa">Pontos Fortes</h3>
+            <p class="texto-caixa"><?= $pontosFortes ?></p>
+        </div>
+    </div>
+</div>
+
 
         <div class="aptidao">
             <h3 class="aptidao-titulo"><?= $aptidao ?></h3>
@@ -121,10 +143,10 @@ if (isset($pontuacoes['A'], $pontuacoes['B'], $pontuacoes['C'], $pontuacoes['D']
     const chart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: <?= json_encode(array_keys($pontuacoes)) ?>,
+            labels: <?= json_encode(array_keys($pontuacoes)) ?>,  // Letras A, B, C, D
             datasets: [{
                 label: 'Quantidade de respostas',
-                data: <?= json_encode(array_values($pontuacoes)) ?>,
+                data: <?= json_encode(array_values($pontuacoes)) ?>,  // Quantidades de respostas
                 backgroundColor: 'rgba(255, 99, 132, 0.7)',  // Vermelho
                 borderColor: 'rgba(54, 162, 235, 1)', // Azul
                 borderWidth: 1

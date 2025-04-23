@@ -118,4 +118,5 @@ class TesteController {
     public function mostrarResultados($user_id) {
         return $this->testeModel->getResultadosUsuario($user_id);
     }
-}
+}   
+

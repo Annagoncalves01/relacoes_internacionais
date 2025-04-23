@@ -1,4 +1,5 @@
 <?php
+
 class ObjetivoModel {
     private $pdo;
 
@@ -7,14 +8,12 @@ class ObjetivoModel {
     }
 
     public function salvar($userId, $descricao, $prazo, $tipoPrazo) {
-        $sql = "INSERT INTO objetivos (user_id, descricao, prazo, tipo_prazo, created_at) 
-                VALUES (:user_id, :descricao, :prazo, :tipo_prazo, NOW())";
+        $sql = "INSERT INTO objetivos (user_id, descricao, prazo, tipo_prazo) VALUES (:user_id, :descricao, :prazo, :tipo_prazo)";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([
-            ':user_id' => $userId,
-            ':descricao' => $descricao,
-            ':prazo' => $prazo,
-            ':tipo_prazo' => $tipoPrazo
-        ]);
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->bindParam(':descricao', $descricao);
+        $stmt->bindParam(':prazo', $prazo);
+        $stmt->bindParam(':tipo_prazo', $tipoPrazo);
+        $stmt->execute();
     }
 }

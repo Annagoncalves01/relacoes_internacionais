@@ -620,7 +620,7 @@ body.perfil-body * {
 
 .formulario input,
 .formulario textarea {
-    width: 100%;
+    width: 400px;
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.1);
     border: none;
@@ -718,4 +718,7 @@ body.perfil-body * {
         gap: 10px;
         margin-top: 10px;
     }
+}
+a{
+    text-decoration: none;
 }

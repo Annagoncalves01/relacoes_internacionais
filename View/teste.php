@@ -8,7 +8,17 @@ require_once '../Controller/TesteController.php';
 require_once '../config.php'; // Arquivo de configuração para a conexão com o banco
 
 // Criando instância do controlador de Teste
-$controller = new TesteController($pdo);
+$testeController = new TesteController($pdo);
+
+// Verifica se o usuário já possui resultado
+$resultadoExistente = false;
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $resultados = $testeController->mostrarResultados($user_id);
+    if (!empty($resultados)) {
+        $resultadoExistente = true;
+    }
+}
 
 // Definindo o índice da pergunta
 $indice = isset($_GET['pergunta']) ? (int)$_GET['pergunta'] : 0;
@@ -71,6 +81,7 @@ if ($indice < count($perguntas)) {
 </header>
 
 <div class="main-content">
+   
     <div class="pergunta"><?= htmlspecialchars($pergunta) ?></div>
 
     <form method="POST" action="?pergunta=<?= $indice ?>">
@@ -109,7 +120,16 @@ if ($indice < count($perguntas)) {
                 <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
             </ul>
         </div>
-    </div>
+    </div> <?php if ($resultadoExistente): ?>
+        <div style="text-align:center; margin-bottom: 30px;">
+            <p>Você já realizou o teste anteriormente?</p>
+            <br>
+            <a href="testeinicio.php" class="botao" style="background-color:#800000; padding:10px 20px; color:white; text-decoration:none; border-radius:5px;">
+                Ver Resultado do Teste
+            </a>
+        </div>
+    <?php endif; ?>
+
     <div class="footer-bottom">
         <p>&copy; <?= date("Y") ?> Global Pathway | Anna Clara Gonçalves. Todos os direitos reservados.</p>
     </div>
@@ -121,10 +141,10 @@ if ($indice < count($perguntas)) {
 } else {
     if (isset($_SESSION['user_id'])) {
         $user_id = $_SESSION['user_id'];
-        $resultado = $controller->calcularResultadoFinal($user_id);
+        $resultado = $testeController->calcularResultadoFinal($user_id);
         $_SESSION['resultado'] = $resultado;
         unset($_SESSION['respostas'], $_SESSION['indice']);
-        header('Location: resultado_teste.php');
+        header('Location: testeinicio.php');
         exit;
     } else {
         echo "Usuário não autenticado.";

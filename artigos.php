@@ -35,7 +35,7 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
       <ul>
         <li><a href="#profissao">Sobre a Profissão</a></li>
         <li><a href="View/usuario/editar.php">Sobre Mim</a></li>
-        <li><a href="View/testeinicio.php">Teste de Personalidade</a></li>
+        <li><a href="View/teste.php">Teste de Personalidade</a></li>
       </ul>
     </nav>
     <div class="header-buttons">

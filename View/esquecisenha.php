@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -6,6 +13,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="login">
+<button id="dark-mode-toggle">🌙 Alternar Modo</button>
+
 <div class="login-wrapper">
         <div class="logo-container">
             <img src="../img/download.png" alt="Logo" class="logo">

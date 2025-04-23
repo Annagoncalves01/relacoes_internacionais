@@ -13,38 +13,32 @@ class Usuario {
     }
     
     
-    public function atualizar($id, $nome, $email, $senha, $sobre_mim, $foto) {
-        $campos = [];
-        $params = [];
+    public function atualizar($id, $nome, $email, $senha, $sobre_mim, $foto)
+    {
+        $sql = "UPDATE users SET nome = :nome, email = :email, senha = :senha, sobre_mim = :sobre_mim, updated_at = NOW()";
     
-        $campos[] = "nome = ?";
-        $params[] = $nome;
-    
-        $campos[] = "email = ?";
-        $params[] = $email;
-    
-        $campos[] = "sobre_mim = ?";
-        $params[] = $sobre_mim;
-    
-        // Senha já vem criptografada do controller, então só inclui
-        if (!empty($senha)) {
-            $campos[] = "senha = ?";
-            $params[] = $senha;
+        if ($foto !== null) {
+            $sql .= ", foto_perfil = :foto";
         }
     
-        // Foto só se for enviada nova
-        if (!is_null($foto)) {
-            $campos[] = "foto_perfil = ?";
-            $params[] = $foto;
-        }
+        $sql .= " WHERE id = :id";
     
-        $params[] = $id;
-    
-        $sql = "UPDATE users SET " . implode(', ', $campos) . " WHERE id = ?";
+        // Preparar a consulta
         $stmt = $this->pdo->prepare($sql);
     
-        return $stmt->execute($params);
+        $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':senha', $senha);
+        $stmt->bindParam(':sobre_mim', $sobre_mim);
+        if ($foto !== null) {
+            $stmt->bindParam(':foto', $foto);
+        }
+        $stmt->bindParam(':id', $id);
+    
+        // Executar a consulta
+        return $stmt->execute();
     }
+    
     public function atualizarSobreMim($id, $texto) {
         $sql = "UPDATE users SET sobre_mim = :texto, updated_at = NOW() WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);

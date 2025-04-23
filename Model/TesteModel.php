@@ -31,6 +31,19 @@ class TesteModel {
             'img/default.png'
         ]);
     }
+    public function usuarioJaFezTeste($user_id) {
+        $sql = "SELECT COUNT(*) FROM testes_realizados WHERE user_id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$user_id]);
+        return $stmt->fetchColumn() > 0;
+    }
+    
+    public function buscarResultadoAnterior($user_id) {
+        $sql = "SELECT resultado FROM testes_realizados WHERE user_id = ? ORDER BY id DESC LIMIT 1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$user_id]);
+        return $stmt->fetchColumn();
+    }
     public function salvarRespostaNoBanco($user_id, $pergunta_id, $letra) {
         // Buscar o ID da resposta pela letra
         $sql = "SELECT id FROM respostas WHERE pergunta_id = ? AND letra = ?";

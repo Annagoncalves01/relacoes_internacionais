@@ -1,23 +1,44 @@
 <?php
 session_start();
-require_once 'config.php';
-require_once 'Controller/PlanejamentoController.php';
 
-$planejamentoController = new PlanejamentoController($pdo);
-$user_id = $_SESSION['user_id'] ?? null;
+require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/config.php';
+require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Controller/PlanejamentoController.php';
 
-if ($user_id) {
-    $descricao_sonho = $_POST['descricao_sonho'] ?? [];
-    $acoes_atuais = $_POST['acoes_atuais'] ?? [];
-    $acoes_futuras = $_POST['acoes_futuras'] ?? [];
-
-    $objetivo_curto = $_POST['objetivo_curto'] ?? '';
-    $objetivo_medio = $_POST['objetivo_medio'] ?? '';
-    $objetivo_longo = $_POST['objetivo_longo'] ?? '';
-
-    $planejamentoController->salvarPlanejamento($user_id, $descricao_sonho, $acoes_atuais, $acoes_futuras, $objetivo_curto, $objetivo_medio, $objetivo_longo);
-
-    header("Location: planejamento.php?sucesso=1");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php");
     exit();
 }
-?>
+
+$planejamentoController = new PlanejamentoController($pdo);
+
+// Salvando sonhos
+if (isset($_POST['sonho_atual'])) {
+    foreach ($_POST['sonho_atual'] as $index => $descricao) {
+        $descricao = trim($descricao);
+        $acoesAtuais = trim($_POST['acoes_atuais'][$index]);
+        $acoesFuturas = trim($_POST['acoes_futuras'][$index]);
+        
+        if (!empty($descricao)) {
+            $planejamentoController->salvarSonhos($_SESSION['user_id'], [[
+                'descricao' => $descricao,
+                'acoes_atuais' => $acoesAtuais,
+                'acoes_futuras' => $acoesFuturas
+            ]]);
+        }
+    }
+}
+
+// Salvando objetivos
+if (isset($_POST['objetivos'])) {
+    foreach ($_POST['objetivos'] as $descricaoObjetivo) {
+        $descricaoObjetivo = trim($descricaoObjetivo);
+        
+        if (!empty($descricaoObjetivo)) {
+            $planejamentoController->salvarObjetivo($_SESSION['user_id'], $descricaoObjetivo, null, null);
+        }
+    }
+}
+
+// Depois de salvar, volta para planejamento
+header("Location: planejamento.php");
+exit();
