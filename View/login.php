@@ -1,9 +1,5 @@
 <?php
-
 session_start();
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +22,16 @@ session_start();
         </div>
         <div class="login-container">
             <div class="avatar"></div>
+
+            <!-- Mensagens de erro ou sucesso -->
+            <?php if (isset($_SESSION['erro'])): ?>
+                <div class="message error"><?php echo $_SESSION['erro']; unset($_SESSION['erro']); ?></div>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['success'])): ?>
+                <div class="message success"><?php echo $_SESSION['success']; unset($_SESSION['success']); ?></div>
+            <?php endif; ?>
+
             <form action="index.php?route=login" method="POST">
                 <div class="input-group">
                     <input type="email" id="email" name="email" placeholder="E-mail" required>
@@ -36,8 +42,8 @@ session_start();
                 <button type="submit" class="login-btn">
                     Entrar
                 </button>
-
             </form>
+
             <div class="links-container">
                 <a href="View/esquecisenha.php" class="forgot-password">Esqueceu a senha?</a>
                 <span class="divider">|</span>
@@ -51,15 +57,12 @@ session_start();
             const darkModeToggle = document.getElementById("dark-mode-toggle");
             const body = document.body;
 
-            // Verificar se há preferência salva
             if (localStorage.getItem("dark-mode") === "enabled") {
                 body.classList.add("dark-mode");
             }
 
             darkModeToggle.addEventListener("click", function () {
                 body.classList.toggle("dark-mode");
-
-                // Salvar a preferência do usuário
                 if (body.classList.contains("dark-mode")) {
                     localStorage.setItem("dark-mode", "enabled");
                 } else {

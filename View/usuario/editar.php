@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -44,20 +44,19 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
 <head>
     <meta charset="UTF-8">
     <title>Editar Perfil</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/relacoes_internacionais/View/usuario/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             document.querySelector(".formulario").addEventListener("submit", function(e) {
-                e.preventDefault();  // Impede o envio normal do formulário
+                e.preventDefault();
 
                 let formData = new FormData(this);
 
-                fetch("View/usuario/editar.php", {
-    method: "POST",
-    body: formData
-})
-
+                fetch("/relacoes_internacionais/View/usuario/editar.php", {
+                    method: "POST",
+                    body: formData
+                })
                 .then(response => response.text())
                 .then(data => {
                     document.querySelector(".perfil-conteudo").innerHTML = data;
@@ -70,14 +69,14 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
 <body class="perfil-body">
 <header class="header">
     <div class="header-logo">
-        <a href="../../site.php">
-            <img src="img/download.png" alt="Logotipo Global Pathway" style="height: 100px; max-height: 100%; object-fit: contain;">
+        <a href="/relacoes_internacionais/site.php">
+            <img src="/relacoes_internacionais/View/usuario/img/download.png" alt="Logotipo Global Pathway" style="height: 100px; max-height: 100%; object-fit: contain;">
         </a>
     </div>
     <nav class="navbar">
         <ul>
             <li><a href="#profissao">Sobre a Profissão</a></li>
-            <li><a href="View/usuario/editar.php">Sobre Mim</a></li>
+            <li><a href="editar.php">Sobre Mim</a></li>
             <li><a href="../teste.php">Teste de Personalidade</a></li>
         </ul>
     </nav>
@@ -85,7 +84,7 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
         <div class="avatar">
             <img src="<?= $foto_perfil; ?>" alt="Avatar do Usuário">
         </div>
-        <a href="../../index.php" class="logout-button" title="Sair">
+        <a href="/relacoes_internacionais/index.php" class="logout-button" title="Sair">
             <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
         </a>
     </div>
@@ -108,7 +107,7 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
             <p class="mensagem-sucesso"><?= $mensagem ?></p>
         <?php endif; ?>
 
-        <form class="formulario" action="editar.php" method="POST" enctype="multipart/form-data">
+        <form class="formulario" action="/relacoes_internacionais/View/usuario/editar.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
             <input type="file" name="foto" id="foto" style="display: none;">
 
@@ -140,7 +139,7 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
             <p><i class="fa-solid fa-envelope"></i> <span>contato@globalpathway.com</span></p>
         </div>
         <div class="footer-col logo">
-            <img src="img/download.png" alt="Logo Global Pathway" />
+            <img src="/relacoes_internacionais/View/usuario/img/download.png" alt="Logo Global Pathway" />
         </div>
         <div class="footer-col links">
             <h4>LINKS RÁPIDOS</h4>

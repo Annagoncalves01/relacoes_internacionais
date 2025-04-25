@@ -19,11 +19,11 @@ if (isset($_POST['sonho_atual'])) {
         $acoesFuturas = trim($_POST['acoes_futuras'][$index]);
         
         if (!empty($descricao)) {
-            $planejamentoController->salvarSonhos($_SESSION['user_id'], [[
+            $planejamentoController->salvarSonhos($_SESSION['user_id'], [
                 'descricao' => $descricao,
                 'acoes_atuais' => $acoesAtuais,
                 'acoes_futuras' => $acoesFuturas
-            ]]);
+            ]);
         }
     }
 }
@@ -39,6 +39,35 @@ if (isset($_POST['objetivos'])) {
     }
 }
 
-// Depois de salvar, volta para planejamento
+// Salvando autoconhecimento
+if (
+    isset($_POST['forcas_pessoais']) ||
+    isset($_POST['valores_pessoais']) ||
+    isset($_POST['habilidades']) ||
+    isset($_POST['interesses']) ||
+    isset($_POST['motivacoes']) ||
+    isset($_POST['ambiente_ideal']) ||
+    isset($_POST['pessoas_inspiradoras'])
+) {
+    $stmt = $pdo->prepare("
+        INSERT INTO autoconhecimento 
+        (user_id, forcas_pessoais, valores_pessoais, habilidades, interesses, 
+         motivacoes, ambiente_ideal, pessoas_inspiradoras, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())
+    ");
+
+    $stmt->execute([
+        $_SESSION['user_id'],
+        $_POST['forcas_pessoais'] ?? '',
+        $_POST['valores_pessoais'] ?? '',
+        $_POST['habilidades'] ?? '',
+        $_POST['interesses'] ?? '',
+        $_POST['motivacoes'] ?? '',
+        $_POST['ambiente_ideal'] ?? '',
+        $_POST['pessoas_inspiradoras'] ?? ''
+    ]);
+}
+
+// Redireciona após salvar
 header("Location: planejamento.php");
 exit();

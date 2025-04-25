@@ -2,44 +2,49 @@
 session_start();
 
 // Incluindo os arquivos necessários
-require_once '../Model/perguntas.php'; // Certifique-se de que este arquivo define o array $perguntas
+require_once 'C:\Turma2\xampp\htdocs\relacoes_internacionais\Controller\UsuarioController.php';
+require_once '../Model/perguntas.php';
 require_once '../Model/TesteModel.php';
 require_once '../Controller/TesteController.php';
-require_once '../config.php'; // Arquivo de configuração para a conexão com o banco
+require_once '../config.php';
 
-// Criando instância do controlador de Teste
-$testeController = new TesteController($pdo);
-
-// Verifica se o usuário já possui resultado
-$resultadoExistente = false;
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $resultados = $testeController->mostrarResultados($user_id);
-    if (!empty($resultados)) {
-        $resultadoExistente = true;
-    }
+// Verifica se o usuário está logado
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
 }
 
-// Definindo o índice da pergunta
+// Obtendo dados do usuário
+$usuarioController = new UsuarioController($pdo);
+$usuario = $usuarioController->listarUsuarioPorID($_SESSION['user_id']);
+$foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . base64_encode($usuario['foto_perfil']) : '../img/perfil.png';
+
+// Inicializa controlador do teste
+$testeController = new TesteController($pdo);
+
+// Verifica se o usuário já fez o teste
+$resultadoExistente = false;
+$user_id = $_SESSION['user_id'];
+$resultados = $testeController->mostrarResultados($user_id);
+if (!empty($resultados)) {
+    $resultadoExistente = true;
+}
+
+// Gerenciamento da lógica do teste
 $indice = isset($_GET['pergunta']) ? (int)$_GET['pergunta'] : 0;
 
-// Iniciando o array de respostas na sessão se não existir
 if (!isset($_SESSION['respostas'])) {
     $_SESSION['respostas'] = [];
 }
 
-// Registrando resposta e passando para a próxima pergunta
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['resposta'])) {
-    $resposta = $_POST['resposta'];
-    $_SESSION['respostas'][] = $resposta;
+    $_SESSION['respostas'][] = $_POST['resposta'];
     $indice++;
 }
 
-// Verificando se ainda há perguntas para exibir
 if ($indice < count($perguntas)) {
     $pergunta = $perguntas[$indice];
 
-    // Recuperando as alternativas da pergunta do banco de dados
     $sql = "SELECT texto FROM respostas WHERE pergunta_id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$indice + 1]);
@@ -72,7 +77,7 @@ if ($indice < count($perguntas)) {
     </nav>
     <div class="header-buttons">
         <a href="usuario/editar.php" class="avatar" title="Meu Perfil">
-            <img src="<?= isset($_SESSION['avatar']) ? $_SESSION['avatar'] : '../img/perfil.png'; ?>" alt="Avatar do Usuário">
+            <img src="<?= $foto_perfil ?>" alt="Avatar do Usuário">
         </a>
         <a href="../index.php" class="logout-button" title="Sair">
             <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>

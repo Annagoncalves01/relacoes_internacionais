@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Raleway:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Meow+Script&display=swap');
 
 * {
     margin: 0;
@@ -606,7 +607,7 @@ input[type="radio"][hidden] {
     padding: 20px;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
     width: 350px;
     color: white;
     transition: background 0.3s, transform 0.2s;
@@ -1224,6 +1225,7 @@ main {
 
   button:hover {
     background: linear-gradient(90deg, #cc0000, #110247);
+    color: #ffff;
   }
 
   #detalhesProfissao p {
@@ -1232,8 +1234,8 @@ main {
   }
   .titulo-pagina {
     text-align: center;
-    font-family: 'Brush Script MT', cursive;
-    font-size: 40px;
+    font-family: 'Meow Script', monospace, Arial, Helvetica, sans-serif;
+    font-size: 70px;
     margin-bottom: 20px;
     color: #000;
   }
@@ -1262,7 +1264,7 @@ main {
     color: #333;
   }
   
-  .aspiracao-bloco textarea {
+  .aspiracao-bloco p {
     width: 220px;
     height: 180px;
     border: 1px solid #555;
@@ -1275,6 +1277,7 @@ main {
   /* Reset básico */
   html, body {
     margin: 0;
+    background-color: #D9D9D9;
     padding: 0;
     overflow-x: hidden;
   }
@@ -1294,6 +1297,22 @@ main {
     flex-wrap: wrap;
     margin: 0 auto;
     box-sizing: border-box;
+  }
+  .btn-salvar {
+    padding: 10px 20px;
+    background: #a00;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .btn-salvar:hover {
+    background-color: #900; /* Cor mais escura no hover */
   }
   
   @media screen and (max-width: 1200px) {
@@ -1443,7 +1462,6 @@ main {
   
   .lista-profissoes {
     width: 100%;
-    height: 40px;
     padding-left: 35px;
     border: 1px solid red;
     text-align: center;
@@ -1586,3 +1604,340 @@ main {
     background: #f74e4e; 
     transform: scale(0.98); 
   }
+  .message {
+    text-align: center;
+    margin: 10px auto;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.message.error {
+    background-color: #ffd6d6;
+    color: #a70000;
+}
+
+.message.success {
+    background-color: #d6ffd6;
+    color: #007a00;
+}  .sessao-formulario-guiado {
+    background: linear-gradient(135deg, #e4dbdd, #f7c6d1);
+    padding: 40px;
+    border-radius: 20px;
+    max-width: 1000px;
+    margin: 40px auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    animation: aparecer 0.6s ease-out;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .sessao-formulario-guiado h2 {
+    width: 100%;
+    font-size: 2.2em;
+    color: #500000;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .sessao-formulario-guiado h3 {
+    width: 100%;
+    font-size: 1.4em;
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .campo-guiado {
+    flex: 1 1 calc(50% - 20px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sessao-formulario-guiado label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #222;
+  }
+
+  .sessao-formulario-guiado input,
+  .sessao-formulario-guiado textarea,
+  .sessao-formulario-guiado select {
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1em;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    background: #fff;
+  }
+
+  .sessao-formulario-guiado input:focus,
+  .sessao-formulario-guiado textarea:focus,
+  .sessao-formulario-guiado select:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    background-color: #fefefe;
+  }
+
+  .sessao-formulario-guiado select[multiple] {
+    height: auto;
+  }
+
+  @media (max-width: 768px) {
+    .campo-guiado {
+      flex: 1 1 100%;
+    }
+  }
+  .sessaos {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: linear-gradient(135deg, #f9f9f9, #eaeaea);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .sessaos h3 {
+    width: 100%;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .campo {
+    flex: 1 1 calc(50% - 20px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .campo label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+  }
+
+  .campo textarea {
+    resize: vertical;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    min-height: 100px;
+    background-color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  .campo textarea:focus {
+    border-color: #6d0000;
+    box-shadow: 0 0 8px rgb(155, 7, 7);
+    outline: none;
+    background-color: #fdfdfd;
+  }
+
+  @media (max-width: 768px) {
+    .campo {
+      flex: 1 1 100%;
+    }
+  }
+  .bloco-autoconhecer{
+    width: 450px; /* Aumentando a largura da caixa */
+    height: 320px; /* Aumentando a altura da caixa */
+    background-color: rgba(255, 255, 255, 0.541); /* Fundo branco com transparência */
+    padding: 20px 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-radius: 8px;
+    text-align: center;
+    backdrop-filter: blur(10px); /* Adicionando efeito de desfoque no fundo */
+  }  
+  
+  .campo-guiado-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .campo-guiado {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: calc(50% - 10px); /* Faz com que os campos fiquem lado a lado */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 2px solid #8B0000; /* Borda vermelha escura */
+  }
+
+  .campo-guiado:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-color: #b22222; /* Borda mais intensa ao passar o mouse */
+  }
+
+  h3 {
+    font-size: 1.4rem;
+    color: #8B0000; /* Vermelho escuro */
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase; /* Maiúsculas para mais impacto */
+  }
+
+  textarea,
+  input,
+  select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #8B0000; /* Borda vermelha escura mais suave */
+    font-size: 1.1rem;
+    color: #333;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    background-color: #fafafa; /* Fundo claro */
+    font-family: 'Arial', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+  }
+
+  textarea {
+    height: auto;
+  }
+
+  textarea:focus,
+  input:focus,
+  select:focus {
+    border-color: #b22222; /* Borda mais intensa ao focar */
+    outline: none;
+    box-shadow: 0 0 8px rgba(178, 34, 34, 0.6); /* Brilho suave */
+  }
+
+  select {
+    background-color: #fafafa;
+  }
+
+  .campo-guiado input::placeholder,
+  .campo-guiado textarea::placeholder {
+    color: #7f8c8d;
+    font-style: italic;
+  }
+
+  .campo-guiado .separador {
+    height: 1px;
+    background-color: #ecf0f1;
+    margin: 15px 0;
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .campo-guiado {
+      width: 100%;
+    }
+  }
+  select {
+    width: 100%;
+    border-radius: 6px;
+    border: 2px solid #8B0000; /* Borda vermelha escura */
+    font-size: 1.1rem;
+    color: #333;
+    background-color: #ffffff; /* Fundo branco */
+    cursor: pointer; /* Indica que é interativo */
+    font-family: 'Arial', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transição suave */
+  }
+
+  select:focus {
+    border-color: #b22222; /* Borda mais intensa ao focar */
+    outline: none;
+    box-shadow: 0 0 5px rgba(178, 34, 34, 0.6); /* Brilho suave */
+  }
+
+  select option {
+    background-color: #f5f5f5; /* Fundo para as opções */
+    color: #333;
+  }
+
+  select option:hover {
+    background-color: #e0e0e0; /* Destaque ao passar o mouse sobre as opções */
+  }
+
+  select:disabled {
+    background-color: #f0f0f0; /* Cor de fundo ao desabilitar */
+    border-color: #d3d3d3; /* Cor mais clara para borda desabilitada */
+    color: #b0b0b0; /* Texto mais claro para indicar que está desabilitado */
+  }
+  .table-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .table {
+    border-collapse: collapse;
+    max-width: 1200px;
+    background-color: #fff;
+  }
+  
+  .table th, .table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .table th {
+    background-color: #750000;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+  
+  .form-group {
+    margin-top: 20px;
+  }
+  
+  .btn-primary {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .form-group {
+    text-align: center; /* Centraliza o botão */
+    margin-top: 20px;
+  }
+  
+  .btn-primary {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #750000;
+    color: white;
+    border: 2px solid #750000;
+    border-radius: 5px;
+    transition: all 0.3s ease; /* Transição suave para os efeitos */
+  }
+  
+  .btn-primary:hover {
+    background-color: #a10000; /* Cor do fundo quando o botão é hover */
+    border-color: #a10000; /* Cor da borda no hover */
+    transform: scale(1.05); /* Efeito de aumentar o tamanho */
+  }
+  
+  .btn-primary:focus {
+    outline: none; /* Remove o contorno azul do botão ao focar */
+  }
+  .table, .btn-primary {
+    cursor: pointer;
+  }
+  

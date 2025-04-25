@@ -33,7 +33,6 @@ switch ($route) {
         }
         break;
 
-    // Recuperar senha
     case "resetPassword":
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $loginController->forgotPassword($_POST['email'], $_POST['newPassword']);
@@ -42,7 +41,6 @@ switch ($route) {
         }
         break;
 
-    // Logout
     case "logout":
         $loginController->logout();
         break;

@@ -35,10 +35,10 @@ $pontosFortes = $resultado['pontos_fortes'] ?? "Você demonstrou diversas qualid
 
 // Mapeamento das letras para as áreas
 $areas = [
-    'A' => 'Psicologia',
-    'B' => 'Engenharia',
+    'A' => 'Relações Internacionais',
+    'B' => 'Psicologia',
     'C' => 'Direito',
-    'D' => 'Relações Internacionais'
+    'D' => 'Gestor de Pessoas'
 ];
 
 $aptidao = 'Não foi possível determinar a aptidão para a área.';
@@ -70,6 +70,7 @@ if (!empty($pontuacoes)) {
     <title>Resultado do Teste</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -200,7 +201,7 @@ if (!empty($pontuacoes)) {
             <ul>
                 <li><a href="#profissao"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
                 <li><a href="teste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
-                <li><a href="#planejamento"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
+                <li><a href="planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
                 <li><a href="perfil.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
                 <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
             </ul>
