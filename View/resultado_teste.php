@@ -63,7 +63,7 @@ if (isset($pontuacoes['A'], $pontuacoes['B'], $pontuacoes['C'], $pontuacoes['D']
 <body class="teste">
     <header class="header">
         <div class="header-logo">
-            <a href="index.php">
+            <a href="../site.php">
                 <img src="../img/download.png" alt="Logotipo Global Pathway">
             </a>
         </div>
@@ -188,8 +188,8 @@ if (isset($pontuacoes['A'], $pontuacoes['B'], $pontuacoes['C'], $pontuacoes['D']
                     <li><a href="teste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
                     <li><a href="planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
                     <li><a href="../../View/usuario/editar.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
-                    <li><a href="../index.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
-                </ul>
+                    <li><a href="/relacoes_internacionais/index.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+                    </ul>
             </div>
         </div>
         <div class="footer-bottom">

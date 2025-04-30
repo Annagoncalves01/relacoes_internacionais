@@ -18,7 +18,12 @@ $foto_perfil = !empty($usuario['foto_perfil'])
 
 $planoacaoController = new PlanoAcaoController($pdo);
 
-// Se for POST, salvar metas e redirecionar
+// Deletar metas, se o botão for clicado
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deletar_metas'])) {
+  $planoacaoController->deletarMetas($_SESSION['user_id']);
+  header("Location: metas.php");
+  exit();
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $planoacaoController->salvarMetas($_SESSION['user_id'], $_POST);
     $_SESSION['salvar_metas'] = true;
@@ -49,22 +54,24 @@ if (isset($_SESSION['salvar_metas'])) {
 <body>
 <header class="header">
   <div class="header-logo">
-    <a href="index.php">
+    <a href="../site.php">
       <img src="../img/download.png" alt="Logotipo Global Pathway">
     </a>
   </div>
   <nav class="navbar">
     <ul>
-      <li><a href="#profissao">Sobre a Profissão</a></li>
+      <li><a href="../profissao.php">Sobre a Profissão</a></li>
       <li><a href="usuario/editar.php">Sobre Mim</a></li>
       <li><a href="teste.php">Teste de Personalidade</a></li>
+      <li><a href="planejamento.php">Planejamento do Futuro</a></li>
+
     </ul>
   </nav>
   <div class="header-buttons">
     <a href="usuario/editar.php" class="avatar" title="Meu Perfil">
       <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="Avatar do Usuário">
     </a>
-    <a href="logout.php" class="logout-button" title="Sair">
+    <a href="../index.php" class="logout-button" title="Sair">
       <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
     </a>
   </div>
@@ -136,6 +143,13 @@ if (isset($_SESSION['salvar_metas'])) {
                     </tr>
                 </thead>
                 <tbody>
+                <form action="" method="post" style="text-align: center; margin-top: 20px;">
+    <input type="hidden" name="deletar_metas" value="1">
+    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar todas as metas salvas?');">
+        <i class="fa-solid fa-trash"></i> Deletar Metas
+    </button>
+</form>
+
                     <?php foreach ($metasSalvas as $meta): ?>
                         <tr>
                             <td><?= htmlspecialchars($meta['area']) ?></td>
@@ -166,12 +180,12 @@ if (isset($_SESSION['salvar_metas'])) {
     <div class="footer-col links">
       <h4>LINKS RÁPIDOS</h4>
       <ul>
-        <li><a href="#profissao"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
+      <li><a href="../profissao.php"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
         <li><a href="teste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
         <li><a href="planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
         <li><a href="metas.php"><i class="fa-solid fa-bullseye"></i> Estabelecendo Metas</a></li>
         <li><a href="usuario/editar.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
-        <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+        <li><a href="/relacoes_internacionais/index.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
       </ul>
     </div>
   </div>

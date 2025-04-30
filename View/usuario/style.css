@@ -249,7 +249,7 @@ body * {
     object-fit: cover;
 }.header {
     background: linear-gradient(to right, #551616, #3a1012,  #020a35);
-    padding: 15px 5%;
+    padding: 5px 5%;
     display: flex;
     align-items: center;
     justify-content: space-between;

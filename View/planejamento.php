@@ -47,22 +47,24 @@ $aspiracoes = 'Quero alcançar a realização profissional e pessoal, explorando
 
 <header class="header">
   <div class="header-logo">
-    <a href="index.php">
+    <a href="../site.php">
       <img src="../img/download.png" alt="Logotipo Global Pathway">
     </a>
   </div>
   <nav class="navbar">
     <ul>
-      <li><a href="#profissao">Sobre a Profissão</a></li>
+      <li><a href="../profissao.php">Sobre a Profissão</a></li>
       <li><a href="usuario/editar.php">Sobre Mim</a></li>
       <li><a href="teste.php">Teste de Personalidade</a></li>
+      <li><a href="metas.php">Estabelecendo Metas</a></li>
+
     </ul>
   </nav>
   <div class="header-buttons">
     <a href="usuario/editar.php" class="avatar" title="Meu Perfil">
       <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="Avatar do Usuário">
     </a>
-    <a href="logout.php" class="logout-button" title="Sair">
+    <a href="../index.php" class="logout-button" title="Sair">
       <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
     </a>
   </div>
@@ -172,7 +174,9 @@ $aspiracoes = 'Quero alcançar a realização profissional e pessoal, explorando
     <div class="imagem-container">
       <img src="../img/relacoess.jpg" alt="Relações Internacionais">
       <div style="text-align: center; margin-top: 5px;">
-        <button class="botaos" type="button">PROFISSÃO</button>
+      <a href="../profissao.php">
+  <button class="botaos" type="button">PROFISSÃO</button>
+</a>
       </div>
     </div>
 
@@ -206,7 +210,7 @@ $aspiracoes = 'Quero alcançar a realização profissional e pessoal, explorando
         <li><a href="planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
         <li><a href="metas.php"><i class="fa-solid fa-bullseye"></i> Estabelecendo Metas</a></li>
         <li><a href="usuario/editar.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
-        <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+        <li><a href="/relacoes_internacionais/index.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
       </ul>
     </div>
   </div>

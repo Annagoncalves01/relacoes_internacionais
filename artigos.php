@@ -33,7 +33,7 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
     </div>
     <nav class="navbar">
       <ul>
-        <li><a href="#profissao">Sobre a Profissão</a></li>
+        <li><a href="profissao.php">Sobre a Profissão</a></li>
         <li><a href="View/usuario/editar.php">Sobre Mim</a></li>
         <li><a href="View/teste.php">Teste de Personalidade</a></li>
       </ul>
@@ -100,11 +100,12 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
       <div class="footer-col links">
         <h4>LINKS RÁPIDOS</h4>
         <ul>
-          <li><a href="#profissao"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
-          <li><a href="#teste"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
-          <li><a href="#planejamento"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
-          <li><a href="perfil.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
-          <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+        <li><a href="profissao.php"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
+        <li><a href="View/teste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
+        <li><a href="View/planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
+        <li><a href="View/metas.php"><i class="fa-solid fa-bullseye"></i> Estabelecendo Metas</a></li>
+        <li><a href="usuario/editar.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
+        <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
         </ul>
       </div>
     </div>

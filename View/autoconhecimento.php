@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Planejamento do Futuro</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-
 <?php 
 session_start();
 if (!isset($_SESSION['user_id'])) {
@@ -23,17 +13,33 @@ $usuario = $usuarioController->listarUsuarioPorID($_SESSION['user_id']);
 $foto_perfil = !empty($usuario['foto_perfil'])
     ? 'data:image/jpeg;base64,' . base64_encode($usuario['foto_perfil'])
     : '../img/perfil.png';
+
+// Buscar dados salvos de autoconhecimento
+$stmt = $pdo->prepare("SELECT * FROM autoconhecimento WHERE user_id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$planejamento = $stmt->fetch(PDO::FETCH_ASSOC) ?? [];
 ?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planejamento do Futuro</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
 
 <header class="header">
   <div class="header-logo">
-    <a href="index.php">
+    <a href="../site.php">
       <img src="../img/download.png" alt="Logotipo Global Pathway">
     </a>
   </div>
   <nav class="navbar">
     <ul>
-      <li><a href="#profissao">Sobre a Profissão</a></li>
+      <li><a href="../profissao.php">Sobre a Profissão</a></li>
       <li><a href="usuario/editar.php">Sobre Mim</a></li>
       <li><a href="teste.php">Teste de Personalidade</a></li>
     </ul>
@@ -42,7 +48,7 @@ $foto_perfil = !empty($usuario['foto_perfil'])
     <a href="usuario/editar.php" class="avatar" title="Meu Perfil">
       <img src="<?= htmlspecialchars($foto_perfil) ?>" alt="Avatar do Usuário">
     </a>
-    <a href="logout.php" class="logout-button" title="Sair">
+    <a href="../index.php" class="logout-button" title="Sair">
       <i class="fa-solid fa-right-from-bracket"></i> <span>Sair</span>
     </a>
   </div>
@@ -75,40 +81,22 @@ $foto_perfil = !empty($usuario['foto_perfil'])
     <div class="sessaos">
       <h3>Autoconhecimento</h3>
 
-      <div class="campo">
-        <label for="forcas_pessoais">Minhas Forças Pessoais</label>
-        <textarea name="forcas_pessoais" id="forcas_pessoais" placeholder="Descreva suas forças pessoais..."></textarea>
-      </div>
+      <?php
+      function campo($label, $name, $value = '', $placeholder = '') {
+          echo "<div class='campo'>
+              <label for='{$name}'>{$label}</label>
+              <textarea name='{$name}' id='{$name}' placeholder='{$placeholder}'>" . htmlspecialchars($value) . "</textarea>
+            </div>";
+      }
 
-      <div class="campo">
-        <label for="valores_pessoais">Meus Valores Pessoais</label>
-        <textarea name="valores_pessoais" id="valores_pessoais" placeholder="Descreva seus valores..."></textarea>
-      </div>
-
-      <div class="campo">
-        <label for="habilidades">Minhas Habilidades</label>
-        <textarea name="habilidades" id="habilidades" placeholder="Liste suas habilidades..."></textarea>
-      </div>
-
-      <div class="campo">
-        <label for="interesses">Meus Interesses</label>
-        <textarea name="interesses" id="interesses" placeholder="Descreva seus interesses..."></textarea>
-      </div>
-
-      <div class="campo">
-        <label for="motivacoes">O que me motiva?</label>
-        <textarea name="motivacoes" id="motivacoes" placeholder="Descreva suas motivações..."></textarea>
-      </div>
-
-      <div class="campo">
-        <label for="ambiente_ideal">Ambiente de trabalho ideal</label>
-        <textarea name="ambiente_ideal" id="ambiente_ideal" placeholder="Como seria o ambiente ideal de trabalho para você?"></textarea>
-      </div>
-
-      <div class="campo">
-        <label for="pessoas_inspiradoras">Pessoas que me inspiram</label>
-        <textarea name="pessoas_inspiradoras" id="pessoas_inspiradoras" placeholder="Quem são suas referências?"></textarea>
-      </div>
+      campo("Minhas Forças Pessoais", "forcas_pessoais", $planejamento['forcas_pessoais'] ?? '', "Descreva suas forças pessoais...");
+      campo("Meus Valores Pessoais", "valores_pessoais", $planejamento['valores_pessoais'] ?? '', "Descreva seus valores...");
+      campo("Minhas Habilidades", "habilidades", $planejamento['habilidades'] ?? '', "Liste suas habilidades...");
+      campo("Meus Interesses", "interesses", $planejamento['interesses'] ?? '', "Descreva seus interesses...");
+      campo("O que me motiva?", "motivacoes", $planejamento['motivacoes'] ?? '', "Descreva suas motivações...");
+      campo("Ambiente de trabalho ideal", "ambiente_ideal", $planejamento['ambiente_ideal'] ?? '', "Como seria o ambiente ideal de trabalho para você?");
+      campo("Pessoas que me inspiram", "pessoas_inspiradoras", $planejamento['pessoas_inspiradoras'] ?? '', "Quem são suas referências?");
+      ?>
     </div>
 
     <div style="text-align: center; margin: 20px 0;">
@@ -116,7 +104,7 @@ $foto_perfil = !empty($usuario['foto_perfil'])
     </div>
   </form>
 </main>
-<br><br><br>
+
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-col contatos">
@@ -130,12 +118,12 @@ $foto_perfil = !empty($usuario['foto_perfil'])
     <div class="footer-col links">
       <h4>LINKS RÁPIDOS</h4>
       <ul>
-        <li><a href="#profissao"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
+        <li><a href="../profissao.php"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
         <li><a href="teste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
         <li><a href="planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
         <li><a href="metas.php"><i class="fa-solid fa-bullseye"></i> Estabelecendo Metas</a></li>
         <li><a href="usuario/editar.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
-        <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+        <li><a href="/relacoes_internacionais/index.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
       </ul>
     </div>
   </div>
@@ -143,22 +131,6 @@ $foto_perfil = !empty($usuario['foto_perfil'])
     <p>&copy; <?= date("Y") ?> Global Pathway | Anna Clara Gonçalves. Todos os direitos reservados.</p>
   </div>
 </footer>
-
-<script>
-// Função para adicionar novos campos para os sonhos
-function adicionarSonho() {
-  const container = document.getElementById('sonhos-container');
-  const bloco = document.createElement('div');
-  bloco.classList.add('sonho-item');
-  bloco.style.marginBottom = '15px';
-  bloco.innerHTML = `
-    <input type="text" name="sonho_atual[]" placeholder="Sonho atual" style="width: 100%; margin-bottom: 5px;">
-    <textarea name="acoes_atuais[]" placeholder="O que já estou fazendo?" style="width: 100%; margin-bottom: 5px;"></textarea>
-    <textarea name="acoes_futuras[]" placeholder="O que ainda preciso fazer?" style="width: 100%;"></textarea>
-  `;
-  container.appendChild(bloco);
-}
-</script>
 
 </body>
 </html>
