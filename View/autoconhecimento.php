@@ -42,6 +42,9 @@ $planejamento = $stmt->fetch(PDO::FETCH_ASSOC) ?? [];
       <li><a href="../profissao.php">Sobre a Profissão</a></li>
       <li><a href="usuario/editar.php">Sobre Mim</a></li>
       <li><a href="teste.php">Teste de Personalidade</a></li>
+      <li><a href="planejamento.php">Planejamento</a></li>
+
+
     </ul>
   </nav>
   <div class="header-buttons">

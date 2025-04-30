@@ -162,7 +162,6 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
     <iframe width="560" height="315" src="https://www.youtube.com/embed/T7P3cERH9S0?si=9bK7VJCvQ4uh5MZk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 </section>
-
     <footer class="footer">
     <div class="footer-container">
         <div class="footer-col contatos">

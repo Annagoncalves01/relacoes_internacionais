@@ -16,6 +16,9 @@
 body {
     background-color: #f5e6e1;
     color: #333;
+    
+      overflow-x: hidden;
+    
 }
 
 .header {
@@ -708,7 +711,7 @@ header input:focus {
 }
 .slider {
     margin: 0 auto;
-    width: 1700px;
+    width: 1900px;
     height: 700px;
     overflow: hidden;
     position: relative;
@@ -738,7 +741,7 @@ header input:focus {
   }
   
   .slide img {
-    width: 1700px;
+    width: 2000px;
     height: 700px;
     object-fit: cover; /* ou "contain" se quiser a imagem inteira mesmo com bordas */
   }
@@ -884,8 +887,9 @@ header input:focus {
   .curso {
     width: 300px;
     border-radius: 10px;
+    border: 2px solid #6d0606;
     overflow: hidden;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 4px 15px rgba(126, 1, 1, 0.918);
     background-color: #fff;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeInUp 0.8s ease forwards;
@@ -912,7 +916,7 @@ header input:focus {
     height: 240px;
     object-fit: cover;
     display: block;
-    border-bottom: 2px solid #ff69b4;
+    border-bottom: 2px solid #6d0606;
   }
   
   .curso-texto {
@@ -1303,7 +1307,7 @@ header input:focus {
   box-shadow: 0 0 20px rgba(255,255,255,0.4);
 }
 body.profissao{
-  background-color: rgb(97, 4, 4);
+  background-color: rgb(73, 5, 5);
 }.carreiras-interativas {
   margin-top: 40px;
   max-width: 850px;
@@ -1380,6 +1384,7 @@ body.profissao{
   background-color: rgba(255, 255, 255, 0.05);
   padding: 20px;
   border-radius: 10px;
+  border: 1px solid floralwhite;
   border-left: 5px solid #6d0000;
   min-height: 60px;
   transition: all 0.4s ease-in-out;
@@ -1399,7 +1404,7 @@ body.profissao{
   max-width: 850px;
   margin: 0 auto 50px auto;
   background-color: rgba(255, 255, 255, 0.05);
-  padding: 30px;
+  padding: 30px;  border: 1px solid rgba(255, 250, 240, 0.548);
   border-radius: 15px;
   text-align: center;
   color: #ffffff;
@@ -1466,4 +1471,35 @@ hr {
   width: 50%; 
   border: 1px solid #ffffff; 
   margin: 20px auto; 
+}
+.citacao-kofi {
+  background-color: #f5e6e1;
+  padding: 40px 20px;
+  text-align: center;
+  margin: 40px auto;
+  border-top: 2px solid #ccc;
+}
+
+.citacao-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.imagem-kofi {
+  width: 150px;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+blockquote {
+  font-size: 1.2em;
+  font-style: italic;
+  color: #333;
+}
+
+blockquote footer {
+  margin-top: 10px;
+  font-size: 1em;
+  color: #666;
 }

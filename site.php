@@ -191,6 +191,15 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
     </div>
   </div>
 </section>
+<section class="citacao-kofi">
+  <div class="citacao-container">
+    <img src="img/kofi_annan.jpg" alt="Kofi Annan" class="imagem-kofi">
+    <blockquote>
+      <p>“A paz mundial depende do entendimento entre as nações, não da imposição de uma única cultura ou ideologia.”</p>
+      <footer>– Kofi Annan</footer>
+    </blockquote>
+  </div>
+</section>
 
 
     <footer class="footer">

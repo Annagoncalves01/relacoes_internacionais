@@ -1213,14 +1213,14 @@ main {
     max-width: 100%;
   }
   .sessao{
-    background-color: #ffffff;
+    background-color: #ececece0;
     padding: 30px 25px;
     border: 2px solid #9e0000; /* Borda adicionada */
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
     flex: 1;
     min-width: 320px;
-    width: 400px;
+    width: 500px;
     max-width: 90%;
     margin: 40px auto; /* Centraliza horizontalmente */
     text-align: center; /* Centraliza o conteúdo dentro */
