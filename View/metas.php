@@ -88,7 +88,7 @@ if (isset($_SESSION['salvar_metas'])) {
                 <thead>
                     <tr>
                         <th>Área</th>
-                        <th>Passo 1 (Ação)</th>
+                        <th>Passo (Ação)</th>
                         <th>Como irei fazer? (Detalhamento)</th>
                         <th>Prazo (Data limite)</th>
                     </tr>
@@ -109,9 +109,9 @@ if (isset($_SESSION['salvar_metas'])) {
                     foreach ($areas as $index => $area) {
                         echo "<tr>";
                         echo "<td>".htmlspecialchars($area)."</td>";
-                        echo "<td><input type='text' name='passo1[$index]' class='form-control'></td>";
-                        echo "<td><textarea name='detalhamento[$index]' class='form-control'></textarea></td>";
-                        echo "<td><input type='date' name='prazo[$index]' class='form-control'></td>";
+                        echo "<td><input type='text' name='passo1[$index]' class='input-preenchidoo'></td>";
+                        echo "<td><textarea name='detalhamento[$index]' class='input-preenchidoo'></textarea></td>";
+                        echo "<td><input type='date' name='prazo[$index]' class='input-preenchidoo'></td>";
                         echo "</tr>";
                     }
                     ?>

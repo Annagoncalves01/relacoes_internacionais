@@ -24,7 +24,7 @@ session_start();
             <div class="register-container">
                 <div class="avatar"></div>
                 <h2>Cadastro</h2>
-                <form action="../index.php?route=registerUser" method="POST">
+                <form action="../index.php" method="POST">
                     <div class="input-group">
                         <input type="text" name="name" placeholder="Nome Completo" required>
                     </div>
@@ -34,36 +34,54 @@ session_start();
                     <div class="input-group">
                         <input type="date" name="birthdate" required>
                     </div>
-                    <div class="input-group">
-                        <input type="password" name="password" placeholder="Senha" required>
-                    </div>
+                    <div class="input-group password-group">
+    <input type="password" id="newPassword" name="newPassword" placeholder="Nova senha" required>
+    <span id="togglePassword">👁️</span>
+</div>
                     <button type="submit" class="register-btn">Cadastrar</button>
                 </form>
                 <div class="links-container">
-                    <a href="../index.php?route=login" class="register-link">Já tem uma conta? Faça Login</a>
+                    <a href="../index.php" class="register-link">Já tem uma conta? Faça Login</a>
                 </div>
             </div>
         </div>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const darkModeToggle = document.getElementById("dark-mode-toggle");
-                const body = document.body;
+  
+          
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const darkModeToggle = document.getElementById("dark-mode-toggle");
+        const body = document.body;
 
-                if (localStorage.getItem("dark-mode") === "enabled") {
-                    body.classList.add("dark-mode");
-                }
+        if (localStorage.getItem("dark-mode") === "enabled") {
+            body.classList.add("dark-mode");
+        }
 
-                darkModeToggle.addEventListener("click", function () {
-                    body.classList.toggle("dark-mode");
-                    if (body.classList.contains("dark-mode")) {
-                        localStorage.setItem("dark-mode", "enabled");
-                    } else {
-                        localStorage.removeItem("dark-mode");
-                    }
-                });
+        darkModeToggle.addEventListener("click", function() {
+            body.classList.toggle("dark-mode");
+
+            if (body.classList.contains("dark-mode")) {
+                localStorage.setItem("dark-mode", "enabled");
+            } else {
+                localStorage.removeItem("dark-mode");
+            }
+        });
+
+        // === Mostrar/Ocultar senha ===
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordField = document.getElementById("newPassword");
+
+        if (togglePassword && passwordField) {
+            togglePassword.addEventListener("click", function () {
+                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+                passwordField.setAttribute("type", type);
+                this.textContent = type === "password" ? "👁️" : "👁️‍🗨️";
             });
-        </script>
+        }
+    });
+</script>
+
 </body>
 
 </html>

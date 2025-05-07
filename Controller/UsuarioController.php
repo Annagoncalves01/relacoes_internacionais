@@ -49,7 +49,6 @@ class UsuarioController
     {
         $this->mostrarSobreMim(); // reutiliza a função
     }
-
     public function atualizar()
     {
         $this->verificarSessao();
@@ -61,6 +60,7 @@ class UsuarioController
         $nome = $_POST['nome'] ?? $usuarioAtual['nome'];
         $email = $_POST['email'] ?? $usuarioAtual['email'];
         $senha = $_POST['senha'] ?? '';
+        $data_nascimento = $_POST['data_nascimento'] ?? $usuarioAtual['data_nascimento'];
         $sobre_mim = $_POST['sobre_mim'] ?? $usuarioAtual['sobre_mim'];
     
         if ($usuarioModel->emailExisteParaOutroUsuario($email, $usuario_id)) {
@@ -71,7 +71,7 @@ class UsuarioController
         if (trim($senha) !== '') {
             $senha = password_hash($senha, PASSWORD_DEFAULT);
         } else {
-            $senha = $usuarioAtual['senha']; // Mantém a senha atual se não for fornecida uma nova
+            $senha = $usuarioAtual['senha'];
         }
     
         $foto = null;
@@ -79,24 +79,13 @@ class UsuarioController
             $foto = file_get_contents($_FILES['foto']['tmp_name']);
         }
     
-        $usuarioModel->atualizar($usuario_id, $nome, $email, $senha, $sobre_mim, $foto);
+        // Agora inclui o data_nascimento corretamente
+        $usuarioModel->atualizar($usuario_id, $nome, $email, $senha, $data_nascimento, $sobre_mim, $foto);
     
         header("Location: View/usuario/editar.php?success=1");
         exit;
     }
-        public function salvarSobreMim()
-    {
-        $this->verificarSessao();
-        $usuarioModel = new Usuario($this->pdo);
-
-        $sobre_mim = $_POST['sobre_mim'] ?? '';
-
-        $usuarioModel->atualizarSobreMim($_SESSION['user_id'], $sobre_mim);
-
-        header("Location: index.php?sucesso=1");
-        exit;
-    }
-
+    
     public function atualizarSobreMim($id, $texto)
     {
         $sql = "UPDATE users SET sobre_mim = :texto, updated_at = NOW() WHERE id = :id";

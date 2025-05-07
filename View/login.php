@@ -10,6 +10,32 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="View/style.css">
+    <style>
+        .input-group {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            padding-right: -25%; /* Ajuste o valor para dar espaço ao ícone */
+            box-sizing: border-box;
+        }
+
+        #togglePassword {
+            position: absolute;
+            top: 50%;
+            right: -25%; /* Coloca o ícone à direita do campo */
+            transform: translateY(-50%); /* Alinha verticalmente */
+            background: none;
+            margin-top: -2%;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
 </head>
 
 <body class="login">
@@ -32,16 +58,15 @@ session_start();
                 <div class="message success"><?php echo $_SESSION['success']; unset($_SESSION['success']); ?></div>
             <?php endif; ?>
 
-            <form action="index.php?route=login" method="POST">
+            <form action="index.php" method="POST">
                 <div class="input-group">
                     <input type="email" id="email" name="email" placeholder="E-mail" required>
                 </div>
                 <div class="input-group">
                     <input type="password" id="password" name="password" placeholder="Senha" required>
+                    <button type="button" id="togglePassword">👁️</button>
                 </div>
-                <button type="submit" class="login-btn">
-                    Entrar
-                </button>
+                <button type="submit" class="login-btn">Entrar</button>
             </form>
 
             <div class="links-container">
@@ -68,6 +93,15 @@ session_start();
                 } else {
                     localStorage.removeItem("dark-mode");
                 }
+            });
+
+            const togglePassword = document.getElementById("togglePassword");
+            const passwordField = document.getElementById("password");
+
+            togglePassword.addEventListener("click", function () {
+                const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+                passwordField.setAttribute("type", type);
+                this.textContent = type === "password" ? "👁️" : "👁️‍🗨️";
             });
         });
     </script>

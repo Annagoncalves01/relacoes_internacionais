@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Meow+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rochester&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
     margin: 0;
@@ -43,7 +44,11 @@
     display: flex;
     gap: 20px;
 }
+h3{
+  font-family: Amargo, 'Courier New', Courier, monospace;
+  font-weight: bold;
 
+}
 .navbar a {
     text-decoration: none;
     padding: 6px 12px;
@@ -340,7 +345,29 @@ input:focus::placeholder {
 .botao:hover {
     background-color: #a53750;
 }
+.password-group {
+  position: relative;
+}
 
+.password-group input[type="password"],
+.password-group input[type="text"] {
+  width: 100%;
+  padding-right: 40px; /* espaço para o ícone */
+  box-sizing: border-box;
+}
+
+
+#togglePassword {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
 .footer {
     background: linear-gradient(to top, #3b1117); /* tons de azul escuro */
     color: white;
@@ -1152,7 +1179,7 @@ body.resultado {
 }
 
 .aptidao-titulo {
-    font-size: 2em; /* Aumentei o tamanho da fonte para dar mais destaque */
+    font-size: 2em; 
     color: #ffffff;
     margin-bottom: 16px;
     font-weight: 600;
@@ -1160,7 +1187,7 @@ body.resultado {
 }
 
 .aptidao-texto {
-    font-size: 1.2em; /* Aumentei o tamanho da fonte para mais clareza */
+    font-size: 22px; 
     color: #fefefe;
     font-weight: 400;
     line-height: 1.6;
@@ -1816,24 +1843,24 @@ main {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: calc(50% - 10px); /* Faz com que os campos fiquem lado a lado */
+    width: calc(50% - 10px); 
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    border: 2px solid #8B0000; /* Borda vermelha escura */
+    border: 2px solid #8B0000; 
   }
 
   .campo-guiado:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    border-color: #b22222; /* Borda mais intensa ao passar o mouse */
+    border-color: #b22222; 
   }
 
   h3 {
     font-size: 1.4rem;
-    color: #8B0000; /* Vermelho escuro */
+    color: #8B0000; 
     margin-bottom: 10px;
     text-align: center;
     font-weight: bold;
-    text-transform: uppercase; /* Maiúsculas para mais impacto */
+    text-transform: uppercase; 
   }
 
   textarea,
@@ -1842,9 +1869,8 @@ main {
     width: 100%;
     padding: 12px;
     border-radius: 6px;
-    border: 1px solid #8B0000; /* Borda vermelha escura mais suave */
+    border: 1px solid #8B0000; 
     font-size: 1.1rem;
-    color: #575757;
     margin-top: 5px;
     margin-bottom: 15px;
     font-family: 'Arial', sans-serif;
@@ -1862,7 +1888,17 @@ main {
     outline: none;
     box-shadow: 0 0 8px rgba(178, 34, 34, 0.6); /* Brilho suave */
   }
-
+  .input-preenchido {
+    color: #000000; /* Cor preta na fonte */
+  }
+  .input-preenchidoo {
+      color: #000;
+      font-size: 16px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    
   select {
     background-color: #fafafa;
   }
@@ -1983,4 +2019,12 @@ main {
   .table, .btn-primary {
     cursor: pointer;
   }
-  
+  .mensagem-container {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+.mensagem-container h1 {
+    margin-bottom: 20px;
+}

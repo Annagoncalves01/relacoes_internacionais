@@ -84,6 +84,12 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
       </div>
     </div>
   </section>
+  <div style="text-align: center; margin: 20px;">
+  <a href="site.php" class="btn-voltar">
+    <i class="fas fa-arrow-left"></i> Voltar para o Início
+  </a>
+</div>
+
 
   <footer class="footer">
     <div class="footer-container">

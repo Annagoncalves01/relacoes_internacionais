@@ -29,7 +29,7 @@ class LoginController
 
             if ($this->userModel->register($name, $email, $password, $birthdate)) {
                 $_SESSION["success"] = "Usuário cadastrado com sucesso!";
-                header("Location: index.php?route=login");
+                header("Location: index.php");
             } else {
                 $_SESSION["erro"] = "Erro ao cadastrar usuário.";
                 header("Location: view/cadastro.php");
@@ -46,7 +46,7 @@ class LoginController
 
             if (empty($email) || empty($password)) {
                 $_SESSION["erro"] = "Preencha todos os campos!";
-                header("Location: index.php?route=login");
+                header("Location: index.php?");
                 exit;
             }
 

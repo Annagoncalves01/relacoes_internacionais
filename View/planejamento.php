@@ -128,19 +128,20 @@ $aspiracoes = 'Quero alcançar a realização profissional e pessoal, explorando
   </div>
 
   <div class="campo-guiado">
-    <h3>Pontos Fortes</h3>
-    <input type="text" name="pontos_fortes" value="Organização, empatia, liderança" readonly>
-  </div>
+  <h3>Pontos Fortes</h3>
+  <input class="input-preenchido" type="text" name="pontos_fortes" value="Organização, empatia, liderança" readonly>
+</div>
 
-  <div class="campo-guiado">
-    <h3>Pontos Fracos</h3>
-    <input type="text" name="pontos_fracos" value="Impaciência, dificuldade em delegar tarefas" readonly>
-  </div>
+<div class="campo-guiado">
+  <h3>Pontos Fracos</h3>
+  <input class="input-preenchido" type="text" name="pontos_fracos" value="Impaciência, dificuldade em delegar tarefas" readonly>
+</div>
 
-  <div class="campo-guiado">
-    <h3>Meus Valores</h3>
-    <input type="text" name="meus_valores" value="Honestidade, respeito, responsabilidade" readonly>
-  </div>
+<div class="campo-guiado">
+  <h3>Meus Valores</h3>
+  <input class="input-preenchido" type="text" name="meus_valores" value="Honestidade, respeito, responsabilidade" readonly>
+</div>
+
 
   <div class="campo-guiado">
     <h3>Minhas Principais Aptidões</h3>

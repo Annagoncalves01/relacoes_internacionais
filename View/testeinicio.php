@@ -24,9 +24,24 @@ if (!empty($usuario['foto_perfil'])) {
 $resultado = $_SESSION['resultado'] ?? null;
 
 if (!$resultado) {
-    echo "Nenhum resultado encontrado.";
+    echo '
+        <div style="text-align: center; margin-top: 100px;">
+            <h2>Nenhum resultado encontrado.</h2>
+            <p>Você ainda não realizou o teste de personalidade.</p>
+            <a href="teste.php" style="
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 20px;
+                background-color: #007BFF;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+            ">Voltar para o Teste</a>
+        </div>
+    ';
     exit;
 }
+
 
 $tipo = htmlspecialchars($resultado['tipo']);
 $mensagem = htmlspecialchars($resultado['mensagem']);
@@ -101,7 +116,7 @@ if (!empty($pontuacoes)) {
 
 <div class="main-resultado">
     <div class="resultado-container">
-        <h1 class="titulo-resultado">Seu resultado: <?= $tipo ?></h1>
+    <h1 class="titulo-resultado">Seu resultado:</h1>
 
         <h2 class="subtitulo-resultado">Distribuição das respostas</h2>
         <ul class="lista-respostas">

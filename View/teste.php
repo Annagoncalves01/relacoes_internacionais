@@ -30,24 +30,36 @@ if (!empty($resultados)) {
     $resultadoExistente = true;
 }
 
-// Gerenciamento da lógica do teste
-$indice = isset($_GET['pergunta']) ? (int)$_GET['pergunta'] : 0;
-
+// Inicializa respostas se ainda não existirem
 if (!isset($_SESSION['respostas'])) {
     $_SESSION['respostas'] = [];
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['resposta'])) {
-    $_SESSION['respostas'][] = $_POST['resposta'];
-    $indice++;
+// Índice da pergunta
+$indice = isset($_GET['pergunta']) ? (int)$_GET['pergunta'] : 0;
+
+// Lógica de navegação e salvamento de resposta
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Salva a resposta da pergunta atual, se houver
+    if (isset($_POST['resposta'])) {
+        $_SESSION['respostas'][$indice] = $_POST['resposta'];
+    }
+
+    if (isset($_POST['acao']) && $_POST['acao'] === 'anterior') {
+        $indice = max(0, $indice - 1);
+    } elseif (isset($_POST['acao']) && $_POST['acao'] === 'proxima') {
+        $indice++;
+    }
 }
 
+
+// Verifica se ainda há perguntas para exibir
 if ($indice < count($perguntas)) {
     $pergunta = $perguntas[$indice];
 
     $sql = "SELECT texto FROM respostas WHERE pergunta_id = ?";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$indice + 1]);
+    $stmt->execute([$indice + 1]); // Ajuste aqui para pegar as respostas certas
     $alternativas = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $letras = ['A', 'B', 'C', 'D'];
 ?>
@@ -74,7 +86,6 @@ if ($indice < count($perguntas)) {
             <li><a href="usuario/editar.php">Sobre Mim</a></li>
             <li><a href="teste.php">Teste de Personalidade</a></li>
             <li><a href="planejamento.php">Planejamento</a></li>
-
         </ul>
     </nav>
     <div class="header-buttons">
@@ -88,23 +99,28 @@ if ($indice < count($perguntas)) {
 </header>
 
 <div class="main-content">
-   
     <div class="pergunta"><?= htmlspecialchars($pergunta) ?></div>
 
     <form method="POST" action="?pergunta=<?= $indice ?>">
-        <div class="respostas">
-            <?php foreach ($alternativas as $i => $alt): ?>
-                <input type="radio" id="resposta<?= $i ?>" name="resposta" value="<?= $letras[$i] ?>" required hidden>
-                <label class="resposta" for="resposta<?= $i ?>" data-letra="<?= $letras[$i] ?>">
-                    <?= htmlspecialchars($alt['texto']) ?>
-                </label>
-            <?php endforeach; ?>
-        </div>
+    <div class="respostas">
+        <?php foreach ($alternativas as $i => $alt): 
+            $letra = $letras[$i];
+            $respostaSelecionada = isset($_SESSION['respostas'][$indice]) && $_SESSION['respostas'][$indice] === $letra;
+        ?>
+            <input type="radio" id="resposta<?= $i ?>" name="resposta" value="<?= $letra ?>" <?= $respostaSelecionada ? 'checked' : '' ?> hidden>
+            <label class="resposta" for="resposta<?= $i ?>" data-letra="<?= $letra ?>">
+                <?= htmlspecialchars($alt['texto']) ?>
+            </label>
+        <?php endforeach; ?>
+    </div>
 
-        <div class="botao-container">
-            <button class="botao" type="submit">PRÓXIMA ➤</button>
-        </div>
-    </form>
+    <div class="botao-container" style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
+        <?php if ($indice > 0): ?>
+            <button class="botao" type="submit" name="acao" value="anterior">⬅ ANTERIOR</button>
+        <?php endif; ?>
+        <button class="botao" type="submit" name="acao" value="proxima">PRÓXIMA ➤</button>
+    </div>
+</form>
 </div>
 
 <footer class="footer">
@@ -120,14 +136,16 @@ if ($indice < count($perguntas)) {
         <div class="footer-col links">
             <h4>LINKS RÁPIDOS</h4>
             <ul>
-            <li><a href="../profissao.php"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
-        <li><a href="teste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
-        <li><a href="planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
-        <li><a href="metas.php"><i class="fa-solid fa-bullseye"></i> Estabelecendo Metas</a></li>
-        <li><a href="usuario/editar.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
-        <li><a href="/relacoes_internacionais/index.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+                <li><a href="../profissao.php"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
+                <li><a href="teste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
+                <li><a href="planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
+                <li><a href="metas.php"><i class="fa-solid fa-bullseye"></i> Estabelecendo Metas</a></li>
+                <li><a href="usuario/editar.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
+                <li><a href="/relacoes_internacionais/index.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+            </ul>
         </div>
-    </div> <?php if ($resultadoExistente): ?>
+    </div>
+    <?php if ($resultadoExistente): ?>
         <div style="text-align:center; margin-bottom: 30px;">
             <p>Você já realizou o teste anteriormente?</p>
             <br>

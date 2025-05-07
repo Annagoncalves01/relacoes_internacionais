@@ -2,7 +2,7 @@ body {
     margin: 0;
     font-family: 'Georgia', serif;
     background-image: url('mapa.png');
-    background-size: 120% auto; /* Aumenta a imagem */
+    background-size: 120% auto;
     background-repeat: no-repeat;
     background-position: center;
     background-color: #000;
@@ -18,7 +18,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(85, 48, 48, 0.5); /* vermelho escuro com 50% de opacidade */
+    background-color: rgba(85, 48, 48, 0.5);
     z-index: 0;
 }
 
@@ -34,10 +34,12 @@ body * {
     height: 100vh;
     gap: 40px;
     backdrop-filter: blur(3px);
+    padding: 20px;
+    flex-wrap: wrap; /* Para empilhar os elementos em telas pequenas */
+    text-align: center;
 }
 
 .avatar {
-    position: relative;
     border-radius: 50%;
     overflow: hidden;
     border: 4px solid #8B0000;
@@ -56,6 +58,7 @@ body * {
     width: 2px;
     height: 180px;
     background-color: rgba(255,255,255,0.3);
+    display: block;
 }
 
 .sobre-bloco {
@@ -64,20 +67,19 @@ body * {
     padding: 20px 30px;
     max-width: 400px;
     box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    width: 100%;
 }
 
 .sobre-bloco h2 {
     margin-top: 0;
     font-size: 28px;
     letter-spacing: 2px;
-    text-align: center;
     margin-bottom: 15px;
 }
 
 .sobre-bloco p {
     font-size: 17px;
     line-height: 1.6;
-    text-align: center;
 }
 
 .botao {
@@ -98,7 +100,7 @@ body * {
 }
 
 .footer {
-    background: linear-gradient(to top, #3b1117); /* tons de azul escuro */
+    background: linear-gradient(to top, #3b1117);
     color: white;
     padding: 40px 5% 20px;
     text-align: center;
@@ -122,7 +124,7 @@ body * {
 .footer-col h4 {
     margin-bottom: 15px;
     font-size: 18px;
-    color: #dabebf; /* azul claro */
+    color: #dabebf;
 }
 
 .footer-col p {
@@ -145,9 +147,9 @@ body * {
 }
 
 .footer-col.links ul {
-    list-style: disc; /* mostra as bolinhas */
-    padding-left: 20px; /* espaçamento da margem para mostrar o marcador */
-    text-align: left;   /* para alinhar o texto à esquerda */
+    list-style: disc;
+    padding-left: 20px;
+    text-align: left;
 }
 
 .footer-col.links a {
@@ -169,7 +171,38 @@ body * {
     color: #ccc;
 }
 
-/* Responsivo */
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 20px;
+        height: auto;
+        padding: 40px 10px;
+    }
+
+    .linha-vertical {
+        display: none;
+    }
+
+    .sobre-bloco {
+        max-width: 100%;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-col {
+        text-align: center;
+    }
+
+    .footer-col.links ul {
+        padding-left: 0;
+        list-style: none;
+    }
+}
+
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
@@ -624,6 +657,7 @@ body.perfil-body * {
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.1);
     border: none;
+    font-size: 17px;
     border-bottom: 1px solid #fff;
     color: #fff;
     margin-top: 5px;
@@ -640,7 +674,7 @@ body.perfil-body * {
 
 .botao-atualizar {
     margin-top: 25px;
-    background-color: #542f2f;
+    background-color: #6b0000;
     color: white;
     padding: 12px 25px;
     border: none;
@@ -651,8 +685,8 @@ body.perfil-body * {
 }
 
 .botao-atualizar:hover {
-    background-color: #7a4444;
-}
+    background-image: linear-gradient(45deg,#8b0000, #0c0549 );
+  }
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -663,7 +697,7 @@ body.perfil-body * {
     }
 
     .linha-vertical {
-        display: none; /* Oculta a linha separadora em telas pequenas */
+        display: none; 
     }
 
     .sobre-bloco {
@@ -721,4 +755,55 @@ body.perfil-body * {
 }
 a{
     text-decoration: none;
+}
+.dark-mode {
+    background: #121212;
+    color: #ffffff;
+}
+.dark-mode .login-container {
+    background: linear-gradient(to top, #222, #444);
+}
+.dark-mode input {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+.dark-mode button{
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+.dark-mode .login-btn {
+    background: linear-gradient(90deg, #444, #666);
+}
+#dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+}
+#dark-mode-toggle:hover {
+    background: #555;
+}
+.senha-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.senha-container input {
+    padding-right: 30px; /* Para deixar espaço para o ícone */
+}
+
+.eye-button {
+    position: absolute;
+    right: 10%;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
 }

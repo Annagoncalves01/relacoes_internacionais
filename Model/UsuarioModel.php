@@ -13,32 +13,37 @@ class Usuario {
     }
     
     
-    public function atualizar($id, $nome, $email, $senha, $sobre_mim, $foto)
-    {
-        $sql = "UPDATE users SET nome = :nome, email = :email, senha = :senha, sobre_mim = :sobre_mim, updated_at = NOW()";
-    
-        if ($foto !== null) {
-            $sql .= ", foto_perfil = :foto";
-        }
-    
-        $sql .= " WHERE id = :id";
-    
-        // Preparar a consulta
-        $stmt = $this->pdo->prepare($sql);
-    
-        $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senha);
-        $stmt->bindParam(':sobre_mim', $sobre_mim);
-        if ($foto !== null) {
-            $stmt->bindParam(':foto', $foto);
-        }
-        $stmt->bindParam(':id', $id);
-    
-        // Executar a consulta
-        return $stmt->execute();
+    public function atualizar($id, $nome, $email, $senha, $data_nascimento, $sobre_mim, $foto)
+{
+    $sql = "UPDATE users SET 
+                nome = :nome, 
+                email = :email, 
+                senha = :senha, 
+                data_nascimento = :data_nascimento, 
+                sobre_mim = :sobre_mim, 
+                updated_at = NOW()";
+
+    if ($foto !== null) {
+        $sql .= ", foto_perfil = :foto";
     }
-    
+
+    $sql .= " WHERE id = :id";
+
+    $stmt = $this->pdo->prepare($sql);
+
+    $stmt->bindParam(':nome', $nome);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':senha', $senha);
+    $stmt->bindParam(':data_nascimento', $data_nascimento);
+    $stmt->bindParam(':sobre_mim', $sobre_mim);
+    if ($foto !== null) {
+        $stmt->bindParam(':foto', $foto, PDO::PARAM_LOB);
+    }
+    $stmt->bindParam(':id', $id);
+
+    return $stmt->execute();
+}
+
     public function atualizarSobreMim($id, $texto) {
         $sql = "UPDATE users SET sobre_mim = :texto, updated_at = NOW() WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);

@@ -1,10 +1,10 @@
-<?php 
+<?php
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once 'C:\\Turma2\\xampp\\htdocs\\relacoes_internacionais\\Controller\\UsuarioController.php';
-require_once 'C:\\Turma2\\xampp\\htdocs\\relacoes_internacionais\\config.php';
+require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/Controller/UsuarioController.php';
+require_once 'C:/Turma2/xampp/htdocs/relacoes_internacionais/config.php';
 
 $usuarioController = new UsuarioController($pdo);
 $usuario = $usuarioController->listarUsuarioPorID($_SESSION['user_id']);
@@ -14,7 +14,7 @@ $mensagem = null;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
     $email = $_POST['email'];
-    $data_nascimento = $_POST['data_nascimento'];
+    $data_nascimento = $_POST['data_nascimento']; // Data de nascimento do formulário
     $sobre_mim = $_POST['sobre_mim'];
 
     $foto_perfil = $usuario['foto_perfil'];
@@ -24,20 +24,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $senha = $_POST['senha'];
     if (!empty($senha)) {
-        $senha = password_hash($senha, PASSWORD_DEFAULT);
+        $senha = password_hash($senha, PASSWORD_DEFAULT); // Criptografa a nova senha
     } else {
-        $senha = $usuario['senha'];
+        $senha = $usuario['senha']; // Mantém a senha anterior caso não tenha sido alterada
     }
 
+    // Atualiza os dados no banco de dados
     $usuarioController->atualizar($id, $email, $senha, $data_nascimento, $sobre_mim, $foto_perfil);
 
-    // Atualiza dados do usuário após edição
+    // Recarrega os dados do usuário após a atualização
     $usuario = $usuarioController->listarUsuarioPorID($_SESSION['user_id']);
     $mensagem = "Dados atualizados com sucesso!";
 }
 
 $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . base64_encode($usuario['foto_perfil']) : 'img/perfil.png';
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -120,11 +122,15 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
             <label>Data de Nascimento:</label>
             <input type="date" name="data_nascimento" value="<?= htmlspecialchars($usuario['data_nascimento']) ?>">
 
+            <!-- Exibe a senha atual como mascarado -->
             <label>Senha Atual:</label>
             <input type="password" value="********" disabled>
 
+            <!-- Campo para a nova senha -->
             <label>Atualizar Senha:</label>
-            <input type="password" name="senha" placeholder="Digite nova senha">
+            <div class="senha-container">
+                <input type="password" name="senha" id="senha" placeholder="Digite nova senha">
+            </div>
 
             <label>Sobre Mim:</label>
             <textarea name="sobre_mim" rows="4"><?= isset($usuario['sobre_mim']) ? htmlspecialchars($usuario['sobre_mim']) : '' ?></textarea>
@@ -133,7 +139,6 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
         </form>
     </div>
 </div>
-
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-col contatos">
@@ -160,5 +165,6 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
         <p>&copy; <?= date("Y"); ?> Global Pathway | Anna Clara Gonçalves. Todos os direitos reservados.</p>
     </div>
 </footer>
+
 </body>
 </html>
