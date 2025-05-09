@@ -31,13 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-// Verifica flag para exibir mensagem uma única vez
 $metasSalvas = $planoacaoController->buscarMetas($_SESSION['user_id']);
 $mensagemSucesso = false;
 
 if (isset($_SESSION['salvar_metas'])) {
     $mensagemSucesso = true;
-    unset($_SESSION['salvar_metas']); // remove a flag
+    unset($_SESSION['salvar_metas']); 
 }
 ?>
 
@@ -64,7 +63,6 @@ if (isset($_SESSION['salvar_metas'])) {
       <li><a href="usuario/editar.php">Sobre Mim</a></li>
       <li><a href="teste.php">Teste de Personalidade</a></li>
       <li><a href="planejamento.php">Planejamento do Futuro</a></li>
-
     </ul>
   </nav>
   <div class="header-buttons">

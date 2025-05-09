@@ -15,24 +15,27 @@ class LoginController
 
     public function register()
     {
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = trim($_POST['name'] ?? '');
             $email = trim($_POST['email'] ?? '');
             $password = trim($_POST['password'] ?? '');
             $birthdate = trim($_POST['birthdate'] ?? '');
+           
 
             if (empty($name) || empty($email) || empty($password) || empty($birthdate)) {
                 $_SESSION["erro"] = "Todos os campos são obrigatórios.";
-                header("Location: view/cadastro.php");
+                header("Location: View/cadastro.php");
                 exit;
             }
 
-            if ($this->userModel->register($name, $email, $password, $birthdate)) {
+            if ($this->userModel->register($name, $email, $password, $birthdate)) { 
+            
                 $_SESSION["success"] = "Usuário cadastrado com sucesso!";
                 header("Location: index.php");
             } else {
                 $_SESSION["erro"] = "Erro ao cadastrar usuário.";
-                header("Location: view/cadastro.php");
+                header("Location: View/cadastro.php");
             }
             exit;
         }

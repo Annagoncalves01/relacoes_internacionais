@@ -23,10 +23,11 @@ switch ($route) {
         }
         break;
 
-    // Cadastro
-    case "register":
     case "registerUser":
+
+        
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            
             $loginController->register();
         } else {
             require 'View/cadastro.php';

@@ -32,7 +32,7 @@ if (!$resultado) {
                 display: inline-block;
                 margin-top: 20px;
                 padding: 10px 20px;
-                background-color: #007BFF;
+                background-color:#007BFF;
                 color: white;
                 text-decoration: none;
                 border-radius: 5px;
@@ -60,7 +60,7 @@ $aptidao = 'Não foi possível determinar a aptidão para a área.';
 $areaSugerida = 'Indefinida';
 
 if (!empty($pontuacoes)) {
-    arsort($pontuacoes); // Ordena do maior para o menor
+    arsort($pontuacoes); 
     $chaveMaiorPontuacao = array_key_first($pontuacoes);
     $maiorPontuacao = $pontuacoes[$chaveMaiorPontuacao];
 
@@ -160,12 +160,12 @@ if (!empty($pontuacoes)) {
     const chart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: <?= json_encode(array_keys($pontuacoes)) ?>,  // Letras A, B, C, D
+            labels: <?= json_encode(array_keys($pontuacoes)) ?>,  
             datasets: [{
                 label: 'Quantidade de respostas',
-                data: <?= json_encode(array_values($pontuacoes)) ?>,  // Quantidades de respostas
-                backgroundColor: 'rgba(255, 99, 132, 0.7)',  // Vermelho
-                borderColor: 'rgba(54, 162, 235, 1)', // Azul
+                data: <?= json_encode(array_values($pontuacoes)) ?>,  
+                backgroundColor: 'rgba(255, 99, 132, 0.7)', 
+                borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
             }]
         },
@@ -205,7 +205,7 @@ if (!empty($pontuacoes)) {
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-col contatos">
-            <h4>CONTATOS</h4>
+            <h4>CONTATOS</h4>1
             <p><i class="fa-solid fa-phone"></i> <span>(11) 98765-4321</span></p>
             <p><i class="fa-solid fa-envelope"></i> <span>contato@globalpathway.com</span></p>
         </div>

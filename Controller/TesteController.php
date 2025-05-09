@@ -17,35 +17,50 @@ class TesteController {
     public function iniciarTeste() {
         $_SESSION['respostas'] = [];
         $_SESSION['perguntas_respondidas'] = [];
+
+        $user_id = $_SESSION['user_id'] ?? null;
+        if ($user_id) {
+            $teste_id = $this->testeModel->criarTeste($user_id);
+            $_SESSION['teste_id'] = $teste_id;
+        } else {
+            header("Location: /View/login.php");
+            exit;
+        }
+
         $_SESSION['indice'] = 0;
-        header("Location: /view/teste.php");
+        header("Location: /View/teste.php");
         exit;
     }
 
     public function responder($resposta) {
         if (!isset($_SESSION['respostas'])) $_SESSION['respostas'] = [];
         if (!isset($_SESSION['perguntas_respondidas'])) $_SESSION['perguntas_respondidas'] = [];
-    
-        // Limite de 10 perguntas
+
         if (count($_SESSION['respostas']) >= 10) {
             header("Location: /relacoes_internacionais/view/resultado_teste.php");
             exit;
         }
-    
-        // Encontrar próxima pergunta ainda não respondida
+
         foreach ($this->perguntas as $indice => $texto) {
             if (!in_array($indice, $_SESSION['perguntas_respondidas'])) {
                 $_SESSION['respostas'][] = $resposta;
                 $_SESSION['perguntas_respondidas'][] = $indice;
-    
-                $user_id = $_SESSION['user_id'] ?? null;
-                if ($user_id) {
-                    $this->testeModel->salvarRespostaNoBanco($user_id, $indice + 1, $resposta);
+
+                $teste_id = $_SESSION['teste_id'] ?? null;
+
+                // ⚠️ Cria novo teste_id se não existir (previne erro fatal)
+                if (!$teste_id && isset($_SESSION['user_id'])) {
+                    $teste_id = $this->testeModel->criarTeste($_SESSION['user_id']);
+                    $_SESSION['teste_id'] = $teste_id;
+                }
+
+                if ($teste_id) {
+                    $this->testeModel->salvarRespostaNoBanco($teste_id, $indice + 1, $resposta);
                 }
                 break;
             }
         }
-    
+
         if (count($_SESSION['respostas']) >= 10 || count($_SESSION['perguntas_respondidas']) >= count($this->perguntas)) {
             header("Location: /relacoes_internacionais/view/resultado_teste.php");
         } else {
@@ -53,11 +68,10 @@ class TesteController {
         }
         exit;
     }
-    
 
     public function getPerguntaAtual() {
         $respondidas = $_SESSION['perguntas_respondidas'] ?? [];
-    
+
         foreach ($this->perguntas as $indice => $pergunta) {
             if (!in_array($indice, $respondidas)) {
                 return [
@@ -66,12 +80,11 @@ class TesteController {
                 ];
             }
         }
-    
-        // Todas respondidas
+
         header("Location: /relacoes_internacionais/view/resultado_teste.php");
         exit;
     }
-    
+
     private function definirTipoPersonalidade($pontuacoes) {
         arsort($pontuacoes);
         return array_key_first($pontuacoes);
@@ -101,12 +114,22 @@ class TesteController {
         }
 
         $tipo = $this->definirTipoPersonalidade($pontuacoes);
-
         if (!$tipo) {
             throw new Exception("Não foi possível determinar o tipo dominante.");
         }
 
-        $this->testeModel->salvarResultado($user_id, $tipo, $respostas, $pontuacoes);
+        $teste_id = $_SESSION['teste_id'] ?? null;
+
+        if (!$teste_id && isset($_SESSION['user_id'])) {
+            $teste_id = $this->testeModel->criarTeste($_SESSION['user_id']);
+            $_SESSION['teste_id'] = $teste_id;
+        }
+
+        if (!$teste_id) {
+            throw new Exception("Teste ID não encontrado na sessão.");
+        }
+
+        $this->testeModel->salvarResultado($teste_id, $tipo, $respostas, $pontuacoes);
 
         return [
             'tipo' => $tipo,
@@ -118,5 +141,4 @@ class TesteController {
     public function mostrarResultados($user_id) {
         return $this->testeModel->getResultadosUsuario($user_id);
     }
-}   
-
+}

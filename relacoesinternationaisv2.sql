@@ -6,14 +6,16 @@
 -- Tempo de geração: 11/04/2025 às 15:18
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
-CREATE TABLE RELACOESINTENACIONAIS;
 
-USE RELACOESINTENACIONAIS;
+-- Criação do banco de dados com nome correto
+DROP DATABASE IF EXISTS relacoes_internacionais;
+CREATE DATABASE relacoes_internacionais;
+
+USE relacoes_internacionais;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,6 +25,34 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `relacoes_internacionais`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `data_nascimento` date DEFAULT NULL,
+  `sobre_mim` text DEFAULT NULL,
+  `foto_perfil` longblob DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `users`
+--
+
+INSERT INTO `users` (`id`, `nome`, `email`, `senha`, `data_nascimento`, `sobre_mim`, `foto_perfil`, `created_at`, `updated_at`) VALUES
+(1, 'Anna Clara Gonçalves de Oliveira', 'annaclaragoliveir08@gmail.com', '$2y$10$navoHnNGDkapEfHxvCkoyudY2dtKFbXz7ZdiFuMXT8G8TJ2ytvVju', '2025-04-09', NULL, NULL, '2025-04-09 10:31:00', '2025-04-09 11:32:08'),
+(7, 'Anna Clara Gonçalves de Oliveira', 'usuario@exemplo.com', '$2y$10$hf2nE7PoLQ0CsF93h0kSnOz2l.Wq4iHOwpWHKrk4THqMJITvG/4sC', '2025-04-09', NULL, NULL, '2025-04-09 11:26:06', '2025-04-09 11:26:06'),
+(8, 'Luan santana', 'luan@gmail.com', '$2y$10$rcXtKRpUg9QAfio84XdQ7u1fz.iJHcEen7U2YSP7rarqR3JSPgrXm', '2025-04-09', NULL, NULL, '2025-04-09 11:42:52', '2025-04-09 11:43:14'),
+(9, 'Sara Ajala Silva', 'sara@gmail.com', '$2y$10$DZyWLQK6ytyQM2.KTyVBRuSFPkCX3v5mdnekl2ADdn4.BveCrwanm', '2025-04-09', NULL, NULL, '2025-04-09 11:43:47', '2025-04-09 11:44:04');
 
 -- --------------------------------------------------------
 
@@ -70,38 +100,6 @@ INSERT INTO `perguntas` (`id`, `texto`) VALUES
 (13, 'Como você se sente ao estudar história e teoria da arte e arquitetura?'),
 (14, 'Você gosta de experimentar diferentes estilos estéticos em seus projetos ou criações?'),
 (15, 'Se tivesse que projetar uma casa dos sonhos, o que mais te empolgaria?');
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `plano_acao`
---
-
-CREATE TABLE `plano_acao` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `area` enum('Relacionamento Familiar','Estudos','Saúde','Futura Profissão','Religião','Amigos','Namorado(a)','Comunidade','Tempo Livre') DEFAULT NULL,
-  `passo` int(11) DEFAULT NULL,
-  `descricao` text DEFAULT NULL,
-  `prazo` date DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `profissoes`
---
-
-CREATE TABLE `profissoes` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `descricao` text DEFAULT NULL,
-  `areas_atuacao` text DEFAULT NULL,
-  `salario_medio` decimal(10,2) DEFAULT NULL,
-  `relacoes_internacionais_relevancia` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -184,51 +182,6 @@ INSERT INTO `respostas` (`id`, `pergunta_id`, `texto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `respostas_autoconhecimento`
---
-
-CREATE TABLE `respostas_autoconhecimento` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `pergunta` text DEFAULT NULL,
-  `resposta` text DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `resultados`
---
-
-CREATE TABLE `resultados` (
-  `id` int(11) NOT NULL,
-  `teste_id` int(11) NOT NULL,
-  `resultado` varchar(255) NOT NULL,
-  `interpretacao` text NOT NULL,
-  `imagem_resultado` varchar(255) NOT NULL,
-  `data_resultado` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `sonhos`
---
-
-CREATE TABLE `sonhos` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `descricao` text DEFAULT NULL,
-  `acoes_atuais` text DEFAULT NULL,
-  `acoes_futuras` text DEFAULT NULL,
-  `area_relacoes_internacionais` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estrutura para tabela `testes`
 --
 
@@ -250,6 +203,83 @@ CREATE TABLE `testes_realizados` (
   `pergunta_id` int(11) NOT NULL,
   `resposta_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `resultados`
+--
+
+CREATE TABLE `resultados` (
+  `id` int(11) NOT NULL,
+  `teste_id` int(11) NOT NULL,
+  `resultado` varchar(255) NOT NULL,
+  `interpretacao` text NOT NULL,
+  `imagem_resultado` varchar(255) NOT NULL,
+  `data_resultado` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `plano_acao`
+--
+
+CREATE TABLE `plano_acao` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `area` enum('Relacionamento Familiar','Estudos','Saúde','Futura Profissão','Religião','Amigos','Namorado(a)','Comunidade','Tempo Livre') DEFAULT NULL,
+  `passo` int(11) DEFAULT NULL,
+  `descricao` text DEFAULT NULL,
+  `prazo` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `profissoes`
+--
+
+CREATE TABLE `profissoes` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `descricao` text DEFAULT NULL,
+  `areas_atuacao` text DEFAULT NULL,
+  `salario_medio` decimal(10,2) DEFAULT NULL,
+  `relacoes_internacionais_relevancia` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `respostas_autoconhecimento`
+--
+
+CREATE TABLE `respostas_autoconhecimento` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `pergunta` text DEFAULT NULL,
+  `resposta` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `sonhos`
+--
+
+CREATE TABLE `sonhos` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `descricao` text DEFAULT NULL,
+  `acoes_atuais` text DEFAULT NULL,
+  `acoes_futuras` text DEFAULT NULL,
+  `area_relacoes_internacionais` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -290,34 +320,15 @@ CREATE TABLE `teste_personalidade_relacoes_internacionais` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `senha` varchar(255) NOT NULL,
-  `data_nascimento` date DEFAULT NULL,
-  `sobre_mim` text DEFAULT NULL,
-  `foto_perfil` longblob DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `users`
---
-
-INSERT INTO `users` (`id`, `nome`, `email`, `senha`, `data_nascimento`, `sobre_mim`, `foto_perfil`, `created_at`, `updated_at`) VALUES
-(1, 'Anna Clara Gonçalves de Oliveira', 'annaclaragoliveir08@gmail.com', '$2y$10$navoHnNGDkapEfHxvCkoyudY2dtKFbXz7ZdiFuMXT8G8TJ2ytvVju', '2025-04-09', NULL, NULL, '2025-04-09 10:31:00', '2025-04-09 11:32:08'),
-(7, 'Anna Clara Gonçalves de Oliveira', 'usuario@exemplo.com', '$2y$10$hf2nE7PoLQ0CsF93h0kSnOz2l.Wq4iHOwpWHKrk4THqMJITvG/4sC', '2025-04-09', NULL, NULL, '2025-04-09 11:26:06', '2025-04-09 11:26:06'),
-(8, 'Luan santana', 'luan@gmail.com', '$2y$10$rcXtKRpUg9QAfio84XdQ7u1fz.iJHcEen7U2YSP7rarqR3JSPgrXm', '2025-04-09', NULL, NULL, '2025-04-09 11:42:52', '2025-04-09 11:43:14'),
-(9, 'Sara Ajala Silva', 'sara@gmail.com', '$2y$10$DZyWLQK6ytyQM2.KTyVBRuSFPkCX3v5mdnekl2ADdn4.BveCrwanm', '2025-04-09', NULL, NULL, '2025-04-09 11:43:47', '2025-04-09 11:44:04');
-
---
 -- Índices para tabelas despejadas
 --
+
+--
+-- Índices de tabela `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Índices de tabela `objetivos`
@@ -333,6 +344,36 @@ ALTER TABLE `perguntas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices de tabela `respostas`
+--
+ALTER TABLE `respostas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pergunta_id` (`pergunta_id`);
+
+--
+-- Índices de tabela `testes`
+--
+ALTER TABLE `testes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Índices de tabela `testes_realizados`
+--
+ALTER TABLE `testes_realizados`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `teste_id` (`teste_id`),
+  ADD KEY `pergunta_id` (`pergunta_id`),
+  ADD KEY `resposta_id` (`resposta_id`);
+
+--
+-- Índices de tabela `resultados`
+--
+ALTER TABLE `resultados`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `teste_id` (`teste_id`);
+
+--
 -- Índices de tabela `plano_acao`
 --
 ALTER TABLE `plano_acao`
@@ -346,12 +387,6 @@ ALTER TABLE `profissoes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `respostas`
---
-ALTER TABLE `respostas`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Índices de tabela `respostas_autoconhecimento`
 --
 ALTER TABLE `respostas_autoconhecimento`
@@ -359,29 +394,11 @@ ALTER TABLE `respostas_autoconhecimento`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Índices de tabela `resultados`
---
-ALTER TABLE `resultados`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Índices de tabela `sonhos`
 --
 ALTER TABLE `sonhos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
-
---
--- Índices de tabela `testes`
---
-ALTER TABLE `testes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices de tabela `testes_realizados`
---
-ALTER TABLE `testes_realizados`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `teste_inteligencias`
@@ -398,15 +415,14 @@ ALTER TABLE `teste_personalidade_relacoes_internacionais`
   ADD KEY `user_id` (`user_id`);
 
 --
--- Índices de tabela `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
 -- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `objetivos`
@@ -421,6 +437,30 @@ ALTER TABLE `perguntas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT de tabela `respostas`
+--
+ALTER TABLE `respostas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
+-- AUTO_INCREMENT de tabela `testes`
+--
+ALTER TABLE `testes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `testes_realizados`
+--
+ALTER TABLE `testes_realizados`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `resultados`
+--
+ALTER TABLE `resultados`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `plano_acao`
 --
 ALTER TABLE `plano_acao`
@@ -433,39 +473,15 @@ ALTER TABLE `profissoes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `respostas`
---
-ALTER TABLE `respostas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
---
 -- AUTO_INCREMENT de tabela `respostas_autoconhecimento`
 --
 ALTER TABLE `respostas_autoconhecimento`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `resultados`
---
-ALTER TABLE `resultados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de tabela `sonhos`
 --
 ALTER TABLE `sonhos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `testes`
---
-ALTER TABLE `testes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `testes_realizados`
---
-ALTER TABLE `testes_realizados`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -481,12 +497,6 @@ ALTER TABLE `teste_personalidade_relacoes_internacionais`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
 -- Restrições para tabelas despejadas
 --
 
@@ -495,6 +505,32 @@ ALTER TABLE `users`
 --
 ALTER TABLE `objetivos`
   ADD CONSTRAINT `objetivos_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Restrições para tabelas `respostas`
+--
+ALTER TABLE `respostas`
+  ADD CONSTRAINT `respostas_ibfk_1` FOREIGN KEY (`pergunta_id`) REFERENCES `perguntas` (`id`) ON DELETE CASCADE;
+
+--
+-- Restrições para tabelas `testes`
+--
+ALTER TABLE `testes`
+  ADD CONSTRAINT `testes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Restrições para tabelas `testes_realizados`
+--
+ALTER TABLE `testes_realizados`
+  ADD CONSTRAINT `testes_realizados_ibfk_1` FOREIGN KEY (`teste_id`) REFERENCES `testes` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `testes_realizados_ibfk_2` FOREIGN KEY (`pergunta_id`) REFERENCES `perguntas` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `testes_realizados_ibfk_3` FOREIGN KEY (`resposta_id`) REFERENCES `respostas` (`id`) ON DELETE CASCADE;
+
+--
+-- Restrições para tabelas `resultados`
+--
+ALTER TABLE `resultados`
+  ADD CONSTRAINT `resultados_ibfk_1` FOREIGN KEY (`teste_id`) REFERENCES `testes` (`id`) ON DELETE CASCADE;
 
 --
 -- Restrições para tabelas `plano_acao`
@@ -525,6 +561,7 @@ ALTER TABLE `teste_inteligencias`
 --
 ALTER TABLE `teste_personalidade_relacoes_internacionais`
   ADD CONSTRAINT `teste_personalidade_relacoes_internacionais_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

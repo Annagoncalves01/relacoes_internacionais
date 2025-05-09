@@ -58,16 +58,17 @@ session_start();
                 <div class="message success"><?php echo $_SESSION['success']; unset($_SESSION['success']); ?></div>
             <?php endif; ?>
 
-            <form action="index.php" method="POST">
-                <div class="input-group">
-                    <input type="email" id="email" name="email" placeholder="E-mail" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="password" name="password" placeholder="Senha" required>
-                    <button type="button" id="togglePassword">👁️</button>
-                </div>
-                <button type="submit" class="login-btn">Entrar</button>
-            </form>
+            <form action="index.php?acao=login" method="POST">
+    <div class="input-group">
+        <input type="email" id="email" name="email" placeholder="E-mail" required>
+    </div>
+    <div class="input-group">
+        <input type="password" id="password" name="password" placeholder="Senha" required>
+        <button type="button" id="togglePassword">👁️</button>
+    </div>
+    <button type="submit" class="login-btn">Entrar</button>
+</form>
+
 
             <div class="links-container">
                 <a href="View/esquecisenha.php" class="forgot-password">Esqueceu a senha?</a>
