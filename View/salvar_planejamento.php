@@ -101,9 +101,9 @@ $pessoas_inspiradoras = $autoconhecimento['pessoas_inspiradoras'] ?? '';
   </div>
   <nav class="navbar">
     <ul>
-      <li><a href="#profissao">Sobre a Profissão</a></li>
+      <li><a href="../profissao.php">Sobre a Profissão</a></li>
       <li><a href="usuario/editar.php">Sobre Mim</a></li>
-      <li><a href="teste.php">Teste de Personalidade</a></li>
+      <li><a href="inicioteste.php">Teste de Personalidade</a></li>
     </ul>
   </nav>
   <div class="header-buttons">

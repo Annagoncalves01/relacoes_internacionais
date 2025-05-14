@@ -41,7 +41,7 @@ $planejamento = $stmt->fetch(PDO::FETCH_ASSOC) ?? [];
     <ul>
       <li><a href="../profissao.php">Sobre a Profissão</a></li>
       <li><a href="usuario/editar.php">Sobre Mim</a></li>
-      <li><a href="teste.php">Teste de Personalidade</a></li>
+      <li><a href="inicioteste.php">Teste de Personalidade</a></li>
       <li><a href="planejamento.php">Planejamento</a></li>
 
 
@@ -122,7 +122,7 @@ $planejamento = $stmt->fetch(PDO::FETCH_ASSOC) ?? [];
       <h4>LINKS RÁPIDOS</h4>
       <ul>
         <li><a href="../profissao.php"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
-        <li><a href="teste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
+        <li><a href="inicioteste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
         <li><a href="planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
         <li><a href="metas.php"><i class="fa-solid fa-bullseye"></i> Estabelecendo Metas</a></li>
         <li><a href="usuario/editar.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>

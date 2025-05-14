@@ -21,43 +21,6 @@ $foto_perfil = !empty($usuario['foto_perfil']) ? 'data:image/jpeg;base64,' . bas
 $testeController = new TesteController($pdo);
 $resultados = $testeController->mostrarResultados($user_id);
 $resultadoExistente = !empty($resultados);
-
-if (!isset($_SESSION['respostas'])) {
-    $_SESSION['respostas'] = [];
-}
-
-$indice = isset($_GET['pergunta']) ? (int)$_GET['pergunta'] : 0;
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['acao'])) {
-        if ($_POST['acao'] === 'anterior') {
-            $indice = max(0, $indice - 1);
-        } elseif ($_POST['acao'] === 'proxima') {
-            if (!isset($_POST['resposta'])) {
-                echo "<script>alert('Por favor, selecione uma resposta antes de continuar.');</script>";
-            } else {
-                $_SESSION['respostas'][$indice] = $_POST['resposta'];
-                $indice++;
-            }
-        }
-    }
-}
-
-// Se já respondeu todas as perguntas
-if ($indice >= count($perguntas)) {
-    $resultado = $testeController->calcularResultadoFinal($user_id);
-    $_SESSION['resultado'] = $resultado;
-    unset($_SESSION['respostas'], $_SESSION['indice']);
-    header('Location: testeinicio.php');
-    exit;
-}
-
-$pergunta = $perguntas[$indice];
-$sql = "SELECT texto FROM respostas WHERE pergunta_id = ?";
-$stmt = $pdo->prepare($sql);
-$stmt->execute([$indice + 1]);
-$alternativas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$letras = ['A', 'B', 'C', 'D'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -67,8 +30,9 @@ $letras = ['A', 'B', 'C', 'D'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
 </head>
-<body>
+<body class="teste">
 
 <header class="header">
     <div class="header-logo">
@@ -93,33 +57,18 @@ $letras = ['A', 'B', 'C', 'D'];
         </a>
     </div>
 </header>
-
-<div class="main-content">
-    <div class="pergunta"><?= htmlspecialchars($pergunta) ?></div>
-
-    <form method="POST" action="?pergunta=<?= $indice ?>">
-        <div class="respostas">
-            <?php foreach ($alternativas as $i => $alt): 
-                $letra = $letras[$i];
-                $respostaSelecionada = isset($_SESSION['respostas'][$indice]) && $_SESSION['respostas'][$indice] === $letra;
-            ?>
-                <input type="radio" id="resposta<?= $i ?>" name="resposta" value="<?= $letra ?>" <?= $respostaSelecionada ? 'checked' : '' ?> hidden>
-                <label class="resposta" for="resposta<?= $i ?>" data-letra="<?= $letra ?>">
-                    <?= htmlspecialchars($alt['texto']) ?>
-                </label>
-            <?php endforeach; ?>
+<body class="teste">
+    <div class="tela-inicial">
+        <div class="bloco-branco">
+            <h1 class="titulo-principal">TESTE DE PERSONALIDADE</h1>
+            <p>Descubra seu caminho no mundo global</p>
+            <a href="teste.php?pergunta=0" class="botao-iniciar">INICIAR TESTE➜</a>
         </div>
+    </div>
+</body>
 
-        <div class="botao-container" style="display: flex; justify-content: center; gap: 20px; margin-top: 30px;">
-            <?php if ($indice > 0): ?>
-                <button class="botao" type="submit" name="acao" value="anterior">⬅ ANTERIOR</button>
-            <?php endif; ?>
-            <button class="botao" type="submit" name="acao" value="proxima">PRÓXIMA ➤</button>
-        </div>
-    </form>
 
-    
-</div>
+
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-col contatos">
@@ -134,14 +83,16 @@ $letras = ['A', 'B', 'C', 'D'];
             <h4>LINKS RÁPIDOS</h4>
             <ul>
                 <li><a href="../profissao.php"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
-                <li><a href="teste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
+                <li><a href="inicioteste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
                 <li><a href="planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
                 <li><a href="metas.php"><i class="fa-solid fa-bullseye"></i> Estabelecendo Metas</a></li>
                 <li><a href="usuario/editar.php"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
                 <li><a href="/relacoes_internacionais/index.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
             </ul>
         </div>
-    </div><?php if ($resultadoExistente): ?>
+    </div>
+
+    <?php if ($resultadoExistente): ?>
         <div style="text-align:center; margin-top: 40px;">
             <p>Você já realizou o teste anteriormente?</p>
             <br>
@@ -150,7 +101,7 @@ $letras = ['A', 'B', 'C', 'D'];
             </a>
         </div>
     <?php endif; ?>
-</div>
+
     <div class="footer-bottom">
         <p>&copy; <?= date("Y") ?> Global Pathway | Anna Clara Gonçalves. Todos os direitos reservados.</p>
     </div>
