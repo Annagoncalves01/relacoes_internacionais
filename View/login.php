@@ -35,6 +35,40 @@ session_start();
             font-size: 18px;
             color: #555;
         }
+
+        /* Estilos para o botão centralizado abaixo do formulário */
+        .info-button {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 24px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .info-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilo para a área de informações */
+        .info-content {
+            display: none; /* Inicialmente oculto */
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .info-content h3 {
+            margin-top: 0;
+        }
     </style>
 </head>
 
@@ -59,22 +93,24 @@ session_start();
             <?php endif; ?>
 
             <form action="index.php?acao=login" method="POST">
-    <div class="input-group">
-        <input type="email" id="email" name="email" placeholder="E-mail" required>
-    </div>
-    <div class="input-group">
-        <input type="password" id="password" name="password" placeholder="Senha" required>
-        <button type="button" id="togglePassword">👁️</button>
-    </div>
-    <button type="submit" class="login-btn">Entrar</button>
-</form>
-
+                <div class="input-group">
+                    <input type="email" id="email" name="email" placeholder="E-mail" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" placeholder="Senha" required>
+                    <button type="button" id="togglePassword">👁️</button>
+                </div>
+                <button type="submit" class="login-btn">Entrar</button>
+            </form>
 
             <div class="links-container">
                 <a href="View/esquecisenha.php" class="forgot-password">Esqueceu a senha?</a>
                 <span class="divider">|</span>
                 <a href="View/cadastro.php" class="register-link">Não tem uma conta? Cadastre-se</a>
             </div>
+
+            <!-- Botão para mostrar informações -->
+            
         </div>
     </div>
 
@@ -103,6 +139,14 @@ session_start();
                 const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
                 passwordField.setAttribute("type", type);
                 this.textContent = type === "password" ? "👁️" : "👁️‍🗨️";
+            });
+
+            // Mostrar ou ocultar informações ao clicar no botão
+            const infoButton = document.getElementById("info-button");
+            const infoContent = document.getElementById("info-content");
+
+            infoButton.addEventListener("click", function () {
+                infoContent.style.display = infoContent.style.display === "block" ? "none" : "block";
             });
         });
     </script>

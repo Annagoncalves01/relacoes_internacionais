@@ -1624,15 +1624,17 @@ main {
   }
   .imagem-abaixo {
     margin-top: 20px;
-    text-align: center; 
-  }
-  
-  .imagem-abaixo img {
+    text-align: center;
+}
+
+.imagem-abaixo img {
     width: 390px;
     height: auto;
-    border: 3px solid #a00;
+    border-radius: 80%; /* Borda redonda */
+    border: 3px solid #a00; /* Cor da borda */
     display: block;
-  }
+}
+
   .objetivo-item {
     margin-bottom: 15px;
     text-align: left;
