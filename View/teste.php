@@ -118,16 +118,8 @@ $letras = ['A', 'B', 'C', 'D'];
         </div>
     </form>
 
-    <?php if ($resultadoExistente): ?>
-        <div style="text-align:center; margin-top: 40px;">
-            <p>Você já realizou o teste anteriormente?</p>
-            <a href="testeinicio.php" class="botao" style="background-color:#800000; padding:10px 20px; color:white; text-decoration:none; border-radius:5px;">
-                Ver Resultado do Teste
-            </a>
-        </div>
-    <?php endif; ?>
+    
 </div>
-
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-col contatos">
@@ -149,7 +141,16 @@ $letras = ['A', 'B', 'C', 'D'];
                 <li><a href="/relacoes_internacionais/index.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
             </ul>
         </div>
-    </div>
+    </div><?php if ($resultadoExistente): ?>
+        <div style="text-align:center; margin-top: 40px;">
+            <p>Você já realizou o teste anteriormente?</p>
+            <br>
+            <a href="testeinicio.php" class="botao" style="background-color:#800000; padding:10px 20px; color:white; text-decoration:none; border-radius:5px;">
+                Ver Resultado do Teste
+            </a>
+        </div>
+    <?php endif; ?>
+</div>
     <div class="footer-bottom">
         <p>&copy; <?= date("Y") ?> Global Pathway | Anna Clara Gonçalves. Todos os direitos reservados.</p>
     </div>

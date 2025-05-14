@@ -18,13 +18,15 @@ $foto_perfil = !empty($usuario['foto_perfil'])
 
 $planoacaoController = new PlanoAcaoController($pdo);
 
-// Deletar metas, se o botão for clicado
+// Deletar metas, se solicitado
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deletar_metas'])) {
-  $planoacaoController->deletarMetas($_SESSION['user_id']);
-  header("Location: metas.php");
-  exit();
+    $planoacaoController->deletarMetas($_SESSION['user_id']);
+    header("Location: metas.php");
+    exit();
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+// Salvar metas
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['deletar_metas'])) {
     $planoacaoController->salvarMetas($_SESSION['user_id'], $_POST);
     $_SESSION['salvar_metas'] = true;
     header("Location: metas.php");
@@ -32,12 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $metasSalvas = $planoacaoController->buscarMetas($_SESSION['user_id']);
-$mensagemSucesso = false;
-
-if (isset($_SESSION['salvar_metas'])) {
-    $mensagemSucesso = true;
-    unset($_SESSION['salvar_metas']); 
-}
+$mensagemSucesso = isset($_SESSION['salvar_metas']);
+unset($_SESSION['salvar_metas']);
 ?>
 
 <!DOCTYPE html>
@@ -75,96 +73,104 @@ if (isset($_SESSION['salvar_metas'])) {
   </div>
 </header>
 
-<br>
-<h1 class="titulo-pagina">Estabelecendo Metas</h1>
-<div class="table-container">
-  <table class="table">
-<div class="container">
+<main>
+  <h1 class="titulo-pagina">Estabelecendo Metas</h1>
+
+  <?php if ($mensagemSucesso): ?>
+    <div class="mensagem-sucesso">Metas salvas com sucesso!</div>
+  <?php endif; ?>
+
+  <div class="container">
     <form action="" method="post">
-        <div class="table-responsive">
-            <table class="table table-bordered align-middle">
-                <thead>
-                    <tr>
-                        <th>Área</th>
-                        <th>Passo (Ação)</th>
-                        <th>Como irei fazer? (Detalhamento)</th>
-                        <th>Prazo (Data limite)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $areas = [
-                        "Relacionamento Familiar",
-                        "Estudos",
-                        "Saúde",
-                        "Futura Profissão",
-                        "Religião (opcional)",
-                        "Amigos",
-                        "Namorado(a) (opcional)",
-                        "Comunidade",
-                        "Tempo Livre"
-                    ];
-                    foreach ($areas as $index => $area) {
-                        echo "<tr>";
-                        echo "<td>".htmlspecialchars($area)."</td>";
-                        echo "<td><input type='text' name='passo1[$index]' class='input-preenchidoo'></td>";
-                        echo "<td><textarea name='detalhamento[$index]' class='input-preenchidoo'></textarea></td>";
-                        echo "<td><input type='date' name='prazo[$index]' class='input-preenchidoo'></td>";
-                        echo "</tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
+      <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+          <thead>
+            <tr>
+              <th>Área</th>
+              <th>Passo (Ação)</th>
+              <th>Como irei fazer? (Detalhamento)</th>
+              <th>Prazo (Data limite)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+              $areas = [
+                "Relacionamento Familiar", "Estudos", "Saúde", "Futura Profissão",
+                "Religião (opcional)", "Amigos", "Namorado(a) (opcional)",
+                "Comunidade", "Tempo Livre"
+              ];
+              foreach ($areas as $index => $area): ?>
+              <tr>
+                <td><?= htmlspecialchars($area) ?></td>
+                <td><input type="text" name="passo1[<?= $index ?>]" class="input-preenchidoo"></td>
+                <td><textarea name="detalhamento[<?= $index ?>]" class="input-preenchidoo"></textarea></td>
+                <td><input type="date" name="prazo[<?= $index ?>]" class="input-preenchidoo"></td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
 
-        <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Salvar Metas</button>
-        </div>
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary">
+          <i class="fa-solid fa-floppy-disk"></i> Salvar Metas
+        </button>
+      </div>
     </form>
-</div>
-<div style="text-align: center; margin-top: 40px;">
-  <img src="../img/passaporte.png" alt="Imagem 1" style="width: 250px; margin: 0 10px;">
-  <img src="../img/moça.png" alt="Imagem 2" style="width: 250px; margin: 0 10px;">
-  <img src="../img/mundo[.png" alt="Imagem 3" style="width: 250px; margin: 0 10px;">
-</div>
-<?php if (!empty($metasSalvas)): ?>
-    <div class="container" style="margin: 40px auto; max-width: 1200px;">
-        <h2 style="text-align: center; margin-bottom: 20px;">Minhas Metas Salvas</h2> <!-- Centralizado -->
-        <div class="table-responsive" style="margin: 0 auto; max-width: 1000px;">
-            <table class="table table-bordered align-middle" style="margin: 0 auto; width: 100%; text-align: center;">
-                <thead>
-                    <tr>
-                        <th style="width: 25%;">Área</th>
-                        <th style="width: 20%;">Passo</th>
-                        <th style="width: 35%;">Descrição</th>
-                        <th style="width: 20%;">Prazo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <form action="" method="post" style="text-align: center; margin-top: 20px;">
-    <input type="hidden" name="deletar_metas" value="1">
-    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar todas as metas salvas?');">
-        <i class="fa-solid fa-trash"></i> Deletar Metas
-    </button>
-</form>
+  </div>
 
-                    <?php foreach ($metasSalvas as $meta): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($meta['area']) ?></td>
-                            <td><?= htmlspecialchars($meta['passo']) ?></td>
-                            <td><?= htmlspecialchars($meta['descricao']) ?></td>
-                            <td><?= htmlspecialchars(date('d/m/Y', strtotime($meta['prazo']))) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
+  <?php if (!empty($metasSalvas)): ?>
+  <div class="container" style="display: flex; flex-direction: column; align-items: center; margin-top: 40px;">
+  <h2 style="text-align: center;">Minhas Metas Salvas</h2>
+  <div class="table-responsive" style="width: 100%; max-width: 1000px;">
+    <table class="table table-bordered align-middle" style="margin: 0 auto; text-align: center;">
+
+          <thead>
+            <tr>
+              <th style="width: 20%;">Área</th>
+              <th style="width: 20%;">Passo</th>
+              <th style="width: 30%;">Descrição</th>
+              <th style="width: 20%;">Prazo</th>
+              <th style="width: 10%;">Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($metasSalvas as $meta): ?>
+              <tr>
+                <td><?= htmlspecialchars($meta['area']) ?></td>
+                <td><?= htmlspecialchars($meta['passo']) ?></td>
+                <td><?= htmlspecialchars($meta['descricao']) ?></td>
+                <td><?= htmlspecialchars(date('d/m/Y', strtotime($meta['prazo']))) ?></td>
+                <td>
+<td>
+    <a href="<?php echo isset($meta['id']) ? 'editar_meta.php?id=' . urlencode($meta['id']) : '#'; ?>" class="btn btn-warning">Editar</a>
+
+</td>
+
+
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+
+      <form action="" method="post" style="text-align: center; margin-top: 20px;">
+        <input type="hidden" name="deletar_metas" value="1">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar todas as metas salvas?');">
+          <i class="fa-solid fa-trash"></i> Deletar Metas
+        </button>
+      </form>
     </div>
-<?php endif; ?>
+  <?php endif; ?>
 
+  <div style="text-align: center; margin-top: 40px;">
+    <img src="../img/passaporte.png" alt="Passaporte" style="width: 250px; margin: 0 10px;">
+    <img src="../img/moça.png" alt="Moça" style="width: 250px; margin: 0 10px;">
+<img src="../img/mundo[.png" alt="Mundo" style="width: 250px; margin: 0 10px;">
+  </div>
+</main>
 
-
-<br><br>
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-col contatos">
@@ -178,7 +184,7 @@ if (isset($_SESSION['salvar_metas'])) {
     <div class="footer-col links">
       <h4>LINKS RÁPIDOS</h4>
       <ul>
-      <li><a href="../profissao.php"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
+        <li><a href="../profissao.php"><i class="fa-solid fa-briefcase"></i> Sobre a Profissão</a></li>
         <li><a href="teste.php"><i class="fa-solid fa-brain"></i> Teste de Personalidade</a></li>
         <li><a href="planejamento.php"><i class="fa-solid fa-bullseye"></i> Planejamento do Futuro</a></li>
         <li><a href="metas.php"><i class="fa-solid fa-bullseye"></i> Estabelecendo Metas</a></li>
@@ -191,6 +197,5 @@ if (isset($_SESSION['salvar_metas'])) {
     <p>&copy; <?= date("Y") ?> Global Pathway | Anna Clara Gonçalves. Todos os direitos reservados.</p>
   </div>
 </footer>
-
 </body>
 </html>

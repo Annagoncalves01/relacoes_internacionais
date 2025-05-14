@@ -169,7 +169,7 @@ $aspiracoes = 'Quero alcançar a realização profissional e pessoal, explorando
     </div>
 
     <div class="imagem-abaixo">
-      <img src="../img/imag.jpg" alt="Diplomacia">
+      <img src="../img/imag (1).jpg" alt="Diplomacia">
     </div>
 
     <div class="imagem-container">

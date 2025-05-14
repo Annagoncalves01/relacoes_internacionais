@@ -46,5 +46,16 @@ class PlanoAcaoController {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['user_id' => $userId]);
     }
+    public function buscarMetaPorId($id) {
+    $stmt = $this->pdo->prepare("SELECT * FROM plano_acao WHERE id = ?");
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+public function atualizarMeta($id, $descricao, $passo, $prazo) {
+    $stmt = $this->pdo->prepare("UPDATE plano_acao SET descricao = ?, passo = ?, prazo = ? WHERE id = ?");
+    return $stmt->execute([$descricao, $passo, $prazo, $id]);
+}
+
 }
 ?>

@@ -25,6 +25,13 @@ class PlanoAcaoModel {
             }
         }
     }
+public function buscarMetas($user_id) {
+    $sql = "SELECT id, area, passo, descricao, prazo FROM metas WHERE user_id = :user_id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
     public function buscarMetasPorUsuario($user_id) {
         $sql = "SELECT area, passo, descricao, prazo FROM plano_acao WHERE user_id = :user_id ORDER BY created_at DESC";

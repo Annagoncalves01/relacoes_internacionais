@@ -1628,8 +1628,8 @@ main {
 }
 
 .imagem-abaixo img {
-    width: 390px;
-    height: auto;
+    width: 380px;
+    height: 395px;
     border-radius: 80%; /* Borda redonda */
     border: 3px solid #a00; /* Cor da borda */
     display: block;
@@ -2029,4 +2029,16 @@ main {
 }
 .mensagem-container h1 {
     margin-bottom: 20px;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table-responsive {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
