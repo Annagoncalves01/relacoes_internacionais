@@ -121,53 +121,43 @@ unset($_SESSION['salvar_metas']);
 
   <?php if (!empty($metasSalvas)): ?>
   <div class="container" style="display: flex; flex-direction: column; align-items: center; margin-top: 40px;">
-  <h2 style="text-align: center;">Minhas Metas Salvas</h2>
-  <div class="table-responsive" style="width: 100%; max-width: 1000px;">
-    <table class="table table-bordered align-middle" style="margin: 0 auto; text-align: center;">
-
-          <thead>
+    <h2 style="text-align: center;">Minhas Metas Salvas</h2>
+    <div class="table-responsive" style="width: 100%; max-width: 1000px;">
+      <table class="table table-bordered align-middle" style="margin: 0 auto; text-align: center;">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Área</th>
+            <th style="width: 25%;">Passo</th>
+            <th style="width: 30%;">Descrição</th>
+            <th style="width: 20%;">Prazo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($metasSalvas as $meta): ?>
             <tr>
-              <th style="width: 20%;">Área</th>
-              <th style="width: 20%;">Passo</th>
-              <th style="width: 30%;">Descrição</th>
-              <th style="width: 20%;">Prazo</th>
-              <th style="width: 10%;">Ação</th>
+              <td><?= htmlspecialchars($meta['area']) ?></td>
+              <td><?= htmlspecialchars($meta['passo']) ?></td>
+              <td><?= htmlspecialchars($meta['descricao']) ?></td>
+              <td><?= htmlspecialchars(date('d/m/Y', strtotime($meta['prazo']))) ?></td>
             </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($metasSalvas as $meta): ?>
-              <tr>
-                <td><?= htmlspecialchars($meta['area']) ?></td>
-                <td><?= htmlspecialchars($meta['passo']) ?></td>
-                <td><?= htmlspecialchars($meta['descricao']) ?></td>
-                <td><?= htmlspecialchars(date('d/m/Y', strtotime($meta['prazo']))) ?></td>
-                <td>
-<td>
-    <a href="<?php echo isset($meta['id']) ? 'editar_meta.php?id=' . urlencode($meta['id']) : '#'; ?>" class="btn btn-warning">Editar</a>
-
-</td>
-
-
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-
-      <form action="" method="post" style="text-align: center; margin-top: 20px;">
-        <input type="hidden" name="deletar_metas" value="1">
-        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar todas as metas salvas?');">
-          <i class="fa-solid fa-trash"></i> Deletar Metas
-        </button>
-      </form>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
     </div>
+
+    <form action="" method="post" style="text-align: center; margin-top: 20px;">
+      <input type="hidden" name="deletar_metas" value="1">
+      <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar todas as metas salvas?');">
+        <i class="fa-solid fa-trash"></i> Deletar Metas
+      </button>
+    </form>
+  </div>
   <?php endif; ?>
 
   <div style="text-align: center; margin-top: 40px;">
     <img src="../img/passaporte.png" alt="Passaporte" style="width: 250px; margin: 0 10px;">
     <img src="../img/moça.png" alt="Moça" style="width: 250px; margin: 0 10px;">
-<img src="../img/mundo[.png" alt="Mundo" style="width: 250px; margin: 0 10px;">
+    <img src="../img/mundo[.png" alt="Mundo" style="width: 250px; margin: 0 10px;">
   </div>
 </main>
 

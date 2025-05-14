@@ -205,7 +205,7 @@ if (!empty($pontuacoes)) {
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-col contatos">
-            <h4>CONTATOS</h4>1
+            <h4>CONTATOS</h4>
             <p><i class="fa-solid fa-phone"></i> <span>(11) 98765-4321</span></p>
             <p><i class="fa-solid fa-envelope"></i> <span>contato@globalpathway.com</span></p>
         </div>
