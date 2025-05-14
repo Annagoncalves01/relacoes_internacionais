@@ -2097,6 +2097,6 @@ body.teste {
 }
 
 .botao-iniciar:hover {
-    background-color: #010057;
+    background: linear-gradient(to right, #551616, #6b0005,  #020a35);
     color: #ffff;
 }
